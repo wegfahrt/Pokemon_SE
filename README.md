@@ -57,6 +57,17 @@ Helpful ressouces we want ot give their well deserved credit to.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+<!-- Useful Links -->
+## Useful Links
+
+* [Jira](https://victoryroadvgc.com/2024-rules-regulations/)
+
+* [VGC-Rules](https://victoryroadvgc.com/2024-rules-regulations/)
+
+* [Pokemon-Items](https://www.serebii.net/itemdex/list/)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 
 
