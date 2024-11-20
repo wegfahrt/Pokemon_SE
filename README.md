@@ -60,7 +60,7 @@ Helpful ressouces we want ot give their well deserved credit to.
 <!-- Useful Links -->
 ## Useful Links
 
-* [Jira](https://victoryroadvgc.com/2024-rules-regulations/)
+* [Jira](https://pweg.atlassian.net/jira/software/projects/SCRUM/boards/1/timeline)
 
 * [VGC-Rules](https://victoryroadvgc.com/2024-rules-regulations/)
 
