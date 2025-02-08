@@ -1,0 +1,12 @@
+C:\Users\paul1\src\repos\Pokemon_SE\Backend\Backend\Contracts\obj\Debug\net9.0\Contracts.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\paul1\src\repos\Pokemon_SE\Backend\Backend\Contracts\obj\Debug\net9.0\Contracts.AssemblyInfoInputs.cache
+C:\Users\paul1\src\repos\Pokemon_SE\Backend\Backend\Contracts\obj\Debug\net9.0\Contracts.AssemblyInfo.cs
+C:\Users\paul1\src\repos\Pokemon_SE\Backend\Backend\Contracts\obj\Debug\net9.0\Contracts.csproj.CoreCompileInputs.cache
+C:\Users\paul1\src\repos\Pokemon_SE\Backend\Backend\Contracts\obj\Debug\net9.0\Contracts.sourcelink.json
+C:\Users\paul1\src\repos\Pokemon_SE\Backend\Backend\Contracts\bin\Debug\net9.0\Contracts.deps.json
+C:\Users\paul1\src\repos\Pokemon_SE\Backend\Backend\Contracts\bin\Debug\net9.0\Contracts.dll
+C:\Users\paul1\src\repos\Pokemon_SE\Backend\Backend\Contracts\bin\Debug\net9.0\Contracts.pdb
+C:\Users\paul1\src\repos\Pokemon_SE\Backend\Backend\Contracts\obj\Debug\net9.0\Contracts.dll
+C:\Users\paul1\src\repos\Pokemon_SE\Backend\Backend\Contracts\obj\Debug\net9.0\refint\Contracts.dll
+C:\Users\paul1\src\repos\Pokemon_SE\Backend\Backend\Contracts\obj\Debug\net9.0\Contracts.pdb
+C:\Users\paul1\src\repos\Pokemon_SE\Backend\Backend\Contracts\obj\Debug\net9.0\ref\Contracts.dll
