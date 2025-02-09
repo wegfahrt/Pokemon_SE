@@ -1320,6 +1320,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
         "dependencies": {
+          "Contracts": "1.0.0",
           "ErrorOr": "2.0.1",
           "FluentValidation": "12.0.0-preview1",
           "MediatR": "12.4.1",
@@ -1332,6 +1333,19 @@
         },
         "runtime": {
           "bin/placeholder/Application.dll": {}
+        }
+      },
+      "Contracts/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "dependencies": {
+          "PokeApiNet": "4.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Contracts.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Contracts.dll": {}
         }
       },
       "Domain/1.0.0": {
@@ -3490,6 +3504,11 @@
       "type": "project",
       "path": "../Application/Application.csproj",
       "msbuildProject": "../Application/Application.csproj"
+    },
+    "Contracts/1.0.0": {
+      "type": "project",
+      "path": "../Contracts/Contracts.csproj",
+      "msbuildProject": "../Contracts/Contracts.csproj"
     },
     "Domain/1.0.0": {
       "type": "project",

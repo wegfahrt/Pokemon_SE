@@ -25,7 +25,11 @@
         "frameworks": {
           "net9.0": {
             "targetAlias": "net9.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\paul1\\src\\repos\\Pokemon_SE\\Backend\\Backend\\Contracts\\Contracts.csproj": {
+                "projectPath": "C:\\Users\\paul1\\src\\repos\\Pokemon_SE\\Backend\\Backend\\Contracts\\Contracts.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -128,6 +132,12 @@
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
+          "dependencies": {
+            "PokeApiNet": {
+              "target": "Package",
+              "version": "[4.0.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

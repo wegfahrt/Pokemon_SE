@@ -1737,6 +1737,7 @@
       },
       "Application/1.0.0": {
         "dependencies": {
+          "Contracts": "1.0.0",
           "ErrorOr": "2.0.1",
           "FluentValidation": "12.0.0-preview1",
           "MediatR": "12.4.1",
@@ -1752,6 +1753,9 @@
         }
       },
       "Contracts/1.0.0": {
+        "dependencies": {
+          "PokeApiNet": "4.0.0"
+        },
         "runtime": {
           "Contracts.dll": {
             "assemblyVersion": "1.0.0",
