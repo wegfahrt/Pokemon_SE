@@ -1,15 +1,18 @@
 ﻿using Application;
 using Infrastructure;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using WebApi;
 
 var builder = WebApplication.CreateBuilder(args);
+
 {
     builder.Services
         .AddPresentation()
         .AddApplication()
         .AddInfrastructure(builder.Configuration);
+    
 }
 
 var app = builder.Build();

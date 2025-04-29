@@ -1,4 +1,5 @@
-﻿using Domain;
+﻿using Application.Common.Interfaces;
+using Domain;
 
 using MediatR;
 
@@ -7,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Common.Persistence;
 
-public class AppDbContext(DbContextOptions options, IHttpContextAccessor _httpContextAccessor, IPublisher _publisher) : DbContext(options)
+public class AppDbContext(DbContextOptions options, IHttpContextAccessor _httpContextAccessor, IPublisher _publisher) : DbContext(options), IAppDbContext
 {
     public virtual DbSet<ConfiguredPokemon> ConfiguredPokemons { get; set; }
 
@@ -51,7 +52,7 @@ public class AppDbContext(DbContextOptions options, IHttpContextAccessor _httpCo
             entity.Property(e => e.SpecialAttack).HasColumnName("SpecialAttack");
             entity.Property(e => e.SpecialDefense).HasColumnName("SpecialDefense");
             entity.Property(e => e.Speed).HasColumnName("Speed");
-            entity.Property(e => e.AbilityId).HasColumnName("Ability");
+            entity.Property(e => e.AbilityId).HasColumnName("AbilityId");
             entity.Property(e => e.TeamId).HasColumnName("TeamPresetId");
 
             entity.HasMany(p => p.Moves)
@@ -80,6 +81,7 @@ public class AppDbContext(DbContextOptions options, IHttpContextAccessor _httpCo
 
             entity.Property(e => e.Id).HasColumnName("TeamPresetId");
             entity.Property(e => e.Name).HasColumnName("PresetName");
+            entity.Property(e => e.TrainerId).HasColumnName("UserId");
             
             entity.HasMany(e => e.Pokemon).WithOne().HasForeignKey(p=> p.TeamId);
         });

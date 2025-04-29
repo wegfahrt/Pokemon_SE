@@ -16,8 +16,8 @@ public class ConfiguredPokemon
     
     public int TeamId { get; private set; }
     
-    public PokemonType? PrimaryType { get; private set; }
-    public PokemonType? SecondaryType { get; private set; }
+    // public PokemonType? PrimaryType { get; private set; }
+    // public PokemonType? SecondaryType { get; private set; }
         
     private readonly List<ConfiguredMove> _moves = new();
     public IReadOnlyCollection<ConfiguredMove> Moves => _moves.AsReadOnly();

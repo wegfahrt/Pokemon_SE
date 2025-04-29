@@ -6,7 +6,7 @@ namespace Domain
     {
         public int Id { get; private set; }
         public string Name { get; private set; }
-        public Trainer Trainer { get; private set; }
+        public int TrainerId { get; private set; }
         
         private readonly List<ConfiguredPokemon> _pokemon = new();
         public IReadOnlyCollection<ConfiguredPokemon> Pokemon => _pokemon.AsReadOnly();
