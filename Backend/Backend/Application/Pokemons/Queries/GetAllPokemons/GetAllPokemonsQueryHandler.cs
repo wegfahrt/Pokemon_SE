@@ -14,8 +14,11 @@ public class GetAllPokemonsQueryHandler() : IRequestHandler<GetAllPokemonsQuery,
     {
 
         var pokeClient = new CustomPokeApiClient();
-
-        NamedApiResourceList<Pokemon> pokemons = await pokeClient.GetNamedResourcePageAsync<Pokemon>(limit: request.Limit, offset: request.Page * request.Limit, cancellationToken);
+        
+        // limit 4. Generation 493
+        // limit 5. Generation 649
+        // request.Limit
+        NamedApiResourceList<Pokemon> pokemons = await pokeClient.GetNamedResourcePageAsync<Pokemon>(limit: 493, offset: request.Page * request.Limit, cancellationToken);
 
         var pokemonTasks = pokemons.Results.Select(async pokemonResource =>
         {
@@ -24,7 +27,7 @@ public class GetAllPokemonsQueryHandler() : IRequestHandler<GetAllPokemonsQuery,
                 Id: pokemon.Id,
                 Name: pokemon.Name,
                 Types: pokemon.Types.Select(t => t.Type.Name).ToList(),
-                SpriteUrl: pokemon.Sprites.FrontDefault
+                SpriteUrl: pokemon.Sprites.Other.OfficialArtwork.FrontDefault
             );
             return response;
         }); 

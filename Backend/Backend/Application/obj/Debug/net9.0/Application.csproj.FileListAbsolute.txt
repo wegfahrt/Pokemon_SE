@@ -14,3 +14,5 @@ C:\Users\paul1\src\repos\Pokemon_SE\Backend\Backend\Application\obj\Debug\net9.0
 C:\Users\paul1\src\repos\Pokemon_SE\Backend\Backend\Application\bin\Debug\net9.0\Contracts.dll
 C:\Users\paul1\src\repos\Pokemon_SE\Backend\Backend\Application\bin\Debug\net9.0\Contracts.pdb
 C:\Users\paul1\src\repos\Pokemon_SE\Backend\Backend\Application\obj\Debug\net9.0\Applicat.44B5EDA2.Up2Date
+C:\Users\paul1\src\repos\Pokemon_SE\Backend\Backend\Application\bin\Debug\net9.0\Domain.dll
+C:\Users\paul1\src\repos\Pokemon_SE\Backend\Backend\Application\bin\Debug\net9.0\Domain.pdb

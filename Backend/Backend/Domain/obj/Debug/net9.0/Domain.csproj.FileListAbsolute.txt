@@ -10,3 +10,4 @@ C:\Users\paul1\src\repos\Pokemon_SE\Backend\Backend\Domain\obj\Debug\net9.0\Doma
 C:\Users\paul1\src\repos\Pokemon_SE\Backend\Backend\Domain\obj\Debug\net9.0\refint\Domain.dll
 C:\Users\paul1\src\repos\Pokemon_SE\Backend\Backend\Domain\obj\Debug\net9.0\Domain.pdb
 C:\Users\paul1\src\repos\Pokemon_SE\Backend\Backend\Domain\obj\Debug\net9.0\ref\Domain.dll
+C:\Users\paul1\src\repos\Pokemon_SE\Backend\Backend\Domain\obj\Debug\net9.0\Domain.csproj.AssemblyReference.cache

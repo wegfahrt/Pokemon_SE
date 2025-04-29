@@ -16,7 +16,7 @@ public static class DependencyInjection
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         services
-            //.AddHttpContextAccessor()
+            .AddHttpContextAccessor()
             .AddServices()
             .AddPersistence(configuration);
 
@@ -32,10 +32,10 @@ public static class DependencyInjection
 
     private static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
     {
-        // services.AddDbContext<AppDbContext>(options =>
-        //     options.UseSqlServer(configuration["DbSettings:ConnectionString"])
-        //         .EnableSensitiveDataLogging()
-        // );
+        services.AddDbContext<AppDbContext>(options =>
+            options.UseSqlServer(configuration["DbSettings:ConnectionString"])
+                .EnableSensitiveDataLogging()
+        );
 
         //services.AddScoped<IRemindersRepository, RemindersRepository>();
 

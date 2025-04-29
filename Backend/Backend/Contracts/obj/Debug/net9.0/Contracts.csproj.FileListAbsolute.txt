@@ -11,3 +11,6 @@ C:\Users\paul1\src\repos\Pokemon_SE\Backend\Backend\Contracts\obj\Debug\net9.0\r
 C:\Users\paul1\src\repos\Pokemon_SE\Backend\Backend\Contracts\obj\Debug\net9.0\Contracts.pdb
 C:\Users\paul1\src\repos\Pokemon_SE\Backend\Backend\Contracts\obj\Debug\net9.0\ref\Contracts.dll
 C:\Users\paul1\src\repos\Pokemon_SE\Backend\Backend\Contracts\obj\Debug\net9.0\Contracts.csproj.AssemblyReference.cache
+C:\Users\paul1\src\repos\Pokemon_SE\Backend\Backend\Contracts\bin\Debug\net9.0\Domain.dll
+C:\Users\paul1\src\repos\Pokemon_SE\Backend\Backend\Contracts\bin\Debug\net9.0\Domain.pdb
+C:\Users\paul1\src\repos\Pokemon_SE\Backend\Backend\Contracts\obj\Debug\net9.0\Contracts.csproj.Up2Date

@@ -1,4 +1,4 @@
-﻿//using Domain.PokemonAggregate;
+﻿using Domain;
 
 using MediatR;
 
@@ -9,9 +9,12 @@ namespace Infrastructure.Common.Persistence;
 
 public class AppDbContext(DbContextOptions options, IHttpContextAccessor _httpContextAccessor, IPublisher _publisher) : DbContext(options)
 {
-    //public DbSet<Reminder> Reminders { get; set; } = null!;
+    public virtual DbSet<ConfiguredPokemon> ConfiguredPokemons { get; set; }
 
+    public virtual DbSet<ConfiguredMove> ConfiguredPokemonMoves { get; set; }
 
+    public virtual DbSet<Team> TeamPresets { get; set; }
+    
     public async override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         // var domainEvents = ChangeTracker.Entries<Entity>()
@@ -31,6 +34,56 @@ public class AppDbContext(DbContextOptions options, IHttpContextAccessor _httpCo
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
+
+        modelBuilder.Entity<ConfiguredPokemon>(entity =>
+        {
+            entity.ToTable("ConfiguredPokemon");
+
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.Id).HasColumnName("ConfiguredPokemonId");
+            entity.Property(e => e.Name).HasColumnName("Name")
+                .HasMaxLength(50)
+                .IsUnicode(false);;
+            entity.Property(e => e.HP).HasColumnName("HP");
+            entity.Property(e => e.Attack).HasColumnName("Attack");
+            entity.Property(e => e.Defense).HasColumnName("Defense");
+            entity.Property(e => e.SpecialAttack).HasColumnName("SpecialAttack");
+            entity.Property(e => e.SpecialDefense).HasColumnName("SpecialDefense");
+            entity.Property(e => e.Speed).HasColumnName("Speed");
+            entity.Property(e => e.AbilityId).HasColumnName("Ability");
+            entity.Property(e => e.TeamId).HasColumnName("TeamPresetId");
+
+            entity.HasMany(p => p.Moves)
+                  .WithOne()
+                  .HasForeignKey(m => m.ConfiguredPokemonId);
+
+        });
+
+        modelBuilder.Entity<ConfiguredMove>(entity => {
+                entity.ToTable("ConfiguredPokemonMoves");
+                
+                entity.HasKey(e => e.Id);
+                
+                entity.Property(e => e.Id).HasColumnName("PokemonMoveId");
+                entity.Property(e => e.MoveId).HasColumnName("MoveId");
+                entity.Property(e => e.ConfiguredPokemonId).HasColumnName("ConfiguredPokemonId");
+            }
+        );
+        
+        
+        modelBuilder.Entity<Team>(entity =>
+        {
+            entity.ToTable("TeamPreset");
+            
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.Id).HasColumnName("TeamPresetId");
+            entity.Property(e => e.Name).HasColumnName("PresetName");
+            
+            entity.HasMany(e => e.Pokemon).WithOne().HasForeignKey(p=> p.TeamId);
+        });
+        
 
         base.OnModelCreating(modelBuilder);
     }

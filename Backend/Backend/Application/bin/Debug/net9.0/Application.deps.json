@@ -264,10 +264,22 @@
       },
       "Contracts/1.0.0": {
         "dependencies": {
+          "Domain": "1.0.0",
           "PokeApiNet": "4.0.0"
         },
         "runtime": {
           "Contracts.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Domain/1.0.0": {
+        "dependencies": {
+          "ErrorOr": "2.0.1"
+        },
+        "runtime": {
+          "Domain.dll": {
             "assemblyVersion": "1.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -457,6 +469,11 @@
       "hashPath": "system.text.json.8.0.0.nupkg.sha512"
     },
     "Contracts/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Domain/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

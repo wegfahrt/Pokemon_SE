@@ -114,7 +114,11 @@
         "frameworks": {
           "net9.0": {
             "targetAlias": "net9.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\paul1\\src\\repos\\Pokemon_SE\\Backend\\Backend\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\paul1\\src\\repos\\Pokemon_SE\\Backend\\Backend\\Domain\\Domain.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -197,6 +201,12 @@
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
+          "dependencies": {
+            "ErrorOr": {
+              "target": "Package",
+              "version": "[2.0.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -270,11 +280,17 @@
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[9.0.1, )"
+              "version": "[9.0.4, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[9.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[10.0.0-preview.3.25171.6, )"
             },
             "Microsoft.Extensions.Configuration": {
               "target": "Package",
