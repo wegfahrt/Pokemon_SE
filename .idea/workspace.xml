@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e6296274-5d31-47e2-b6a9-e55bee476383" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Application/bin/Debug/net9.0/Application.deps.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Application/bin/Debug/net9.0/Application.deps.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Application/bin/Debug/net9.0/Application.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Application/bin/Debug/net9.0/Application.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Application/bin/Debug/net9.0/Application.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Application/bin/Debug/net9.0/Application.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Application/bin/Debug/net9.0/Contracts.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Application/bin/Debug/net9.0/Contracts.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Application/bin/Debug/net9.0/Contracts.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Application/bin/Debug/net9.0/Contracts.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Application/bin/Debug/net9.0/Domain.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Application/bin/Debug/net9.0/Domain.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Application/bin/Debug/net9.0/Domain.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Application/bin/Debug/net9.0/Domain.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Application/obj/Application.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Application/obj/Application.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Application/obj/Application.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Application/obj/Application.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Application/obj/Debug/net9.0/Application.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Application/obj/Debug/net9.0/Application.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Application/obj/Debug/net9.0/Application.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Application/obj/Debug/net9.0/Application.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Application/obj/Debug/net9.0/Application.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Application/obj/Debug/net9.0/Application.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Application/obj/Debug/net9.0/Application.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Application/obj/Debug/net9.0/Application.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Application/obj/Debug/net9.0/Application.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Application/obj/Debug/net9.0/Application.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Application/obj/Debug/net9.0/Application.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Application/obj/Debug/net9.0/Application.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Application/obj/Debug/net9.0/Application.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Application/obj/Debug/net9.0/Application.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Application/obj/Debug/net9.0/Application.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Application/obj/Debug/net9.0/Application.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Application/obj/Debug/net9.0/Application.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Application/obj/Debug/net9.0/Application.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Application/obj/Debug/net9.0/Application.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Application/obj/Debug/net9.0/Application.sourcelink.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Application/obj/Debug/net9.0/ref/Application.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Application/obj/Debug/net9.0/ref/Application.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Application/obj/Debug/net9.0/refint/Application.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Application/obj/Debug/net9.0/refint/Application.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Application/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Application/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Application/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Application/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Application/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Application/obj/project.packagespec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Application/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Application/obj/rider.project.model.nuget.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Application/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Application/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Contracts/bin/Debug/net9.0/Contracts.deps.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Contracts/bin/Debug/net9.0/Contracts.deps.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Contracts/bin/Debug/net9.0/Contracts.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Contracts/bin/Debug/net9.0/Contracts.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Contracts/bin/Debug/net9.0/Contracts.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Contracts/bin/Debug/net9.0/Contracts.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Contracts/bin/Debug/net9.0/Domain.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Contracts/bin/Debug/net9.0/Domain.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Contracts/bin/Debug/net9.0/Domain.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Contracts/bin/Debug/net9.0/Domain.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Contracts/obj/Contracts.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Contracts/obj/Contracts.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Contracts/obj/Contracts.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Contracts/obj/Contracts.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Contracts/obj/Debug/net9.0/Contracts.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Contracts/obj/Debug/net9.0/Contracts.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Contracts/obj/Debug/net9.0/Contracts.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Contracts/obj/Debug/net9.0/Contracts.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Contracts/obj/Debug/net9.0/Contracts.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Contracts/obj/Debug/net9.0/Contracts.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Contracts/obj/Debug/net9.0/Contracts.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Contracts/obj/Debug/net9.0/Contracts.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Contracts/obj/Debug/net9.0/Contracts.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Contracts/obj/Debug/net9.0/Contracts.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Contracts/obj/Debug/net9.0/Contracts.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Contracts/obj/Debug/net9.0/Contracts.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Contracts/obj/Debug/net9.0/Contracts.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Contracts/obj/Debug/net9.0/Contracts.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Contracts/obj/Debug/net9.0/Contracts.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Contracts/obj/Debug/net9.0/Contracts.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Contracts/obj/Debug/net9.0/Contracts.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Contracts/obj/Debug/net9.0/Contracts.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Contracts/obj/Debug/net9.0/Contracts.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Contracts/obj/Debug/net9.0/Contracts.sourcelink.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Contracts/obj/Debug/net9.0/ref/Contracts.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Contracts/obj/Debug/net9.0/ref/Contracts.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Contracts/obj/Debug/net9.0/refint/Contracts.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Contracts/obj/Debug/net9.0/refint/Contracts.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Contracts/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Contracts/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Contracts/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Contracts/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Contracts/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Contracts/obj/project.packagespec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Contracts/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Contracts/obj/rider.project.model.nuget.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Contracts/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Contracts/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Domain/bin/Debug/net9.0/Domain.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Domain/bin/Debug/net9.0/Domain.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Domain/bin/Debug/net9.0/Domain.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Domain/bin/Debug/net9.0/Domain.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Domain/obj/Debug/net9.0/Domain.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Domain/obj/Debug/net9.0/Domain.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Domain/obj/Debug/net9.0/Domain.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Domain/obj/Debug/net9.0/Domain.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Domain/obj/Debug/net9.0/Domain.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Domain/obj/Debug/net9.0/Domain.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Domain/obj/Debug/net9.0/Domain.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Domain/obj/Debug/net9.0/Domain.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Domain/obj/Debug/net9.0/Domain.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Domain/obj/Debug/net9.0/Domain.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Domain/obj/Debug/net9.0/Domain.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Domain/obj/Debug/net9.0/Domain.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Domain/obj/Debug/net9.0/Domain.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Domain/obj/Debug/net9.0/Domain.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Domain/obj/Debug/net9.0/Domain.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Domain/obj/Debug/net9.0/Domain.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Domain/obj/Debug/net9.0/Domain.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Domain/obj/Debug/net9.0/Domain.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Domain/obj/Debug/net9.0/Domain.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Domain/obj/Debug/net9.0/Domain.sourcelink.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Domain/obj/Debug/net9.0/ref/Domain.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Domain/obj/Debug/net9.0/ref/Domain.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Domain/obj/Debug/net9.0/refint/Domain.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Domain/obj/Debug/net9.0/refint/Domain.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Domain/obj/Domain.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Domain/obj/Domain.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Domain/obj/Domain.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Domain/obj/Domain.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Domain/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Domain/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Domain/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Domain/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Domain/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Domain/obj/project.packagespec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Domain/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Domain/obj/rider.project.model.nuget.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Domain/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Domain/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Infrastructure/bin/Debug/net9.0/Application.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Infrastructure/bin/Debug/net9.0/Application.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Infrastructure/bin/Debug/net9.0/Application.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Infrastructure/bin/Debug/net9.0/Application.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Infrastructure/bin/Debug/net9.0/Contracts.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Infrastructure/bin/Debug/net9.0/Contracts.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Infrastructure/bin/Debug/net9.0/Contracts.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Infrastructure/bin/Debug/net9.0/Contracts.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Infrastructure/bin/Debug/net9.0/Domain.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Infrastructure/bin/Debug/net9.0/Domain.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Infrastructure/bin/Debug/net9.0/Domain.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Infrastructure/bin/Debug/net9.0/Domain.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Infrastructure/bin/Debug/net9.0/Infrastructure.deps.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Infrastructure/bin/Debug/net9.0/Infrastructure.deps.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Infrastructure/bin/Debug/net9.0/Infrastructure.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Infrastructure/bin/Debug/net9.0/Infrastructure.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Infrastructure/bin/Debug/net9.0/Infrastructure.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Infrastructure/bin/Debug/net9.0/Infrastructure.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Infrastructure/obj/Debug/net9.0/Infrastructure.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Infrastructure/obj/Debug/net9.0/Infrastructure.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Infrastructure/obj/Debug/net9.0/Infrastructure.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Infrastructure/obj/Debug/net9.0/Infrastructure.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Infrastructure/obj/Debug/net9.0/Infrastructure.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Infrastructure/obj/Debug/net9.0/Infrastructure.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Infrastructure/obj/Debug/net9.0/Infrastructure.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Infrastructure/obj/Debug/net9.0/Infrastructure.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Infrastructure/obj/Debug/net9.0/Infrastructure.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Infrastructure/obj/Debug/net9.0/Infrastructure.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Infrastructure/obj/Debug/net9.0/Infrastructure.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Infrastructure/obj/Debug/net9.0/Infrastructure.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Infrastructure/obj/Debug/net9.0/Infrastructure.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Infrastructure/obj/Debug/net9.0/Infrastructure.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Infrastructure/obj/Debug/net9.0/Infrastructure.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Infrastructure/obj/Debug/net9.0/Infrastructure.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Infrastructure/obj/Debug/net9.0/Infrastructure.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Infrastructure/obj/Debug/net9.0/Infrastructure.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Infrastructure/obj/Debug/net9.0/Infrastructure.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Infrastructure/obj/Debug/net9.0/Infrastructure.sourcelink.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Infrastructure/obj/Debug/net9.0/ref/Infrastructure.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Infrastructure/obj/Debug/net9.0/ref/Infrastructure.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Infrastructure/obj/Debug/net9.0/refint/Infrastructure.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Infrastructure/obj/Debug/net9.0/refint/Infrastructure.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Infrastructure/obj/Infrastructure.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Infrastructure/obj/Infrastructure.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Infrastructure/obj/Infrastructure.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Infrastructure/obj/Infrastructure.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Infrastructure/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Infrastructure/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Infrastructure/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Infrastructure/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Infrastructure/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Infrastructure/obj/project.packagespec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Infrastructure/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Infrastructure/obj/rider.project.model.nuget.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/Infrastructure/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/Infrastructure/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/WebApi/bin/Debug/net9.0/Application.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/WebApi/bin/Debug/net9.0/Application.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/WebApi/bin/Debug/net9.0/Application.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/WebApi/bin/Debug/net9.0/Application.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/WebApi/bin/Debug/net9.0/Contracts.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/WebApi/bin/Debug/net9.0/Contracts.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/WebApi/bin/Debug/net9.0/Contracts.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/WebApi/bin/Debug/net9.0/Contracts.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/WebApi/bin/Debug/net9.0/Domain.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/WebApi/bin/Debug/net9.0/Domain.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/WebApi/bin/Debug/net9.0/Domain.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/WebApi/bin/Debug/net9.0/Domain.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/WebApi/bin/Debug/net9.0/Infrastructure.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/WebApi/bin/Debug/net9.0/Infrastructure.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/WebApi/bin/Debug/net9.0/Infrastructure.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/WebApi/bin/Debug/net9.0/Infrastructure.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/WebApi/bin/Debug/net9.0/WebApi.deps.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/WebApi/bin/Debug/net9.0/WebApi.deps.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/WebApi/bin/Debug/net9.0/WebApi.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/WebApi/bin/Debug/net9.0/WebApi.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/WebApi/bin/Debug/net9.0/WebApi.exe" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/WebApi/bin/Debug/net9.0/WebApi.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/WebApi/bin/Debug/net9.0/WebApi.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/WebApi/bin/Debug/net9.0/WebApi.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/WebApi/obj/Debug/net9.0/WebApi.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/WebApi/obj/Debug/net9.0/WebApi.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/WebApi/obj/Debug/net9.0/WebApi.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/WebApi/obj/Debug/net9.0/WebApi.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/WebApi/obj/Debug/net9.0/WebApi.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/WebApi/obj/Debug/net9.0/WebApi.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/WebApi/obj/Debug/net9.0/WebApi.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/WebApi/obj/Debug/net9.0/WebApi.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/WebApi/obj/Debug/net9.0/WebApi.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/WebApi/obj/Debug/net9.0/WebApi.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/WebApi/obj/Debug/net9.0/WebApi.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/WebApi/obj/Debug/net9.0/WebApi.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/WebApi/obj/Debug/net9.0/WebApi.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/WebApi/obj/Debug/net9.0/WebApi.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/WebApi/obj/Debug/net9.0/WebApi.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/WebApi/obj/Debug/net9.0/WebApi.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/WebApi/obj/Debug/net9.0/WebApi.genruntimeconfig.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/WebApi/obj/Debug/net9.0/WebApi.genruntimeconfig.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/WebApi/obj/Debug/net9.0/WebApi.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/WebApi/obj/Debug/net9.0/WebApi.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/WebApi/obj/Debug/net9.0/WebApi.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/WebApi/obj/Debug/net9.0/WebApi.sourcelink.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/WebApi/obj/Debug/net9.0/apphost.exe" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/WebApi/obj/Debug/net9.0/apphost.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/WebApi/obj/Debug/net9.0/ref/WebApi.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/WebApi/obj/Debug/net9.0/ref/WebApi.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/WebApi/obj/Debug/net9.0/refint/WebApi.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/WebApi/obj/Debug/net9.0/refint/WebApi.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/WebApi/obj/WebApi.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/WebApi/obj/WebApi.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/WebApi/obj/WebApi.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/WebApi/obj/WebApi.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/WebApi/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/WebApi/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/WebApi/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/WebApi/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/WebApi/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/WebApi/obj/project.packagespec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/WebApi/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/WebApi/obj/rider.project.model.nuget.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/WebApi/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/WebApi/obj/rider.project.restore.info" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="2wVfuKGuYkfS4a43D7mZIV0PpT5" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\vital\\OneDrive\\Documents\\DHBW_UNI\\Pokemon\\Pokemon_SE\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e6296274-5d31-47e2-b6a9-e55bee476383" name="Changes" comment="" />
+      <created>1746131886211</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1746131886211</updated>
+      <workItem from="1746131888445" duration="649000" />
+      <workItem from="1746132837779" duration="142000" />
+      <workItem from="1746133178013" duration="121000" />
+      <workItem from="1746134687673" duration="4790000" />
+      <workItem from="1746139592009" duration="113000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
+  <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.OperationCanceledException" breakIfHandledByOtherCode="false" displayValue="System.OperationCanceledException" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.Threading.Tasks.TaskCanceledException" breakIfHandledByOtherCode="false" displayValue="System.Threading.Tasks.TaskCanceledException" />
+          <option name="timeStamp" value="2" />
+        </breakpoint>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.Threading.ThreadAbortException" breakIfHandledByOtherCode="false" displayValue="System.Threading.ThreadAbortException" />
+          <option name="timeStamp" value="3" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
