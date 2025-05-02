@@ -671,19 +671,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\vital\\.nuget\\packages\\": {}
+    "C:\\Users\\paul1\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\vital\\OneDrive\\Documents\\DHBW_UNI\\Pokemon\\Pokemon_SE\\Backend\\Backend\\Contracts\\Contracts.csproj",
+      "projectUniqueName": "C:\\Users\\paul1\\src\\repos\\Pokemon_SE\\Backend\\Backend\\Contracts\\Contracts.csproj",
       "projectName": "Contracts",
-      "projectPath": "C:\\Users\\vital\\OneDrive\\Documents\\DHBW_UNI\\Pokemon\\Pokemon_SE\\Backend\\Backend\\Contracts\\Contracts.csproj",
-      "packagesPath": "C:\\Users\\vital\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\vital\\OneDrive\\Documents\\DHBW_UNI\\Pokemon\\Pokemon_SE\\Backend\\Backend\\Contracts\\obj\\",
+      "projectPath": "C:\\Users\\paul1\\src\\repos\\Pokemon_SE\\Backend\\Backend\\Contracts\\Contracts.csproj",
+      "packagesPath": "C:\\Users\\paul1\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\paul1\\src\\repos\\Pokemon_SE\\Backend\\Backend\\Contracts\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\vital\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\paul1\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net9.0"
@@ -695,8 +695,8 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "C:\\Users\\vital\\OneDrive\\Documents\\DHBW_UNI\\Pokemon\\Pokemon_SE\\Backend\\Backend\\Domain\\Domain.csproj": {
-              "projectPath": "C:\\Users\\vital\\OneDrive\\Documents\\DHBW_UNI\\Pokemon\\Pokemon_SE\\Backend\\Backend\\Domain\\Domain.csproj"
+            "C:\\Users\\paul1\\src\\repos\\Pokemon_SE\\Backend\\Backend\\Domain\\Domain.csproj": {
+              "projectPath": "C:\\Users\\paul1\\src\\repos\\Pokemon_SE\\Backend\\Backend\\Domain\\Domain.csproj"
             }
           }
         }
@@ -711,7 +711,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.200"
+      "SdkAnalysisLevel": "9.0.100"
     },
     "frameworks": {
       "net9.0": {
@@ -738,7 +738,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.202/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
