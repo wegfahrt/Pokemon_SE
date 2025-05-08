@@ -22,3 +22,30 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Ignoriere Build-Artefakte
+*.dll
+*.pdb
+*.exe
+
+# Ignoriere bestimmte Ordner
+Backend/Backend/Application/bin/
+Backend/Backend/Application/obj/
+Backend/Backend/Contracts/bin/
+Backend/Backend/Contracts/obj/
+Backend/Backend/Domain/bin/
+Backend/Backend/Domain/obj/
+Backend/Backend/Infrastructure/bin/
+Backend/Backend/Infrastructure/obj/
+Backend/Backend/WebApi/bin/
+Backend/Backend/WebApi/obj/
+
+# Ignoriere NuGet-spezifische Dateien
+project.assets.json
+project.nuget.cache
+project.packagespec.json
+
+# Ignoriere Rider und JetBrains-spezifische Dateien
+.idea/
+*.sublime-workspace
+*.sublime-project
