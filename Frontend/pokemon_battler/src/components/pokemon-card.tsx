@@ -60,8 +60,8 @@ export default function PokemonCard({ pokemon, onAdd, onSelect }: PokemonCardPro
         </div>
       </div>
       <CardContent className="p-3">
-        <h3 className="font-medium text-sm truncate">{pokemon.name}</h3>
-        <div className="flex gap-1 mt-1">
+        <h3 className="font-medium text-sm truncate text-center">{pokemon.name}</h3>
+        <div className="flex justify-center gap-1 mt-1">
           {pokemon.types.map((type: string) => (
             <Badge
               key={type}

@@ -4,19 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e6296274-5d31-47e2-b6a9-e55bee476383" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Frontend/pokemon_battler/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/pokemon_battler/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/pokemon_battler/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/pokemon_battler/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/pokemon_battler/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/pokemon_battler/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/pokemon_battler/src/components/Dropdown/Dropdown.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/pokemon_battler/src/components/Dropdown/Dropdown.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/pokemon_battler/src/components/DropdownButton/DropdownButton.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/pokemon_battler/src/components/DropdownButton/DropdownButton.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/pokemon_battler/src/components/DropdownContent/DropdownContent.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/pokemon_battler/src/components/DropdownContent/DropdownContent.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/pokemon_battler/src/components/DropdownItem/DropdownItem.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/pokemon_battler/src/components/DropdownItem/DropdownItem.tsx" beforeDir="false" />
-    </list>
+    <list default="true" id="e6296274-5d31-47e2-b6a9-e55bee476383" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -80,6 +68,7 @@
       <workItem from="1746653591959" duration="1390000" />
       <workItem from="1746688765778" duration="1801000" />
       <workItem from="1746702799397" duration="518000" />
+      <workItem from="1746708580939" duration="9000" />
     </task>
     <task id="LOCAL-00001" summary="Beginning of the Frontend">
       <option name="closed" value="true" />
