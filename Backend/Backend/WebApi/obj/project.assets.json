@@ -7423,38 +7423,45 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\paul1\\.nuget\\packages\\": {}
+    "C:\\Users\\vital\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\paul1\\src\\repos\\Pokemon_SE\\Backend\\Backend\\WebApi\\WebApi.csproj",
+      "projectUniqueName": "C:\\Users\\vital\\OneDrive\\Documents\\DHBW_UNI\\Pokemon\\Pokemon_SE\\Backend\\Backend\\WebApi\\WebApi.csproj",
       "projectName": "WebApi",
-      "projectPath": "C:\\Users\\paul1\\src\\repos\\Pokemon_SE\\Backend\\Backend\\WebApi\\WebApi.csproj",
-      "packagesPath": "C:\\Users\\paul1\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\paul1\\src\\repos\\Pokemon_SE\\Backend\\Backend\\WebApi\\obj\\",
+      "projectPath": "C:\\Users\\vital\\OneDrive\\Documents\\DHBW_UNI\\Pokemon\\Pokemon_SE\\Backend\\Backend\\WebApi\\WebApi.csproj",
+      "packagesPath": "C:\\Users\\vital\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\vital\\OneDrive\\Documents\\DHBW_UNI\\Pokemon\\Pokemon_SE\\Backend\\Backend\\WebApi\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\paul1\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\vital\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net9.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "C:\\Users\\paul1\\src\\repos\\Pokemon_SE\\Backend\\Backend\\Application\\Application.csproj": {
-              "projectPath": "C:\\Users\\paul1\\src\\repos\\Pokemon_SE\\Backend\\Backend\\Application\\Application.csproj"
+            "C:\\Users\\vital\\OneDrive\\Documents\\DHBW_UNI\\Pokemon\\Pokemon_SE\\Backend\\Backend\\Application\\Application.csproj": {
+              "projectPath": "C:\\Users\\vital\\OneDrive\\Documents\\DHBW_UNI\\Pokemon\\Pokemon_SE\\Backend\\Backend\\Application\\Application.csproj"
             },
-            "C:\\Users\\paul1\\src\\repos\\Pokemon_SE\\Backend\\Backend\\Contracts\\Contracts.csproj": {
-              "projectPath": "C:\\Users\\paul1\\src\\repos\\Pokemon_SE\\Backend\\Backend\\Contracts\\Contracts.csproj"
+            "C:\\Users\\vital\\OneDrive\\Documents\\DHBW_UNI\\Pokemon\\Pokemon_SE\\Backend\\Backend\\Contracts\\Contracts.csproj": {
+              "projectPath": "C:\\Users\\vital\\OneDrive\\Documents\\DHBW_UNI\\Pokemon\\Pokemon_SE\\Backend\\Backend\\Contracts\\Contracts.csproj"
             },
-            "C:\\Users\\paul1\\src\\repos\\Pokemon_SE\\Backend\\Backend\\Infrastructure\\Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\paul1\\src\\repos\\Pokemon_SE\\Backend\\Backend\\Infrastructure\\Infrastructure.csproj"
+            "C:\\Users\\vital\\OneDrive\\Documents\\DHBW_UNI\\Pokemon\\Pokemon_SE\\Backend\\Backend\\Infrastructure\\Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\vital\\OneDrive\\Documents\\DHBW_UNI\\Pokemon\\Pokemon_SE\\Backend\\Backend\\Infrastructure\\Infrastructure.csproj"
             }
           }
         }
@@ -7469,7 +7476,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.100"
+      "SdkAnalysisLevel": "9.0.200"
     },
     "frameworks": {
       "net9.0": {
@@ -7534,7 +7541,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

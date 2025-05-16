@@ -3,9 +3,10 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Plus } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { Pokemon } from "@/lib/types"
 
 interface PokemonCardProps {
-  pokemon: any
+  pokemon: Pokemon
   onAdd: () => void
   onSelect: () => void
 }

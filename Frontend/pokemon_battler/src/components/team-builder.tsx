@@ -11,11 +11,12 @@ import PokemonCard from "@/components/pokemon-card"
 import TeamPreview from "@/components/team-preview"
 import PokemonDetails from "@/components/pokemon-details"
 import { mockPokemonList } from "@/lib/mock-data"
+import { Pokemon } from "@/lib/types"
 
 export default function TeamBuilder() {
   const [team, setTeam] = useState<any[]>([])
   const [searchQuery, setSearchQuery] = useState("")
-  const [selectedPokemon, setSelectedPokemon] = useState<any>(null)
+  const [selectedPokemon, setSelectedPokemon] = useState<Pokemon | null>(null)
 
   const filteredPokemon = mockPokemonList.filter(
     (pokemon) =>
@@ -66,7 +67,7 @@ export default function TeamBuilder() {
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 p-4">
                   {filteredPokemon.map((pokemon) => (
                     <PokemonCard
-                      key={pokemon.id}
+                      key={pokemon.pdx_num}
                       pokemon={pokemon}
                       onAdd={() => addToTeam(pokemon)}
                       onSelect={() => selectPokemon(pokemon)}
