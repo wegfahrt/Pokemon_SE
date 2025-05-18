@@ -156,6 +156,61 @@ export class Pokemon {
             this.moveset[index] = move;
         }
     }
+    clone(): Pokemon {
+        // Deep copy von Ability (null-safe)
+        const clonedAbility = this.ability
+            ? new Ability(this.ability.name, this.ability.effect)
+            : null;
+
+        // Deep copy der Abilitys
+        const clonedAbilitys = this.abilitys.map(
+            (ab) => new Ability(ab.name, ab.effect)
+        );
+
+        // Deep copy IVs
+        const clonedIvs = this.ivs.map(iv => new Ivs(iv.name, iv.value));
+
+        // Deep copy EVs
+        const clonedEvs = this.evs.map(ev => new Evs(ev.name, ev.value));
+
+        // Deep copy Stats
+        const clonedStats = this.stats.map(stat => new Stats(stat.name, stat.basestat));
+
+        // Deep copy Moves
+        const clonedMoves = this.moves.map(
+            (move) =>
+                new Moves(move.name, move.type, move.power, move.accuracy, move.pp, move.damageClass)
+        );
+
+        // Deep copy Moveset (null-safe)
+        const clonedMoveset = this.moveset.map(
+            (move) =>
+                move
+                    ? new Moves(move.name, move.type, move.power, move.accuracy, move.pp, move.damageClass)
+                    : null
+        );
+
+        // Rückgabe eines neuen Pokemon-Objekts mit denselben Werten
+        return new Pokemon(
+            this.pdx_num,
+            this.name,
+            clonedAbility,
+            clonedAbilitys,
+            this.lvl,
+            this.gender,
+            this.nature,
+            this.shiny,
+            [...this.types],
+            clonedIvs,
+            clonedEvs,
+            clonedStats,
+            clonedMoves,
+            clonedMoveset,
+            this.image_front,
+            this.image_back,
+            this.sprite
+        );
+    }
 }
 
 export class Ability {

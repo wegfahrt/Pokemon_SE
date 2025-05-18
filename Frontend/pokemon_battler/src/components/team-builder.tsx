@@ -24,20 +24,22 @@ export default function TeamBuilder() {
       pokemon.types.some((type) => type.toLowerCase().includes(searchQuery.toLowerCase())),
   )
 
-  const addToTeam = (pokemon: any) => {
+  const addToTeam = (pokemon: Pokemon) => {
     if (team.length < 6) {
-      setTeam([...team, { ...pokemon, id: Date.now() }])
+      const clone = pokemon.clone();
+      (clone as any).id = crypto.randomUUID()
+      setTeam([...team, clone])
     }
   }
 
   const removeFromTeam = (id: number) => {
-    setTeam(team.filter((pokemon) => pokemon.id !== id))
+    setTeam(team.filter((pokemon) => pokemon.pdx_num !== id))
   }
 
-  const selectPokemon = (pokemon: any) => {
+  const selectPokemon = (pokemon: Pokemon) => {
     setSelectedPokemon(pokemon)
   }
-
+  console.log(team)
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
       <Card className="lg:col-span-8 shadow-md">

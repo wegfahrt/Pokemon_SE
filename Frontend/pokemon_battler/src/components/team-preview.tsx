@@ -4,9 +4,10 @@ import { Button } from "@/components/ui/button"
 import { Trash2 } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
+import type { Pokemon } from "@/lib/types"
 
 interface TeamPreviewProps {
-  team: any[]
+  team: Pokemon[]
   onRemove: (id: number) => void
   onSelect: (pokemon: any) => void
 }
@@ -39,7 +40,7 @@ export default function TeamPreview({ team, onRemove, onSelect }: TeamPreviewPro
     <div className="grid grid-cols-2 gap-3">
       {team.map((pokemon) => (
         <div
-          key={pokemon.id}
+          key={pokemon.pdx_num}
           className="flex items-center p-2 border rounded-md bg-white dark:bg-slate-800 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700"
           onClick={() => onSelect(pokemon)}
         >
@@ -48,7 +49,7 @@ export default function TeamPreview({ team, onRemove, onSelect }: TeamPreviewPro
               src={pokemon.sprite || "/placeholder.svg"}
               alt={pokemon.name}
               className="object-contain"
-              style={{ width: '100%', height: 'auto' }} // Use width and height styles to control size
+              style={{ width: '100%', height: 'auto' }}
             />
           </div>
           <div className="flex-1 min-w-0">
@@ -71,7 +72,7 @@ export default function TeamPreview({ team, onRemove, onSelect }: TeamPreviewPro
             className="h-7 w-7 ml-1 flex-shrink-0"
             onClick={(e) => {
               e.stopPropagation()
-              onRemove(pokemon.id)
+              onRemove(pokemon.pdx_num)
             }}
           >
             <Trash2 className="h-4 w-4 text-red-500" />

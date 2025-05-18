@@ -4,7 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Slider } from "@/components/ui/slider"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import type { Pokemon, Ivs, Evs, Moves, Ability } from "@/lib/types"
 
 export default function PokemonDetails({ pokemon }: { pokemon: Pokemon }) {
@@ -12,6 +12,14 @@ export default function PokemonDetails({ pokemon }: { pokemon: Pokemon }) {
   const [evs, setEvs] = useState<Evs[]>([])
   const [moveset, setMoveset] = useState<(Moves | null)[]>([...pokemon.moveset])
   const [abilitys, setAbilitys] = useState(pokemon.ability)
+
+  useEffect(() => {
+    setIvs([...pokemon.ivs])
+    setEvs([...pokemon.evs])
+    setMoveset([...pokemon.moveset])
+    setAbilitys(pokemon.ability)
+  }
+    , [pokemon])
 
   const typeColors: Record<string, string> = {
     normal: "bg-stone-400",
@@ -78,6 +86,7 @@ export default function PokemonDetails({ pokemon }: { pokemon: Pokemon }) {
     pokemon.setAbility(ability)
     setAbilitys(ability)
   }
+  console.log("pokemon", pokemon)
 
   const totalEVs = Object.values(evs).reduce((sum, ev) => sum + ev.getValue(), 0)
   const remainingEVs = 508 - totalEVs
@@ -246,9 +255,8 @@ export default function PokemonDetails({ pokemon }: { pokemon: Pokemon }) {
         <TabsContent value="abilities" className="space-y-3">
           {pokemon.abilitys.map((Ability) => {
             const isSelected = pokemon.ability?.getName() === Ability.getName();
-            console.log("isSelected", isSelected)
             return (
-              <div key={Ability.getName()} className={cn("p-3 border rounded-md", isSelected ? "bg-green-100" : null)} onClick={() => updateAbility(Ability)}>
+              <div key={Ability.getName()} className={cn("p-3 border rounded-md cursor-pointer", isSelected ? "bg-green-100" : null)} onClick={() => updateAbility(Ability)}>
                 <h4 className="font-medium">{Ability.getName()}</h4>
                 <p className="text-sm text-muted-foreground mt-1">
                   {Ability.getEffect()}
