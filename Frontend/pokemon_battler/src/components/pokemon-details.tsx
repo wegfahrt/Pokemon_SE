@@ -10,16 +10,17 @@ import type { Pokemon, Ivs, Evs, Moves, Ability } from "@/lib/types"
 export default function PokemonDetails({ pokemon }: { pokemon: Pokemon }) {
   const [ivs, setIvs] = useState<Ivs[]>([])
   const [evs, setEvs] = useState<Evs[]>([])
-  const [moveset, setMoveset] = useState<(Moves | null)[]>([...pokemon.moveset])
-  const [abilitys, setAbilitys] = useState(pokemon.ability)
+  const [moveset, setMoveset] = useState<(Moves | null)[]>([null, null, null, null])
+  const [ability, setAbility] = useState<Ability | null>(null)
 
   useEffect(() => {
-    setIvs([...pokemon.ivs])
-    setEvs([...pokemon.evs])
-    setMoveset([...pokemon.moveset])
-    setAbilitys(pokemon.ability)
-  }
-    , [pokemon])
+    if (pokemon) {
+      setIvs(pokemon.ivs ? [...pokemon.ivs] : [])
+      setEvs(pokemon.evs ? [...pokemon.evs] : [])
+      setMoveset(pokemon.moveset ? [...pokemon.moveset] : [null, null, null, null])
+      setAbility(pokemon.ability || null)
+    }
+  }, [pokemon])
 
   const typeColors: Record<string, string> = {
     normal: "bg-stone-400",
@@ -50,10 +51,16 @@ export default function PokemonDetails({ pokemon }: { pokemon: Pokemon }) {
   }
 
   const updateIV = (stat: string, value: number[]) => {
-    const ivs = pokemon.ivs.find((ivs) => ivs.getName() === stat)
-    if (ivs) {
-      ivs.setValue(value[0])
-      setIvs([...pokemon.ivs])
+    if (!pokemon.ivs) return
+
+    const ivObj = pokemon.ivs.find((iv) => iv.getName() === stat)
+    if (ivObj) {
+      try {
+        ivObj.setValue(value[0])
+        setIvs([...pokemon.ivs])
+      } catch (error) {
+        console.error("Error updating IV:", error)
+      }
     }
   }
 
@@ -66,6 +73,7 @@ export default function PokemonDetails({ pokemon }: { pokemon: Pokemon }) {
   }
 
   const removeMove = (index: number) => {
+    if (index < 0 || index >= 4) return
     const newMoveset = [...moveset]
     newMoveset[index] = null
     setMoveset(newMoveset)
@@ -84,28 +92,39 @@ export default function PokemonDetails({ pokemon }: { pokemon: Pokemon }) {
 
   const updateAbility = (ability: Ability) => {
     pokemon.setAbility(ability)
-    setAbilitys(ability)
+    setAbility(ability)
   }
-  console.log("pokemon", pokemon)
 
-  const totalEVs = Object.values(evs).reduce((sum, ev) => sum + ev.getValue(), 0)
-  const remainingEVs = 508 - totalEVs
+  const totalEVs = evs.reduce((sum, ev) => sum + (ev?.getValue() || 0), 0)
+  const remainingEVs = Math.max(0, 508 - totalEVs)
+  if (!pokemon) {
+    return <div className="p-4 text-center text-muted-foreground">No Pokemon selected</div>
+  }
+  const pokemonName = pokemon.name || "Unknown"
+  const pokemonTypes = pokemon.types || []
+  const pokemonSprite = pokemon.sprite || "/placeholder.svg?height=80&width=80"
+  const pokemonStats = pokemon.stats || []
+  const pokemonMoves = pokemon.moves || []
+  const pokemonAbilities = pokemon.abilitys || []
+
   return (
     <div className="p-1">
       <div className="flex items-center mb-6">
         <div className="relative w-20 h-20 mr-4">
           <img
-            src={pokemon.sprite || "/placeholder.svg"}
-            alt={pokemon.name}
-            width={80}
-            height={80}
-            className="object-contain"
+            src={pokemonSprite || "/placeholder.svg"}
+            alt={pokemonName}
+            className="w-full h-full object-contain"
+            onError={(e) => {
+              const target = e.target as HTMLImageElement
+              target.src = "/placeholder.svg?height=80&width=80"
+            }}
           />
         </div>
         <div>
-          <h3 className="text-2xl font-bold">{pokemon.name}</h3>
+          <h3 className="text-2xl font-bold">{pokemonName}</h3>
           <div className="flex gap-1 mt-1">
-            {pokemon.types.map((type: string) => (
+            {pokemonTypes.map((type: string) => (
               <Badge
                 key={type}
                 variant="secondary"
@@ -127,7 +146,8 @@ export default function PokemonDetails({ pokemon }: { pokemon: Pokemon }) {
         </TabsList>
 
         <TabsContent value="stats" className="space-y-4">
-          {Object.entries(pokemon.stats).map(([stat, value]: [string, any]) => (
+          {Object.entries(pokemonStats
+          ).map(([stat, value]: [string, any]) => (
             <div key={stat} className="space-y-1">
               <div className="flex justify-between text-sm">
                 <span className="capitalize">{value.name || value}</span>
@@ -221,7 +241,7 @@ export default function PokemonDetails({ pokemon }: { pokemon: Pokemon }) {
             <div>
               <h4 className="font-semibold text-lg mb-3">Available Moves</h4>
               <div className="grid grid-cols-2 gap-2 max-h-[300px] overflow-y-auto p-1">
-                {pokemon.moves.map((move: Moves) => {
+                {pokemonMoves.map((move: Moves) => {
                   const isSelected = moveset.some((m) => m?.name === move.name)
                   const currentMoveCount = moveset.filter(Boolean).length
                   return (
@@ -253,8 +273,8 @@ export default function PokemonDetails({ pokemon }: { pokemon: Pokemon }) {
         </TabsContent>
 
         <TabsContent value="abilities" className="space-y-3">
-          {pokemon.abilitys.map((Ability) => {
-            const isSelected = pokemon.ability?.getName() === Ability.getName();
+          {pokemonAbilities.map((Ability) => {
+            const isSelected = ability?.getName() === Ability.getName();
             return (
               <div key={Ability.getName()} className={cn("p-3 border rounded-md cursor-pointer", isSelected ? "bg-green-100" : null)} onClick={() => updateAbility(Ability)}>
                 <h4 className="font-medium">{Ability.getName()}</h4>

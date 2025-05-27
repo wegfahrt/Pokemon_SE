@@ -8,11 +8,14 @@ import type { Pokemon } from "@/lib/types"
 
 interface TeamPreviewProps {
   team: Pokemon[]
-  onRemove: (id: number) => void
-  onSelect: (pokemon: any) => void
+  onRemove: (pokemon: Pokemon) => void
+  onSelect: (pokemon: Pokemon) => void
 }
 
-export default function TeamPreview({ team, onRemove, onSelect }: TeamPreviewProps) {
+
+export default function TeamPreview({ team = [], onRemove, onSelect }: TeamPreviewProps) {
+  const safeTeam = Array.isArray(team) ? team : [];
+  const emptySlots = Array(Math.max(0, 6 - safeTeam.length)).fill(null);
   const typeColors: Record<string, string> = {
     normal: "bg-stone-400",
     fire: "bg-orange-500",
@@ -34,61 +37,68 @@ export default function TeamPreview({ team, onRemove, onSelect }: TeamPreviewPro
     fairy: "bg-pink-300",
   }
 
-  const emptySlots = Array(6 - team.length).fill(null)
-
   return (
     <div className="grid grid-cols-2 gap-3">
-      {team.map((pokemon) => (
-        <div
-          key={pokemon.pdx_num}
-          className="flex items-center p-2 border rounded-md bg-white dark:bg-slate-800 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700"
-          onClick={() => onSelect(pokemon)}
-        >
-          <div className="relative w-12 h-12 mr-2 flex-shrink-0">
-            <img
-              src={pokemon.sprite || "/placeholder.svg"}
-              alt={pokemon.name}
-              className="object-contain"
-              style={{ width: '100%', height: 'auto' }}
-            />
-          </div>
-          <div className="flex-1 min-w-0">
-            <h4 className="text-sm font-medium truncate">{pokemon.name}</h4>
-            <div className="flex gap-1 mt-1">
-              {pokemon.types.map((type: string) => (
-                <Badge
-                  key={type}
-                  variant="secondary"
-                  className={cn("text-white text-[10px] px-1 py-0", typeColors[type.toLowerCase()] || "bg-gray-500")}
-                >
-                  {type}
-                </Badge>
-              ))}
-            </div>
-          </div>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="h-7 w-7 ml-1 flex-shrink-0"
-            onClick={(e) => {
-              e.stopPropagation()
-              onRemove(pokemon.pdx_num)
-            }}
-          >
-            <Trash2 className="h-4 w-4 text-red-500" />
-            <span className="sr-only">Remove</span>
-          </Button>
-        </div>
-      ))}
+      {safeTeam.map((pokemon, index) => {
+        if (!pokemon) return null;
 
+        const pokemonName = pokemon.name || "Unknown";
+        const pokemonTypes = pokemon.types || [];
+        const pokemonSprite = pokemon.sprite || "/placeholder.svg?height=48&width=48";
+        const pokemonId = pokemon.pdx_num || `pokemon-${index}`;
+        return (
+          <div
+            key={`${pokemon.pdx_num}-${index}`}
+            className="flex items-center p-2 border rounded-md bg-white dark:bg-slate-800 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
+            onClick={() => onSelect(pokemon)}
+          >
+            <div className="relative w-12 h-12 mr-2 flex-shrink-0">
+              <img
+                src={pokemonSprite || "/placeholder.svg"}
+                alt={pokemonName}
+                className="w-full h-full object-contain"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement
+                  target.src = "/placeholder.svg?height=48&width=48"
+                }}
+              />
+            </div>
+            <div className="flex-1 min-w-0">
+              <h4 className="text-sm font-medium truncate">{pokemonName}</h4>
+              <div className="flex gap-1 mt-1 flex-wrap">
+                {pokemonTypes.map((type: string, typeIndex: number) => (
+                  <Badge
+                    key={`${type}-${typeIndex}`}
+                    className={cn("text-white text-[10px] px-1 py-0", typeColors[type?.toLowerCase()] || "bg-gray-500")}
+                  >
+                    {type}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-7 w-7 ml-1 flex-shrink-0 hover:bg-red-50 dark:hover:bg-red-900/20"
+              onClick={(e) => {
+                e.stopPropagation();
+                onRemove(pokemon);
+              }}
+            >
+              <Trash2 className="h-4 w-4 text-red-500" />
+              <span className="sr-only">Remove {pokemonName}</span>
+            </Button>
+          </div>
+        );
+      })}
       {emptySlots.map((_, index) => (
         <div
           key={`empty-${index}`}
-          className="flex items-center justify-center p-2 border rounded-md border-dashed h-[72px] bg-slate-50 dark:bg-slate-800/50"
+          className="flex items-center justify-center p-2 border rounded-md border-dashed h-[72px] bg-slate-50 dark:bg-slate-800/50 transition-colors"
         >
           <span className="text-xs text-muted-foreground">Empty slot</span>
         </div>
       ))}
     </div>
-  )
+  );
 }

@@ -32,6 +32,13 @@ export default function PokemonCard({ pokemon, onAdd, onSelect }: PokemonCardPro
     steel: "bg-slate-400",
     fairy: "bg-pink-300",
   }
+  if (!pokemon) {
+    return null
+  }
+
+  const pokemonName = pokemon.name || "Unknown"
+  const pokemonTypes = pokemon.types || []
+  const pokemonSprite = pokemon.sprite || "/placeholder.svg?height=120&width=120"
 
   return (
     <Card className="overflow-hidden transition-all hover:shadow-md cursor-pointer" onClick={onSelect}>
@@ -52,22 +59,24 @@ export default function PokemonCard({ pokemon, onAdd, onSelect }: PokemonCardPro
         </div>
         <div className="flex justify-center">
           <img
-            src={pokemon.sprite || "/placeholder.svg"}
-            alt={pokemon.name}
-            width={120}
-            height={120}
+            src={pokemonSprite || "/placeholder.svg"}
+            alt={pokemonName}
             className="h-[120px] w-[120px] object-contain"
+            onError={(e) => {
+              const target = e.target as HTMLImageElement
+              target.src = "/placeholder.svg?height=120&width=120"
+            }}
           />
         </div>
       </div>
       <CardContent className="p-3">
-        <h3 className="font-medium text-sm truncate text-center">{pokemon.name}</h3>
+        <h3 className="font-medium text-sm truncate text-center">{pokemonName}</h3>
         <div className="flex justify-center gap-1 mt-1">
-          {pokemon.types.map((type: string) => (
+          {pokemonTypes.map((type: string, index: number) => (
             <Badge
-              key={type}
+              key={`${type}-${index}`}
               variant="secondary"
-              className={cn("text-white text-xs", typeColors[type.toLowerCase()] || "bg-gray-500")}
+              className={cn("text-white text-xs", typeColors[type?.toLowerCase()] || "bg-gray-500")}
             >
               {type}
             </Badge>
