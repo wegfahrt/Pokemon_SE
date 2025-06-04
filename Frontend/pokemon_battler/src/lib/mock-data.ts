@@ -43,10 +43,12 @@ export const mockPokemonList = [
       new Moves("Fire Blast", "Fire", 110, 85, 5, "Special"),
       new Moves("Solar Beam", "Grass", 120, 100, 10, "Special"),
     ],
-    [new Moves("Flamethrower", "Fire", 90, 100, 15, "Special"), null, null, null],
-    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png",
-    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/132.png",
-    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png"
+    [new Moves("Flamethrower", "Fire", 90, 100, 15, "Special"),
+    new Moves("Dragon Claw", "Dragon", 80, 100, 15, "Physical"),
+    new Moves("Air Slash", "Flying", 75, 95, 15, "Special"),
+    new Moves("Fire Blast", "Fire", 110, 85, 5, "Special")],
+    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png",
+    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/6.png"
   ),
   new Pokemon(
     2,
@@ -90,10 +92,12 @@ export const mockPokemonList = [
       new Moves("Surf", "Water", 90, 100, 15, "Special"),
       new Moves("Dark Pulse", "Dark", 80, 100, 15, "Special"),
     ],
-    [null, null, null, null],
-    "/placeholder.svg?height=120&width=120",
-    "/placeholder.svg?height=120&width=120",
-    "/placeholder.svg?height=120&width=120"
+    [new Moves("Hydro Pump", "Water", 110, 80, 5, "Special"),
+    new Moves("Ice Beam", "Ice", 90, 100, 10, "Special"),
+    new Moves("Earthquake", "Ground", 100, 100, 10, "Physical"),
+    new Moves("Flash Cannon", "Steel", 80, 100, 10, "Special"),],
+"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/9.png",
+    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/9.png"
   ),
   new Pokemon(
     3,
@@ -137,58 +141,62 @@ export const mockPokemonList = [
       new Moves("Synthesis", "Grass", 0, 0, 5, "Status"),
       new Moves("Giga Drain", "Grass", 75, 100, 10, "Special"),
     ],
-    [null, null, null, null],
-    "/placeholder.svg?height=120&width=120",
-    "/placeholder.svg?height=120&width=120",
-    "/placeholder.svg?height=120&width=120"
+    [new Moves("Solar Beam", "Grass", 120, 100, 10, "Special"),
+    new Moves("Sludge Bomb", "Poison", 90, 100, 10, "Special"),
+    new Moves("Earthquake", "Ground", 100, 100, 10, "Physical"),
+    new Moves("Sleep Powder", "Grass", 0, 75, 15, "Status")],
+    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png",
+    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/3.png"
   ),
-  new Pokemon(
-    4,
-    "Pikachu",
-    null,
-    [new Ability("Static", "This is an ability"), new Ability("Lightning Rod", "This is an ability")],
-    100,
-    "Male",
-    "Hardy",
-    false,
-    ["Electric"],
-    [
-      new Ivs("hp", 31),
-      new Ivs("attack", 31),
-      new Ivs("defense", 31),
-      new Ivs("special-attack", 31),
-      new Ivs("special-defense", 31),
-      new Ivs("speed", 31),
-    ],
-    [
-      new Evs("hp", 0),
-      new Evs("attack", 0),
-      new Evs("defense", 0),
-      new Evs("special-attack", 0),
-      new Evs("special-defense", 0),
-      new Evs("speed", 0),
-    ],
-    [
-      new Stats("hp", 35),
-      new Stats("attack", 55),
-      new Stats("defense", 40),
-      new Stats("special-attack", 50),
-      new Stats("special-defense", 50),
-      new Stats("speed", 90),
-    ],
-    [
-      new Moves("Thunderbolt", "Electric", 90, 100, 15, "Special"),
-      new Moves("Iron Tail", "Steel", 100, 75, 15, "Physical"),
-      new Moves("Quick Attack", "Normal", 40, 100, 30, "Physical"),
-      new Moves("Volt Tackle", "Electric", 120, 100, 15, "Physical"),
-      new Moves("Thunder", "Electric", 110, 70, 10, "Special"),
-      new Moves("Grass Knot", "Grass", 0, 100, 20, "Special"),
-    ],
-    [null, null, null, null],
-    "/placeholder.svg?height=120&width=120",
-    "/placeholder.svg?height=120&width=120",
-    "/placeholder.svg?height=120&width=120"
-  ),
+new Pokemon(
+  4,
+  "Pikachu",
+  null,
+  [new Ability("Static", "This is an ability"), new Ability("Lightning Rod", "This is an ability")],
+  100,
+  "Male",
+  "Hardy",
+  false,
+  ["Electric"],
+  [
+    new Ivs("hp", 31),
+    new Ivs("attack", 31),
+    new Ivs("defense", 31),
+    new Ivs("special-attack", 31),
+    new Ivs("special-defense", 31),
+    new Ivs("speed", 31),
+  ],
+  [
+    new Evs("hp", 0),
+    new Evs("attack", 0),
+    new Evs("defense", 0),
+    new Evs("special-attack", 0),
+    new Evs("special-defense", 0),
+    new Evs("speed", 0),
+  ],
+  [
+    new Stats("hp", 35),
+    new Stats("attack", 55),
+    new Stats("defense", 40),
+    new Stats("special-attack", 50),
+    new Stats("special-defense", 50),
+    new Stats("speed", 90),
+  ],
+  [
+    new Moves("Thunderbolt", "Electric", 90, 100, 15, "Special"),
+    new Moves("Iron Tail", "Steel", 100, 75, 15, "Physical"),
+    new Moves("Quick Attack", "Normal", 40, 100, 30, "Physical"),
+    new Moves("Volt Tackle", "Electric", 120, 100, 15, "Physical"),
+    new Moves("Thunder", "Electric", 110, 70, 10, "Special"),
+    new Moves("Grass Knot", "Grass", 0, 100, 20, "Special"),
+  ],
+  [new Moves("Thunderbolt", "Electric", 90, 100, 15, "Special"),
+  new Moves("Iron Tail", "Steel", 100, 75, 15, "Physical"),
+  new Moves("Quick Attack", "Normal", 40, 100, 30, "Physical"),
+  new Moves("Volt Tackle", "Electric", 120, 100, 15, "Physical")],
+  "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
+  "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/25.png",
+),
   new Pokemon(
     5,
     "Gengar",
@@ -232,9 +240,8 @@ export const mockPokemonList = [
       new Moves("Hypnosis", "Psychic", 0, 60, 20, "Status"),
     ],
     [null, null, null, null],
-    "/placeholder.svg?height=120&width=120",
-    "/placeholder.svg?height=120&width=120",
-    "/placeholder.svg?height=120&width=120"
+    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/150.png",
+    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/150.png"
   ),
   new Pokemon(
     6,
@@ -281,7 +288,6 @@ export const mockPokemonList = [
     [null, null, null, null],
     "/placeholder.svg?height=120&width=120",
     "/placeholder.svg?height=120&width=120",
-    "/placeholder.svg?height=120&width=120"
   ),
   new Pokemon(
     7,
@@ -328,7 +334,6 @@ export const mockPokemonList = [
     [null, null, null, null],
     "/placeholder.svg?height=120&width=120",
     "/placeholder.svg?height=120&width=120",
-    "/placeholder.svg?height=120&width=120"
   ),
   new Pokemon(
     8,
@@ -375,7 +380,6 @@ export const mockPokemonList = [
     [null, null, null, null],
     "/placeholder.svg?height=120&width=120",
     "/placeholder.svg?height=120&width=120",
-    "/placeholder.svg?height=120&width=120"
   ),
   new Pokemon(
     9,
@@ -422,7 +426,6 @@ export const mockPokemonList = [
     [null, null, null, null],
     "/placeholder.svg?height=120&width=120",
     "/placeholder.svg?height=120&width=120",
-    "/placeholder.svg?height=120&width=120"
   ),
   new Pokemon(
     10,
@@ -469,6 +472,5 @@ export const mockPokemonList = [
     [null, null, null, null],
     "/placeholder.svg?height=120&width=120",
     "/placeholder.svg?height=120&width=120",
-    "/placeholder.svg?height=120&width=120"
   ),
 ]

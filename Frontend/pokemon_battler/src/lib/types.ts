@@ -28,9 +28,8 @@ export class Pokemon {
     stats: Stats[]
     moves: Moves[]
     moveset: (Moves | null)[] = [null, null, null, null]
-    image_front: string
-    image_back: string
     sprite: string
+    sprite_back: string
 
     constructor(
         pdx_num: number,
@@ -47,8 +46,7 @@ export class Pokemon {
         stats: Stats[],
         moves: Moves[],
         moveset: (Moves | null)[],
-        image_front: string,
-        image_back: string,
+        sprite_back: string,
         sprite: string,
     ) {
         this.pdx_num = pdx_num
@@ -71,9 +69,8 @@ export class Pokemon {
         this.evs = evs
         this.moves = moves
         this.moveset = [...moveset]
-        this.image_front = image_front
-        this.image_back = image_back
         this.sprite = sprite
+        this.sprite_back = sprite_back
     }
 
     /*Getter*/
@@ -124,16 +121,13 @@ export class Pokemon {
         return [...this.moveset]
     }
 
-    getImage_front(): string {
-        return this.image_front
-    }
-
-    getImage_back(): string {
-        return this.image_back
-    }
-
-    getImage_pixel(): string {
+    getSprite(): string {
         return this.sprite
+    }
+
+    getSprite_back(): string {
+        return this.sprite_back
+
     }
 
     /*Setter*/
@@ -213,10 +207,160 @@ export class Pokemon {
             clonedStats,
             clonedMoves,
             clonedMoveset,
-            this.image_front,
-            this.image_back,
             this.sprite,
+            this.sprite_back,
         )
+    }
+
+    makeBattleReady(): Pokemon_in_battle {
+        return new Pokemon_in_battle(
+            this.getPdx_num(),
+            this.getName(),
+            this.getAbility(),
+            this.getLvl(),
+            this.getGender(),
+            this.getNature(),
+            this.getTypes(),
+            this.getStats().find(stat => stat.getName() === "hp")?.getBasestat() || 0,
+            this.getStats().find(stat => stat.getName() === "hp")?.getBasestat() || 0,
+            this.getStats().find(stat => stat.getName() === "attack")?.getBasestat() || 0,
+            this.getStats().find(stat => stat.getName() === "defense")?.getBasestat() || 0,
+            this.getStats().find(stat => stat.getName() === "special-attack")?.getBasestat() || 0,
+            this.getStats().find(stat => stat.getName() === "special-defense")?.getBasestat() || 0,
+            this.getStats().find(stat => stat.getName() === "speed")?.getBasestat() || 0,
+            this.getMoveset().filter(move => move !== null) as Moves[],
+            this.getSprite(),
+            this.getSprite_back(),
+        )
+    }
+}
+
+export class Pokemon_in_battle {
+    pdx_num: number
+    name: string
+    ability: Ability | null
+    lvl = 100
+    gender = "Male"
+    nature = "Hardy"
+    types: string[]
+    currentHP: number;
+    maxHP: number;
+    attack: number;
+    defense: number;
+    special_attack: number;
+    special_defense: number;
+    speed: number;
+    moveset: Moves[] = [];
+    sprite: string;
+    sprite_back: string;
+    constructor(
+        pdx_num: number,
+        name: string,
+        ability: Ability | null,
+        lvl: number,
+        gender: string,
+        nature: string,
+        types: string[],
+        currentHP: number,
+        maxHP: number,
+        attack: number,
+        defense: number,
+        special_attack: number,
+        special_defense: number,
+        speed: number,
+        moveset: (Moves)[],
+        sprite: string,
+        sprite_back: string,
+    ) {
+        this.pdx_num = pdx_num
+        this.name = name
+        this.ability = ability
+        this.lvl = lvl
+        this.gender = gender
+        this.nature = nature
+        this.types = types
+        this.currentHP = currentHP
+        this.maxHP = maxHP
+        this.attack = attack
+        this.defense = defense
+        this.special_attack = special_attack
+        this.special_defense = special_defense
+        this.speed = speed
+        this.moveset = moveset
+        this.sprite = sprite
+        this.sprite_back = sprite_back
+
+    }
+    getPdx_num(): number {
+        return this.pdx_num
+    }
+    getName(): string {
+        return this.name
+    }
+    getAbility(): Ability | null {
+        return this.ability
+    }
+    getLvl(): number {
+        return this.lvl
+    }
+    getGender(): string {
+        return this.gender
+    }
+    getNature(): string {
+        return this.nature
+    }
+    getTypes(): string[] {
+        return this.types
+    }
+    getCurrentHP(): number {
+        return this.currentHP
+    }
+    getMaxHP(): number {
+        return this.maxHP
+    }
+    getAttack(): number {
+        return this.attack
+    }
+    getDefense(): number {
+        return this.defense
+    }
+    getSpecialAttack(): number {
+        return this.special_attack
+    }
+    getSpecialDefense(): number {
+        return this.special_defense
+    }
+    getSpeed(): number {
+        return this.speed
+    }
+    getMoveset(): Moves[] {
+        return this.moveset
+    }
+    getSprite(): string {
+        return this.sprite
+    }
+    getSprite_back(): string {
+        return this.sprite_back
+
+    }
+    setCurrentHP(currentHP: number) {
+        if (currentHP < 0 || currentHP > this.maxHP) {
+            throw new Error(`Invalid current HP: ${currentHP}`)
+        }
+        this.currentHP = currentHP
+    }
+    setCurrentPP(moveName: string, pp: number) {
+        const move = this.moveset.find(m => m.name === moveName)
+        if (move) {
+            move.current_pp = pp
+        }
+    }
+    getCurrentPP(moveName: string): number {
+        const move = this.moveset.find(m => m.name === moveName)
+        if (move) {
+            return move.current_pp
+        }
+        throw new Error(`Move not found: ${moveName}`)
     }
 }
 
@@ -303,6 +447,7 @@ export class Moves {
     type: string
     power: number
     accuracy: number
+    current_pp: number
     pp: number
     damageClass: string
 
@@ -312,6 +457,7 @@ export class Moves {
         this.power = power
         this.accuracy = accuracy
         this.pp = pp
+        this.current_pp = pp
         this.damageClass = damageClass
     }
 }
