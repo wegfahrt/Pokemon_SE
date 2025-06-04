@@ -19,6 +19,18 @@ public record PokemonResponse(
     int SpecialDefense,
     int Speed,
     int AbilityId,
+    int HpIv,
+    int AttackIv,
+    int DefenseIv,
+    int SpecialAttackIv,
+    int SpecialDefenseIv,
+    int SpeedIv,
+    int HpEv,
+    int AttackEv,
+    int DefenseEv,
+    int SpecialAttackEv,
+    int SpecialDefenseEv,
+    int SpeedEv,
     List<MoveResponse> Moves
 );
 

@@ -28,6 +28,18 @@ public static class MappingExtensions
             pokemon.SpecialDefense,
             pokemon.Speed,
             pokemon.AbilityId,
+            pokemon.HpIv,
+            pokemon.AttackIv,
+            pokemon.DefenseIv,
+            pokemon.SpecialAttackIv,
+            pokemon.SpecialDefenseIv,
+            pokemon.SpeedIv,
+            pokemon.HpEv,
+            pokemon.AttackEv,
+            pokemon.DefenseEv,
+            pokemon.SpecialAttackEv,
+            pokemon.SpecialDefenseEv,
+            pokemon.SpeedEv,
             pokemon.Moves?.Select(m => m.ToDTO()).ToList() ?? new List<MoveResponse>()
         );
     }

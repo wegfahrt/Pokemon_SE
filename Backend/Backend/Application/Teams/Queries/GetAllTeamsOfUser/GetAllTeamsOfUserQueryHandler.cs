@@ -12,7 +12,7 @@ public class GetAllPokemonsQueryHandler(IAppDbContext _context) : IRequestHandle
     public async Task<ErrorOr<List<TeamResponse>>> Handle(GetAllTeamsOfUserQuery request,
         CancellationToken cancellationToken)
     {
-        var response = _context.TeamPresets
+         var response =  _context.TeamPresets
             .Where(t=> t.TrainerId == request.id)
             .Include(t => t.Pokemon)
             .ThenInclude(pm => pm.Moves)

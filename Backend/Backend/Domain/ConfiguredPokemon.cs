@@ -13,8 +13,25 @@ public class ConfiguredPokemon
     public int SpecialDefense { get; private set; }
     public int Speed { get; private set; }
     public int AbilityId { get; private set; }
-    
     public int TeamId { get; private set; }
+    
+    // IV Properties
+    public int HpIv { get; private set; }
+    public int AttackIv { get; private set; }
+    public int DefenseIv { get; private set; }
+    public int SpecialAttackIv { get; private set; }
+    public int SpecialDefenseIv { get; private set; }
+    public int SpeedIv { get; private set; }
+    
+    // EV Properties
+    public int HpEv { get; private set; }
+    public int AttackEv { get; private set; }
+    public int DefenseEv { get; private set; }
+    public int SpecialAttackEv { get; private set; }
+    public int SpecialDefenseEv { get; private set; }
+    public int SpeedEv { get; private set; }
+    
+
     
     // public PokemonType? PrimaryType { get; private set; }
     // public PokemonType? SecondaryType { get; private set; }
