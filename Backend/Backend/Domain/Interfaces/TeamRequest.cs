@@ -1,15 +1,14 @@
-﻿
-namespace Contracts.Teams;
+﻿using Domain;
 
-public record TeamResponse (
-    int Id,
+namespace Domain.Interfaces;
+
+public record TeamRequest (
     string Name,
     int User,
-    List<PokemonResponse> Pokemon
+    List<PokemonRequest> Pokemon
 );
 
-public record PokemonResponse(
-    int Id,
+public record PokemonRequest(
     string Name,
     int HP,
     int Attack,
@@ -30,13 +29,9 @@ public record PokemonResponse(
     int SpecialAttackEv,
     int SpecialDefenseEv,
     int SpeedEv,
-    List<MoveResponse> Moves
+    List<MoveRequest> Moves
 );
 
-public record MoveResponse(
-    int Id,
+public record MoveRequest(
     int MoveId
 );
-
-
-

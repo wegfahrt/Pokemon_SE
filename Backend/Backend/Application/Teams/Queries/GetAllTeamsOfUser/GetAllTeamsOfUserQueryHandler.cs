@@ -1,8 +1,8 @@
 ﻿using Application.Common.Interfaces;
-using Contracts.Teams;
 using ErrorOr;
 using MediatR;
 using Application.Extensions;
+using Contracts.Teams;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Teams.Queries.GetAllTeamsOfUser;
