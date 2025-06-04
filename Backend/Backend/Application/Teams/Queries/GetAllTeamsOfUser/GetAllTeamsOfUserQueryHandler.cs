@@ -18,7 +18,7 @@ public class GetAllPokemonsQueryHandler(IAppDbContext _context) : IRequestHandle
             .ThenInclude(pm => pm.Moves)
             .ToList();
 
-        if (response is null)
+        if (response.Count < 1)
         {
             return Error.Conflict(description: "No Teams found");
         }

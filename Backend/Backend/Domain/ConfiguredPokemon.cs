@@ -51,16 +51,16 @@ public class ConfiguredPokemon
         return Result.Success;
     }
 
-    public ErrorOr<Success> RemoveMove(ConfiguredMove move)
-    {
-        if (_moves.All(m => m.Id != move.Id))
-        {
-            return Error.Conflict(description: "Move not found");
-        }
-        
-        _moves.Remove(move);
-        return Result.Success;
-    }
+    // public ErrorOr<Success> RemoveMove(ConfiguredMove move)
+    // {
+    //     if (_moves.All(m => m.Id != move.Id))
+    //     {
+    //         return Error.Conflict(description: "Move not found");
+    //     }
+    //     
+    //     _moves.Remove(move);
+    //     return Result.Success;
+    // }
     
     // Factory method for creating from PokemonRequest
     public static ErrorOr<ConfiguredPokemon> CreateFromRequest(PokemonRequest request)
