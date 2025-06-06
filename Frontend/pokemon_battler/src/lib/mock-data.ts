@@ -45,7 +45,7 @@ export const mockPokemonList = [
     ],
     [new Moves("Flamethrower", "Fire", 90, 100, 15, "Special"),
     new Moves("Dragon Claw", "Dragon", 80, 100, 15, "Physical"),
-    new Moves("Air Slash", "Flying", 75, 95, 15, "Special"),
+    new Moves("Air Slash", "Flying", 0, 95, 15, "Special"),
     new Moves("Fire Blast", "Fire", 110, 85, 5, "Special")],
     "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png",
     "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/6.png"
@@ -142,7 +142,7 @@ export const mockPokemonList = [
       new Moves("Giga Drain", "Grass", 75, 100, 10, "Special"),
     ],
     [new Moves("Solar Beam", "Grass", 120, 100, 10, "Special"),
-    new Moves("Sludge Bomb", "Poison", 90, 100, 10, "Special"),
+    new Moves("Sludge Bomb", "Poison", 70, 100, 10, "Special"),
     new Moves("Earthquake", "Ground", 100, 100, 10, "Physical"),
     new Moves("Sleep Powder", "Grass", 0, 75, 15, "Status")],
     "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png",

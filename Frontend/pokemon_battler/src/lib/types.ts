@@ -236,6 +236,7 @@ export class Pokemon {
 }
 
 export class Pokemon_in_battle {
+    id: string = crypto.randomUUID()
     pdx_num: number
     name: string
     ability: Ability | null
@@ -362,6 +363,37 @@ export class Pokemon_in_battle {
         }
         throw new Error(`Move not found: ${moveName}`)
     }
+
+    clone(): Pokemon_in_battle {
+        // Deep copy von Ability (null-safe)
+        const clonedAbility = this.ability ? new Ability(this.ability.name, this.ability.effect) : null
+
+        // Deep copy Moves
+        const clonedMoveset = this.moveset.map(
+            (move) => new Moves(move.name, move.type, move.power, move.accuracy, move.pp, move.damageClass, move.current_pp),
+        )
+
+        // Rückgabe eines neuen Pokemon_in_battle-Objekts mit denselben Werten
+        return new Pokemon_in_battle(
+            this.pdx_num,
+            this.name,
+            clonedAbility,
+            this.lvl,
+            this.gender,
+            this.nature,
+            this.types,
+            this.currentHP,
+            this.maxHP,
+            this.attack,
+            this.defense,
+            this.special_attack,
+            this.special_defense,
+            this.speed,
+            clonedMoveset,
+            this.sprite,
+            this.sprite_back,
+        )
+    }
 }
 
 export class Ability {
@@ -451,13 +483,13 @@ export class Moves {
     pp: number
     damageClass: string
 
-    constructor(name: string, type: string, power: number, accuracy: number, pp: number, damageClass: string) {
+    constructor(name: string, type: string, power: number, accuracy: number, pp: number, damageClass: string, current_pp: number = pp) {
         this.name = name
         this.type = type
         this.power = power
         this.accuracy = accuracy
         this.pp = pp
-        this.current_pp = pp
+        this.current_pp = current_pp ? current_pp : pp
         this.damageClass = damageClass
     }
 }

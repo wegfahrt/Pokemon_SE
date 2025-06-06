@@ -1,14 +1,21 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState, type JSX } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
 import { Badge } from "@/components/ui/badge"
-import { Zap, Shield, RotateCcw, Swords, Package, User2, LogOut } from "lucide-react"
+import {
+    Zap, Shield, RotateCcw,
+    Swords, Package, User2, LogOut, Bird, Bug, Circle,
+    Droplet, Eye, Flame, Ghost, Globe, HelpCircle, Leaf,
+    Moon, Skull, Snowflake, Sparkles, Mountain,
+    Star
+} from "lucide-react"
 import { SimplePokeballIcon } from "@/components/ui/pokeball-icon"
 import type { Pokemon, Pokemon_in_battle, Moves } from "@/lib/types"
 import { motion, AnimatePresence } from "framer-motion"
+import React from "react"
 
 type MenuOption = "main" | "attack" | "pokemon" | "items" | "run"
 
@@ -16,233 +23,385 @@ export default function pokemon_battle({
     FullUserteam,
     FullEnemyTeam,
 }: { FullUserteam: Pokemon[]; FullEnemyTeam: Pokemon[] }) {
-    // Convert Pokemon to Pokemon_in_battle
-    const userteam: Pokemon_in_battle[] = FullUserteam.map((pokemon) => pokemon.makeBattleReady())
-    const enemyteam: Pokemon_in_battle[] = FullEnemyTeam.map((pokemon) => pokemon.makeBattleReady())
 
-    const [playerPokemon, setPlayerPokemon] = useState<Pokemon_in_battle>(userteam[0])
-    const [opponentPokemon, setOpponentPokemon] = useState<Pokemon_in_battle>(enemyteam[0])
+    // Battle-ready Teams nur einmal erzeugen (Memo)
+    const initialUserTeam = React.useMemo(
+        () => FullUserteam.map((p) => p.makeBattleReady()),
+        [FullUserteam]
+    )
+    const initialEnemyTeam = React.useMemo(
+        () => FullEnemyTeam.map((p) => p.makeBattleReady()),
+        [FullEnemyTeam]
+    )
 
-    // Team status - 6 Pokemon für jeden Spieler
-    const [playerTeam, setPlayerTeam] = useState<Pokemon_in_battle[]>(userteam)
-    const [opponentTeam, setOpponentTeam] = useState<Pokemon_in_battle[]>(enemyteam)
+    // Team States
+    const [playerTeam, setPlayerTeam] = useState<Pokemon_in_battle[]>(initialUserTeam)
+    const [opponentTeam, setOpponentTeam] = useState<Pokemon_in_battle[]>(initialEnemyTeam)
 
-    const [battleText, setBattleText] = useState("What will " + playerPokemon.name + " do?")
+    // Aktive Pokémon Indizes
+    const [activePlayerIndex, setActivePlayerIndex] = useState(0)
+    const [activeOpponentIndex, setActiveOpponentIndex] = useState(0)
+
+    // Aktive Pokémon aus den aktuellen Teams ziehen
+    const playerPokemon = playerTeam[activePlayerIndex]
+    const opponentPokemon = opponentTeam[activeOpponentIndex]
+
+    // Battle Text initial mit aktuellem Spieler-Pokemon
+    const [battleText, setBattleText] = useState(() => `What will ${playerPokemon.name} do?`)
+
     const [isPlayerTurn, setIsPlayerTurn] = useState(true)
     const [isAnimating, setIsAnimating] = useState(false)
     const [currentMenu, setCurrentMenu] = useState<MenuOption>("main")
     const [showRunConfirmation, setShowRunConfirmation] = useState(false)
 
-    // Animation states
+    // Animation States
     const [isSwitchingPokemon, setIsSwitchingPokemon] = useState(false)
     const [switchingIn, setSwitchingIn] = useState<Pokemon_in_battle | null>(null)
     const [switchingOut, setSwitchingOut] = useState<Pokemon_in_battle | null>(null)
     const [switchDirection, setSwitchDirection] = useState<"in" | "out">("out")
 
+
+    type PendingAction = null |
+    { type: "playerMove"; move: Moves } |
+    { type: "opponentMove" } |
+    { type: "switchPokemon"; newPokemon: Pokemon_in_battle } |
+    { type: "switchOpponent"; newPokemon: Pokemon_in_battle } |
+    { type: "ForcedSwitch"; newPokemon: Pokemon_in_battle }
+
+    const [pendingAction, setPendingAction] = useState<PendingAction>(null)
+    const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
+
+    useEffect(() => {
+        console.log("Player Pokemon updated:", playerPokemon);
+    }, [playerPokemon]);
+
+    useEffect(() => {
+        console.log("Opponent Pokemon updated:", opponentPokemon);
+    }, [opponentPokemon]);
+
+    useEffect(() => {
+        if (!pendingAction) return;
+
+        const processPlayerMove = async (move: Moves) => {
+            console.log("Processing player move:", move.name);
+
+            const currentOpponent = opponentTeam[activeOpponentIndex];
+            const currentPlayer = playerTeam[activePlayerIndex];
+            const isStatusMove = move.damageClass === "Status";
+            const damage = isStatusMove ? 0 : Math.floor(move.power / 2);
+            const newHp = Math.max(0, currentOpponent.currentHP - damage);
+
+            // PP reduzieren
+            setPlayerTeam((prevTeam) =>
+                prevTeam.map((p, i) => {
+                    if (i === activePlayerIndex && p.id === currentPlayer.id) {
+                        const updated = p.clone();
+                        updated.setCurrentPP(move.name, Math.max(0, updated.getCurrentPP(move.name) - 1));
+                        console.log(`PP reduced for ${p.name} move ${move.name}`);
+                        return updated;
+                    }
+                    return p;
+                })
+            );
+
+            // Schaden
+            if (!isStatusMove) {
+                setOpponentTeam((prevTeam) =>
+                    prevTeam.map((p, i) => {
+                        if (i === activeOpponentIndex && p.id === currentOpponent.id) {
+                            const updated = p.clone();
+                            updated.setCurrentHP(newHp);
+                            console.log(`Opponent ${p.name} HP reduced to ${newHp}`);
+                            return updated;
+                        }
+                        return p;
+                    })
+                );
+            }
+
+            await delay(1000);
+
+            if (!isStatusMove && newHp === 0) {
+                setBattleText(`${currentOpponent.name} fainted!`);
+                console.log(`${currentOpponent.name} fainted!`);
+
+                const availablePokemon = opponentTeam.filter(
+                    (p) => p.currentHP > 0 && p.id !== currentOpponent.id
+                );
+
+                await delay(1000);
+
+                if (availablePokemon.length > 0) {
+                    const nextPokemon = availablePokemon[Math.floor(Math.random() * availablePokemon.length)];
+                    setBattleText("Opponent is switching Pokémon...");
+                    console.log("Opponent switching Pokemon...");
+
+                    await delay(1000);
+
+                    setBattleText(`Opponent sends out ${nextPokemon.name}!`);
+                    setActiveOpponentIndex(opponentTeam.findIndex((p) => p.id === nextPokemon.id));
+                    console.log(`Opponent sent out ${nextPokemon.name}`);
+
+                    await delay(1000);
+
+                    setIsAnimating(false);
+                    setIsPlayerTurn(true);
+                    setCurrentMenu("main");
+                } else {
+                    setBattleText("You win! Opponent has no Pokémon left!");
+                    console.log("Player wins, no opponent left");
+                    setIsAnimating(false);
+                }
+            } else {
+                if (!isStatusMove) {
+                    setBattleText(`${currentOpponent.name} took ${damage} damage!`);
+                    console.log(`${currentOpponent.name} took ${damage} damage`);
+                }
+
+                await delay(1000);
+
+                setIsPlayerTurn(false);
+                setIsAnimating(false);
+                setPendingAction({ type: "opponentMove" }); // Gegnerzug starten
+            }
+        };
+
+        const processEnemyMove = async () => {
+            console.log("Processing enemy move");
+
+            const currentOpponent = opponentTeam[activeOpponentIndex];
+            const currentPlayer = playerTeam[activePlayerIndex];
+
+            const availableMoves = currentOpponent.moveset.filter(
+                (move) => currentOpponent.getCurrentPP(move.name) > 0
+            );
+
+            if (availableMoves.length === 0) {
+                setBattleText(`${currentOpponent.name} has no moves left!`);
+                console.log(`${currentOpponent.name} has no moves left!`);
+                setIsPlayerTurn(true);
+                setIsAnimating(false);
+                setPendingAction(null);
+                return;
+            }
+
+            const randomMove = availableMoves[Math.floor(Math.random() * availableMoves.length)];
+            setBattleText(`${currentOpponent.name} used ${randomMove.name}!`);
+            console.log(`${currentOpponent.name} used ${randomMove.name}`);
+
+            await delay(1000);
+
+            const isStatusMove = randomMove.damageClass === "Status";
+            const damage = isStatusMove ? 0 : Math.floor(randomMove.power / 2);
+            const newHp = Math.max(0, currentPlayer.currentHP - damage);
+
+            setOpponentTeam((prevTeam) =>
+                prevTeam.map((p, i) => {
+                    if (i === activeOpponentIndex && p.id === currentOpponent.id) {
+                        const updated = p.clone();
+                        updated.setCurrentPP(randomMove.name, Math.max(0, updated.getCurrentPP(randomMove.name) - 1));
+                        console.log(`PP reduced for opponent ${p.name} move ${randomMove.name}`);
+                        return updated;
+                    }
+                    return p;
+                })
+            );
+
+            if (!isStatusMove) {
+                setPlayerTeam((prevTeam) =>
+                    prevTeam.map((p, i) => {
+                        if (i === activePlayerIndex && p.id === currentPlayer.id) {
+                            const updated = p.clone();
+                            updated.setCurrentHP(newHp);
+                            console.log(`Player ${p.name} HP reduced to ${newHp}`);
+                            return updated;
+                        }
+                        return p;
+                    })
+                );
+            }
+
+            await delay(1000);
+
+            if (!isStatusMove && newHp === 0) {
+                setBattleText(`${currentPlayer.name} fainted!`);
+                console.log(`${currentPlayer.name} fainted!`);
+
+                const availablePokemon = playerTeam.filter(
+                    (p) => p.currentHP > 0 && p.id !== currentPlayer.id
+                );
+
+                await delay(1500);
+
+                if (availablePokemon.length > 0) {
+                    setBattleText("Please select a new Pokemon.");
+                    setCurrentMenu("pokemon");
+                    setIsAnimating(false);
+                    console.log("Player must switch Pokemon");
+                } else {
+                    setBattleText("All your Pokémon have fainted! You lose!");
+                    setIsAnimating(false);
+                    console.log("Player lost, no Pokemon left");
+                }
+                setPendingAction(null);
+            } else {
+                if (!isStatusMove) {
+                    setBattleText(`${currentPlayer.name} took ${damage} damage!`);
+                    console.log(`${currentPlayer.name} took ${damage} damage`);
+                }
+                setIsPlayerTurn(true);
+                setIsAnimating(false);
+                setPendingAction(null);
+            }
+        };
+
+        const processSwitchPokemon = async (newPokemon: Pokemon_in_battle) => {
+
+            const currentPlayer = playerTeam[activePlayerIndex];
+            console.log("Switching Pokémon:", newPokemon.name);
+
+            if (!newPokemon || newPokemon.id === currentPlayer.id || newPokemon.currentHP <= 0) {
+                setPendingAction(null);
+                return;
+            }
+            setIsSwitchingPokemon(true);
+            setSwitchingOut(currentPlayer);
+            setSwitchingIn(newPokemon);
+            setSwitchDirection("out");
+            setBattleText(`Come back, ${currentPlayer.name}!`);
+
+            await delay(1000);
+
+            setSwitchDirection("in");
+            setBattleText(`Go, ${newPokemon.name}!`);
+
+            await delay(1000);
+
+            const newIndex = playerTeam.findIndex((p) => p.id === newPokemon.id);
+            if (newIndex !== -1) {
+                setActivePlayerIndex(newIndex);
+                setIsSwitchingPokemon(false);
+                setSwitchingOut(null);
+                setSwitchingIn(null);
+                setCurrentMenu("main");
+            }
+
+            if (isPlayerTurn && newPokemon.currentHP > 0) {
+                setIsPlayerTurn(false);
+                await delay(1000);
+                setPendingAction({ type: "opponentMove" }); // Gegnerzug starten
+            } else {
+                setBattleText(`What will ${newPokemon.name} do?`);
+            }
+        }
+
+        const processSwitchOpponent = async (newPokemon: Pokemon_in_battle) => {
+
+            const currentOpponent = opponentTeam[activeOpponentIndex];
+            const playerPokemon = playerTeam[activePlayerIndex];
+
+            console.log("Switching opponent Pokémon:", newPokemon.name);
+            if (!newPokemon || newPokemon.id === currentOpponent.id || newPokemon.currentHP <= 0) {
+                setPendingAction(null);
+                return;
+            }
+
+            setIsSwitchingPokemon(true);
+            setSwitchingOut(currentOpponent);
+            setSwitchingIn(newPokemon);
+            setSwitchDirection("out");
+
+            setBattleText(`Opponent withdraws ${currentOpponent.name}!`);
+
+            await delay(1000);
+
+            setSwitchDirection("in");
+            setBattleText(`Opponent sends out ${newPokemon.name}!`);
+
+            await delay(1000);
+
+            const newIndex = opponentTeam.findIndex((p) => p.id === newPokemon.id);
+            if (newIndex !== -1) {
+                setActiveOpponentIndex(newIndex);
+                setIsSwitchingPokemon(false);
+                setSwitchingOut(null);
+                setSwitchingIn(null);
+                setCurrentMenu("main");
+            }
+            setBattleText(`What will ${playerPokemon.name} do?`);
+
+        }
+
+        const processForcedSwitch = async (newPokemon: Pokemon_in_battle) => {
+            const currentPlayer = playerTeam[activePlayerIndex];
+            console.log("Forced switch to Pokémon:", newPokemon.name);
+
+            if (!newPokemon || newPokemon.id === currentPlayer.id || newPokemon.currentHP <= 0) {
+                setPendingAction(null);
+                return;
+            }
+
+            if (currentPlayer.currentHP <= 0) {
+                setBattleText(`${currentPlayer.name} has fainted!`);
+
+                setIsSwitchingPokemon(true);
+                setSwitchingOut(currentPlayer);
+                setSwitchingIn(newPokemon);
+                setSwitchDirection("out");
+                setBattleText(`Come back, ${currentPlayer.name}!`);
+
+                await delay(1000);
+
+                setSwitchDirection("in");
+                setBattleText(`Go, ${newPokemon.name}!`);
+
+                await delay(1000);
+
+                const newIndex = playerTeam.findIndex((p) => p.id === newPokemon.id);
+                if (newIndex !== -1) {
+                    setActivePlayerIndex(newIndex);
+                    setIsSwitchingPokemon(false);
+                    setSwitchingOut(null);
+                    setSwitchingIn(null);
+                    setCurrentMenu("main");
+                    setBattleText(`What will ${newPokemon.name} do?`);
+                    setIsPlayerTurn(true);
+                    setIsAnimating(false);
+                }
+            }
+        }
+
+        // Verarbeite die Aktion basierend auf dem Typ
+        if (pendingAction.type === "playerMove") {
+            processPlayerMove(pendingAction.move);
+        } else if (pendingAction.type === "opponentMove") {
+            processEnemyMove();
+        } else if (pendingAction.type === "switchPokemon") {
+            processSwitchPokemon(pendingAction.newPokemon);
+        } else if (pendingAction.type === "switchOpponent") {
+            processSwitchOpponent(pendingAction.newPokemon);
+        } else if (pendingAction.type === "ForcedSwitch") {
+            processForcedSwitch(pendingAction.newPokemon);
+        }
+        setPendingAction(null);
+    }, [pendingAction]);
+
+
     const handlePlayerMove = (move: Moves) => {
         if (!isPlayerTurn || isAnimating) return
-
+        console.log("Player's turn to move:", move.name);
+        setPendingAction({ type: "playerMove", move })
         setIsAnimating(true)
-        setBattleText(`${playerPokemon.name} used ${move.name}!`)
         setCurrentMenu("main")
-
-        setTimeout(() => {
-            if (move.damageClass != "Status") {
-                const damage = Math.floor(move.power / 2)
-                const newHp = Math.max(0, opponentPokemon.currentHP - damage)
-
-                setOpponentPokemon((prev) => {
-                    prev.setCurrentHP(newHp)
-                    return prev
-                })
-
-                // Update team HP
-                setOpponentTeam((prev) => {
-                    const newTeam = [...prev]
-                    const activeIndex = newTeam.findIndex((p) => p.name === opponentPokemon.name)
-                    if (activeIndex !== -1) {
-                        newTeam[activeIndex].setCurrentHP(newHp)
-                    }
-                    return newTeam
-                })
-
-                // Reduce PP
-                playerPokemon.setCurrentPP(move.name, playerPokemon.getCurrentPP(move.name) - 1)
-
-                if (newHp === 0) {
-                    setBattleText(`${opponentPokemon.name} fainted!`)
-
-                    // Find next available opponent Pokemon
-                    const nextOpponent = opponentTeam.find((p) => p.currentHP > 0 && p.name !== opponentPokemon.name)
-
-                    if (nextOpponent) {
-                        setTimeout(() => {
-                            setBattleText("Opponent is switching Pokémon...")
-                            switchOpponentPokemon(nextOpponent)
-                        }, 1500)
-                        return
-                    } else {
-                        setBattleText("You defeated all opponent's Pokémon! You win!")
-                        setIsAnimating(false)
-                        return
-                    }
-                }
-                setBattleText(`${opponentPokemon.name} took ${damage} damage!`)
-                setIsPlayerTurn(false)
-                setTimeout(() => handleOpponentMove(), 1500)
-            } else {
-                setBattleText(`${playerPokemon.name} used ${move.name}!`)
-                setIsPlayerTurn(false)
-                setTimeout(() => handleOpponentMove(), 1500)
-            }
-        }, 1000)
+        setBattleText(`${playerPokemon.name} used ${move.name}!`)
     }
 
     const handleOpponentMove = () => {
-        const availableMoves = opponentPokemon.moveset.filter((move) => opponentPokemon.getCurrentPP(move.name) > 0)
-        if (availableMoves.length === 0) {
-            setBattleText(`${opponentPokemon.name} has no moves left!`)
-            setIsPlayerTurn(true)
-            setIsAnimating(false)
-            return
-        }
-
-        const randomMove = availableMoves[Math.floor(Math.random() * availableMoves.length)]
-        setBattleText(`${opponentPokemon.name} used ${randomMove.name}!`)
-
-        setTimeout(() => {
-            if (randomMove.damageClass !== "Status") {
-                const damage = Math.floor(randomMove.power / 2)
-                const newHp = Math.max(0, playerPokemon.currentHP - damage)
-
-                setPlayerPokemon((prev) => {
-                    prev.setCurrentHP(newHp)
-                    return prev
-                })
-
-                // Update team HP
-                setPlayerTeam((prev) => {
-                    const newTeam = [...prev]
-                    const activeIndex = newTeam.findIndex((p) => p.name === playerPokemon.name)
-                    if (activeIndex !== -1) {
-                        newTeam[activeIndex].setCurrentHP(newHp)
-                    }
-                    return newTeam
-                })
-
-                // Reduce PP
-                opponentPokemon.setCurrentPP(randomMove.name, opponentPokemon.getCurrentPP(randomMove.name) - 1)
-
-                if (newHp === 0) {
-                    setBattleText(`${playerPokemon.name} fainted!`)
-
-                    // Check if player has any Pokemon left
-                    const availablePokemon = playerTeam.filter((p) => p.currentHP > 0 && p.name !== playerPokemon.name)
-
-                    if (availablePokemon.length > 0) {
-                        setTimeout(() => {
-                            setBattleText("Please select a new Pokemon.")
-                            setCurrentMenu("pokemon")
-                        }, 1500)
-                    } else {
-                        setBattleText("All your Pokémon have fainted! You lose!")
-                    }
-                    setIsAnimating(false)
-                    return
-                }
-
-                setBattleText(`${playerPokemon.name} took ${damage} damage!`)
-            } else {
-                setBattleText(`${opponentPokemon.name} used ${randomMove.name}!`)
-            }
-
-            setIsPlayerTurn(true)
-            setIsAnimating(false)
-        }, 1000)
-    }
-
-    const switchPlayerPokemon = (newPokemon: Pokemon_in_battle) => {
-        if (newPokemon.name === playerPokemon.name || newPokemon.currentHP <= 0) return
-
-        setIsSwitchingPokemon(true)
-        setSwitchingOut(playerPokemon)
-        setSwitchingIn(newPokemon)
-        setSwitchDirection("out")
-
-        setBattleText(`Come back, ${playerPokemon.name}!`)
-
-        setTimeout(() => {
-            setSwitchDirection("in")
-            setBattleText(`Go, ${newPokemon.name}!`)
-
-            setTimeout(() => {
-                setPlayerPokemon(newPokemon)
-                setIsSwitchingPokemon(false)
-                setSwitchingOut(null)
-                setSwitchingIn(null)
-
-                // If it was player's turn, they lose their turn when switching
-                if (isPlayerTurn && playerPokemon.currentHP > 0) {
-                    setIsPlayerTurn(false)
-                    setTimeout(() => handleOpponentMove(), 1000)
-                } else {
-                    setCurrentMenu("main")
-                    setBattleText(`What will ${newPokemon.name} do?`)
-                }
-            }, 1000)
-        }, 1000)
-    }
-
-    const switchOpponentPokemon = (newPokemon: Pokemon_in_battle) => {
-        if (newPokemon.name === opponentPokemon.name || newPokemon.currentHP <= 0) return
-
-        setIsSwitchingPokemon(true)
-        setSwitchingOut(opponentPokemon)
-        setSwitchingIn(newPokemon)
-        setSwitchDirection("out")
-
-        setBattleText(`Opponent withdraws ${opponentPokemon.name}!`)
-
-        setTimeout(() => {
-            setSwitchDirection("in")
-            setBattleText(`Opponent sends out ${newPokemon.name}!`)
-
-            setTimeout(() => {
-                setOpponentPokemon(newPokemon)
-                setIsSwitchingPokemon(false)
-                setSwitchingOut(null)
-                setSwitchingIn(null)
-                setIsPlayerTurn(true)
-                setIsAnimating(false)
-                setCurrentMenu("main")
-                setBattleText(`What will ${playerPokemon.name} do?`)
-            }, 1000)
-        }, 1000)
-    }
-
-    const getTypeColor = (type: string): string => {
-        const colors: { [key: string]: string } = {
-            Normal: "bg-gray-400 text-black",
-            Fire: "bg-red-500 text-white",
-            Water: "bg-blue-500 text-white",
-            Electric: "bg-yellow-400 text-black",
-            Grass: "bg-green-500 text-white",
-            Ice: "bg-blue-300 text-black",
-            Fighting: "bg-red-700 text-white",
-            Poison: "bg-purple-500 text-white",
-            Ground: "bg-yellow-700 text-black",
-            Flying: "bg-indigo-400 text-white",
-            Psychic: "bg-pink-400 text-white",
-            Bug: "bg-lime-500 text-black",
-            Rock: "bg-yellow-600 text-white",
-            Ghost: "bg-purple-700 text-white",
-            Dragon: "bg-purple-600 text-white",
-            Dark: "bg-gray-800 text-white",
-            Steel: "bg-gray-600 text-white",
-            Fairy: "bg-pink-300 text-black",
-        }
-
-        return colors[type] || "bg-gray-500 text-white"
+        if (isAnimating) return;
+        console.log("Opponent's turn to move");
+        setPendingAction({ type: "opponentMove" })
+        setIsAnimating(true)
+        setCurrentMenu("main")
     }
 
     const handleMenuSelect = (menu: MenuOption) => {
@@ -277,18 +436,91 @@ export default function pokemon_battle({
     }
 
     const handlePokemonSelect = (pokemon: Pokemon_in_battle) => {
-        if (pokemon.currentHP <= 0) {
-            setBattleText(`${pokemon.name} has fainted and cannot battle!`)
-            return
-        }
+        // Totes Pokémon darf nicht ausgewählt werden
+        if (pokemon.currentHP <= 0) return;
 
-        if (pokemon.name === playerPokemon.name) {
-            setBattleText(`${pokemon.name} is already in battle!`)
-            return
-        }
+        const currentPlayer = playerTeam[activePlayerIndex];
 
-        switchPlayerPokemon(pokemon)
+        // Wenn aktuelles Pokémon noch lebt und man versucht dasselbe auszuwählen → abbrechen
+        if (currentPlayer.currentHP > 0 && pokemon.id === currentPlayer.id) return;
+
+        // Wenn aktuelles Pokémon tot ist → erzwungener Wechsel (z.B. nach K.O.)
+        if (currentPlayer.currentHP === 0) {
+            setPendingAction({ type: "ForcedSwitch", newPokemon: pokemon });
+        } else {
+            // Normaler Wechsel durch Menü
+            switchPlayerPokemon(pokemon);
+        }
+    };
+
+    const switchPlayerPokemon = (newPokemon: Pokemon_in_battle) => {
+        if (isAnimating || !isPlayerTurn) return
+        console.log("Switching player Pokémon:", newPokemon.name);
+        setPendingAction({ type: "switchPokemon", newPokemon })
         setCurrentMenu("main")
+    }
+
+    const switchOpponentPokemon = (newPokemon: Pokemon_in_battle) => {
+        if (isAnimating || !isPlayerTurn) return
+        console.log("Switching opponent Pokémon:", newPokemon.name);
+        setPendingAction({ type: "switchOpponent", newPokemon })
+        setCurrentMenu("main")
+    }
+
+    const getTypeColor = (type: string): string => {
+        const colors: { [key: string]: string } = {
+            Normal: "bg-gray-400 text-black",
+            Fire: "bg-red-500 text-white",
+            Water: "bg-blue-500 text-white",
+            Electric: "bg-yellow-400 text-black",
+            Grass: "bg-green-500 text-white",
+            Ice: "bg-blue-300 text-black",
+            Fighting: "bg-red-700 text-white",
+            Poison: "bg-purple-500 text-white",
+            Ground: "bg-yellow-700 text-black",
+            Flying: "bg-indigo-400 text-white",
+            Psychic: "bg-pink-400 text-white",
+            Bug: "bg-lime-500 text-black",
+            Rock: "bg-yellow-600 text-white",
+            Ghost: "bg-purple-700 text-white",
+            Dragon: "bg-purple-600 text-white",
+            Dark: "bg-gray-800 text-white",
+            Steel: "bg-gray-600 text-white",
+            Fairy: "bg-pink-300 text-black",
+        }
+
+        return colors[type] || "bg-gray-500 text-white"
+    }
+    const getHPColor = (currentHP: number, maxHP: number): string => {
+        const percentage = (currentHP / maxHP) * 100
+        if (percentage > 50) return "bg-green-500"
+        if (percentage > 25) return "bg-yellow-500"
+        return "bg-red-500"
+    }
+    const getTypeIcon = (type: string): JSX.Element => {
+        const iconMap: { [key: string]: JSX.Element } = {
+            Normal: <Circle className="w-4 h-4" />,
+            Fire: <Flame className="w-4 h-4" />,
+            Water: <Droplet className="w-4 h-4" />,
+            Electric: <Zap className="w-4 h-4" />,
+            Grass: <Leaf className="w-4 h-4" />,
+            Ice: <Snowflake className="w-4 h-4" />,
+            Fighting: <Swords className="w-4 h-4" />,
+            Poison: <Skull className="w-4 h-4" />,
+            Ground: <Globe className="w-4 h-4" />,
+            Flying: <Bird className="w-4 h-4" />,
+            Psychic: <Eye className="w-4 h-4" />,
+            Bug: <Bug className="w-4 h-4" />,
+            Rock: <Mountain className="w-4 h-4" />,
+            Ghost: <Ghost className="w-4 h-4" />,
+            Dragon: <Mountain className="w-4 h-4" />,  
+            Dark: <Moon className="w-4 h-4" />,
+            Steel: <Shield className="w-4 h-4" />,
+            Fairy: <Sparkles className="w-4 h-4" />,
+            Stellar: <Star className="w-4 h-4" />,     
+        }
+
+        return iconMap[type] || <HelpCircle className="w-4 h-4" />
     }
 
     return (
@@ -306,8 +538,8 @@ export default function pokemon_battle({
                                             key={index}
                                             size={16}
                                             className={`transition-all duration-300 ${pokemon.currentHP > 0
-                                                    ? "text-red-500 hover:scale-110"
-                                                    : "text-gray-400 dark:text-gray-600 opacity-50"
+                                                ? "text-red-500 hover:scale-110"
+                                                : "text-gray-400 dark:text-gray-600 opacity-50"
                                                 }`}
                                         />
                                     ))}
@@ -415,6 +647,7 @@ export default function pokemon_battle({
                                                     <Progress
                                                         value={(opponentPokemon.currentHP / opponentPokemon.maxHP) * 100}
                                                         className="h-2 shadow-sm"
+                                                        indicatorClassName={getHPColor(opponentPokemon.currentHP, opponentPokemon.maxHP)}
                                                     />
                                                 </div>
                                             </CardContent>
@@ -450,6 +683,7 @@ export default function pokemon_battle({
                                                     <Progress
                                                         value={(playerPokemon.currentHP / playerPokemon.maxHP) * 100}
                                                         className="h-2 shadow-sm"
+                                                        indicatorClassName={getHPColor(playerPokemon.currentHP, playerPokemon.maxHP)}
                                                     />
                                                 </div>
                                             </CardContent>
@@ -539,10 +773,10 @@ export default function pokemon_battle({
                                                 <SimplePokeballIcon
                                                     size={18}
                                                     className={`transition-all duration-300 ${pokemon.currentHP > 0
-                                                            ? pokemon.name === playerPokemon.name
-                                                                ? "text-green-500 scale-110"
-                                                                : "text-red-500 hover:scale-110 cursor-pointer"
-                                                            : "text-gray-400 dark:text-gray-600 opacity-50"
+                                                        ? pokemon.name === playerPokemon.name
+                                                            ? "text-green-500 scale-110"
+                                                            : "text-red-500 hover:scale-110 cursor-pointer"
+                                                        : "text-gray-400 dark:text-gray-600 opacity-50"
                                                         }`}
                                                 />
                                             </span>
@@ -625,7 +859,7 @@ export default function pokemon_battle({
                                         <>
                                             <div className="grid grid-cols-2 gap-3 mb-3">
                                                 {playerPokemon.moveset.map((move, index) => {
-                                                    const IconComponent = Zap
+                                                    const iconElement = getTypeIcon(move.type)
                                                     const currentPP = playerPokemon.getCurrentPP(move.name)
                                                     const isDisabled = currentPP <= 0
 
@@ -643,13 +877,12 @@ export default function pokemon_battle({
                                                                 border-slate-200 dark:border-slate-600 bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm shadow-md hover:shadow-lg transition-all duration-200`}
                                                         >
                                                             <div className={`p-2 rounded-lg ${getTypeColor(move.type)} shadow-sm`}>
-                                                                <IconComponent className="h-4 w-4 text-white" />
+                                                                {iconElement}
                                                             </div>
                                                             <div className="flex flex-col items-start">
                                                                 <span className="font-semibold text-sm">{move.name}</span>
                                                                 <span className="text-xs text-muted-foreground">
-                                                                    {move.power > 0 ? `${move.power} DMG` : "Status"} • {move.type} • {currentPP}/
-                                                                    {move.pp}
+                                                                    {move.power > 0 ? `${move.power} Power` : "Status"} • {move.type} • {move.damageClass} • {currentPP}/{move.pp}
                                                                 </span>
                                                             </div>
                                                         </Button>
@@ -667,31 +900,33 @@ export default function pokemon_battle({
                                     )}
 
                                 {/* Pokemon Menu */}
-                                {!isSwitchingPokemon &&
-                                    playerPokemon.currentHP > 0 &&
-                                    opponentPokemon.currentHP > 0 &&
-                                    currentMenu === "pokemon" && (
-                                        <>
-                                            <div className="grid grid-cols-3 gap-4 mb-4">
-                                                {playerTeam.map((pokemon, index) => (
+                                {!isSwitchingPokemon && opponentPokemon.currentHP > 0 && currentMenu === "pokemon" && (
+                                    <>
+                                        <div className="grid grid-cols-3 gap-4 mb-4">
+                                            {playerTeam.map((pokemon, index) => {
+                                                const isSelectable =
+                                                    pokemon.currentHP > 0 &&
+                                                    (playerPokemon.currentHP === 0 || pokemon.id !== playerPokemon.id);
+
+                                                return (
                                                     <motion.div
                                                         key={index}
-                                                        whileHover={pokemon.currentHP > 0 ? { scale: 1.05 } : {}}
-                                                        onClick={() => pokemon.currentHP > 0 && handlePokemonSelect(pokemon)}
+                                                        whileHover={isSelectable ? { scale: 1.05 } : {}}
+                                                        onClick={() => isSelectable && handlePokemonSelect(pokemon)}
                                                         className={`flex flex-col items-center justify-center p-3 rounded-lg shadow-md transition-all duration-200 ${pokemon.currentHP === 0
-                                                                ? "opacity-50 cursor-not-allowed"
-                                                                : pokemon.name === playerPokemon.name
-                                                                    ? "bg-green-100/80 dark:bg-green-900/30 border border-green-300 dark:border-green-700"
-                                                                    : "cursor-pointer bg-white/80 dark:bg-slate-800/80 hover:bg-blue-50/80 dark:hover:bg-blue-900/20"
+                                                            ? "opacity-50 cursor-not-allowed"
+                                                            : pokemon.id === playerPokemon.id
+                                                                ? "bg-green-100/80 dark:bg-green-900/30 border border-green-300 dark:border-green-700"
+                                                                : "cursor-pointer bg-white/80 dark:bg-slate-800/80 hover:bg-blue-50/80 dark:hover:bg-blue-900/20"
                                                             }`}
                                                     >
                                                         <div className="relative w-20 h-20">
                                                             <SimplePokeballIcon
                                                                 size={80}
-                                                                className={pokemon.name === playerPokemon.name ? "text-green-500" : "text-red-500"}
+                                                                className={pokemon.id === playerPokemon.id ? "text-green-500" : "text-red-500"}
                                                             />
                                                             <img
-                                                                src={pokemon.sprite || "/placeholder.svg"}
+                                                                src={pokemon.sprite_back || "/placeholder.svg"}
                                                                 alt={pokemon.name}
                                                                 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 object-contain"
                                                             />
@@ -701,10 +936,10 @@ export default function pokemon_battle({
                                                             <Progress
                                                                 value={(pokemon.currentHP / pokemon.maxHP) * 100}
                                                                 className={`h-1.5 ${(pokemon.currentHP / pokemon.maxHP) > 0.5
-                                                                        ? "bg-green-200 dark:bg-green-800"
-                                                                        : pokemon.currentHP / pokemon.maxHP > 0.25
-                                                                            ? "bg-yellow-200 dark:bg-yellow-800"
-                                                                            : "bg-red-200 dark:bg-red-800"
+                                                                    ? "bg-green-200 dark:bg-green-800"
+                                                                    : pokemon.currentHP / pokemon.maxHP > 0.25
+                                                                        ? "bg-yellow-200 dark:bg-yellow-800"
+                                                                        : "bg-red-200 dark:bg-red-800"
                                                                     }`}
                                                             />
                                                         </div>
@@ -712,17 +947,23 @@ export default function pokemon_battle({
                                                             {pokemon.currentHP}/{pokemon.maxHP} HP
                                                         </span>
                                                     </motion.div>
-                                                ))}
-                                            </div>
-                                            <Button
-                                                onClick={() => setCurrentMenu("main")}
-                                                variant="outline"
-                                                className="w-full text-sm h-8 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600"
-                                            >
-                                                Back
-                                            </Button>
-                                        </>
-                                    )}
+                                                );
+                                            })}
+                                        </div>
+                                        <Button
+                                            onClick={() => {
+                                                if (playerPokemon.currentHP > 0) {
+                                                    setCurrentMenu("main")
+                                                }
+                                            }}
+                                            variant="outline"
+                                            className="w-full text-sm h-8 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600"
+                                            disabled={playerPokemon.currentHP === 0}
+                                        >
+                                            {playerPokemon.currentHP === 0 ? "Choose a Pokémon" : "Back"}
+                                        </Button>
+                                    </>
+                                )}
 
                                 {/* Run Confirmation Menu */}
                                 {isPlayerTurn &&
@@ -802,6 +1043,6 @@ export default function pokemon_battle({
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }

@@ -230,7 +230,7 @@ import { mockPokemonList } from "./lib/mock-data"
 function App() {
   return (
     <PokemonBattle
-      FullUserteam={[mockPokemonList[0], mockPokemonList[1], mockPokemonList[0], mockPokemonList[1], mockPokemonList[0], mockPokemonList[1]]}
+      FullUserteam={[mockPokemonList[0], mockPokemonList[1], mockPokemonList[4], mockPokemonList[1], mockPokemonList[0], mockPokemonList[1]]}
       FullEnemyTeam={[mockPokemonList[2], mockPokemonList[3], mockPokemonList[2], mockPokemonList[3], mockPokemonList[2], mockPokemonList[3]]}
     />
   );
