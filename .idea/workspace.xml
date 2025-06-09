@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e6296274-5d31-47e2-b6a9-e55bee476383" name="Changes" comment="" />
+    <list default="true" id="e6296274-5d31-47e2-b6a9-e55bee476383" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Frontend/pokemon_battler/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/pokemon_battler/src/App.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -69,6 +71,7 @@
       <workItem from="1746688765778" duration="1801000" />
       <workItem from="1746702799397" duration="518000" />
       <workItem from="1746708580939" duration="9000" />
+      <workItem from="1749419374755" duration="19000" />
     </task>
     <task id="LOCAL-00001" summary="Beginning of the Frontend">
       <option name="closed" value="true" />

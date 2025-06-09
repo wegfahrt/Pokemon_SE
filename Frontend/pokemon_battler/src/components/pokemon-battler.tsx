@@ -10,7 +10,8 @@ import {
     Swords, Package, User2, LogOut, Bird, Bug, Circle,
     Droplet, Eye, Flame, Ghost, Globe, HelpCircle, Leaf,
     Moon, Skull, Snowflake, Sparkles, Mountain,
-    Star
+    Star,
+    ArrowLeft
 } from "lucide-react"
 import { SimplePokeballIcon } from "@/components/ui/pokeball-icon"
 import type { Pokemon, Pokemon_in_battle, Moves } from "@/lib/types"
@@ -19,15 +20,22 @@ import React from "react"
 
 type MenuOption = "main" | "attack" | "pokemon" | "items" | "run"
 
+type PokemonBattlerProps = {
+    FullUserTeam: Pokemon[];
+    FullEnemyTeam: Pokemon[];
+    onEndofBattle: () => void;
+}
+
 export default function pokemon_battle({
-    FullUserteam,
+    FullUserTeam,
     FullEnemyTeam,
-}: { FullUserteam: Pokemon[]; FullEnemyTeam: Pokemon[] }) {
+    onEndofBattle
+}: PokemonBattlerProps) {
 
     // Battle-ready Teams nur einmal erzeugen (Memo)
     const initialUserTeam = React.useMemo(
-        () => FullUserteam.map((p) => p.makeBattleReady()),
-        [FullUserteam]
+        () => FullUserTeam.map((p) => p.makeBattleReady()),
+        [FullUserTeam]
     )
     const initialEnemyTeam = React.useMemo(
         () => FullEnemyTeam.map((p) => p.makeBattleReady()),
@@ -54,11 +62,17 @@ export default function pokemon_battle({
     const [currentMenu, setCurrentMenu] = useState<MenuOption>("main")
     const [showRunConfirmation, setShowRunConfirmation] = useState(false)
 
-    // Animation States
-    const [isSwitchingPokemon, setIsSwitchingPokemon] = useState(false)
-    const [switchingIn, setSwitchingIn] = useState<Pokemon_in_battle | null>(null)
-    const [switchingOut, setSwitchingOut] = useState<Pokemon_in_battle | null>(null)
-    const [switchDirection, setSwitchDirection] = useState<"in" | "out">("out")
+    // Animation States for Player
+    const [isSwitchingPlayer, setIsSwitchingPlayer] = useState(false)
+    const [switchingInPlayer, setSwitchingInPlayer] = useState<Pokemon_in_battle | null>(null)
+    const [switchingOutPlayer, setSwitchingOutPlayer] = useState<Pokemon_in_battle | null>(null)
+    const [switchDirectionPlayer, setSwitchDirectionPlayer] = useState<"in" | "out">("out")
+
+    // Animation States for Opponent
+    const [isSwitchingOpponent, setIsSwitchingOpponent] = useState(false)
+    const [switchingInOpponent, setSwitchingInOpponent] = useState<Pokemon_in_battle | null>(null)
+    const [switchingOutOpponent, setSwitchingOutOpponent] = useState<Pokemon_in_battle | null>(null)
+    const [switchDirectionOpponent, setSwitchDirectionOpponent] = useState<"in" | "out">("out")
 
 
     type PendingAction = null |
@@ -138,15 +152,10 @@ export default function pokemon_battle({
 
                     await delay(1000);
 
-                    setBattleText(`Opponent sends out ${nextPokemon.name}!`);
-                    setActiveOpponentIndex(opponentTeam.findIndex((p) => p.id === nextPokemon.id));
-                    console.log(`Opponent sent out ${nextPokemon.name}`);
-
-                    await delay(1000);
+                    await processSwitchOpponent(nextPokemon);
 
                     setIsAnimating(false);
                     setIsPlayerTurn(true);
-                    setCurrentMenu("main");
                 } else {
                     setBattleText("You win! Opponent has no Pokémon left!");
                     console.log("Player wins, no opponent left");
@@ -188,7 +197,7 @@ export default function pokemon_battle({
             const randomMove = availableMoves[Math.floor(Math.random() * availableMoves.length)];
             setBattleText(`${currentOpponent.name} used ${randomMove.name}!`);
             console.log(`${currentOpponent.name} used ${randomMove.name}`);
-
+            setIsAnimating(true);
             await delay(1000);
 
             const isStatusMove = randomMove.damageClass === "Status";
@@ -258,21 +267,22 @@ export default function pokemon_battle({
         const processSwitchPokemon = async (newPokemon: Pokemon_in_battle) => {
 
             const currentPlayer = playerTeam[activePlayerIndex];
-            console.log("Switching Pokémon:", newPokemon.name);
 
+            console.log("Switching Pokémon:", newPokemon.name);
             if (!newPokemon || newPokemon.id === currentPlayer.id || newPokemon.currentHP <= 0) {
                 setPendingAction(null);
                 return;
             }
-            setIsSwitchingPokemon(true);
-            setSwitchingOut(currentPlayer);
-            setSwitchingIn(newPokemon);
-            setSwitchDirection("out");
+            setIsSwitchingPlayer(true);
+            setSwitchingOutPlayer(currentPlayer);
+            setSwitchingInPlayer(newPokemon);
+            setSwitchDirectionPlayer("out");
+
             setBattleText(`Come back, ${currentPlayer.name}!`);
 
             await delay(1000);
 
-            setSwitchDirection("in");
+            setSwitchDirectionPlayer("in");
             setBattleText(`Go, ${newPokemon.name}!`);
 
             await delay(1000);
@@ -280,9 +290,9 @@ export default function pokemon_battle({
             const newIndex = playerTeam.findIndex((p) => p.id === newPokemon.id);
             if (newIndex !== -1) {
                 setActivePlayerIndex(newIndex);
-                setIsSwitchingPokemon(false);
-                setSwitchingOut(null);
-                setSwitchingIn(null);
+                setIsSwitchingPlayer(false);
+                setSwitchingOutPlayer(null);
+                setSwitchingInPlayer(null);
                 setCurrentMenu("main");
             }
 
@@ -306,16 +316,16 @@ export default function pokemon_battle({
                 return;
             }
 
-            setIsSwitchingPokemon(true);
-            setSwitchingOut(currentOpponent);
-            setSwitchingIn(newPokemon);
-            setSwitchDirection("out");
+            setIsSwitchingOpponent(true);
+            setSwitchingOutOpponent(currentOpponent);
+            setSwitchingInOpponent(newPokemon);
+            setSwitchDirectionOpponent("out");
 
             setBattleText(`Opponent withdraws ${currentOpponent.name}!`);
 
             await delay(1000);
 
-            setSwitchDirection("in");
+            setSwitchDirectionOpponent("in");
             setBattleText(`Opponent sends out ${newPokemon.name}!`);
 
             await delay(1000);
@@ -323,13 +333,12 @@ export default function pokemon_battle({
             const newIndex = opponentTeam.findIndex((p) => p.id === newPokemon.id);
             if (newIndex !== -1) {
                 setActiveOpponentIndex(newIndex);
-                setIsSwitchingPokemon(false);
-                setSwitchingOut(null);
-                setSwitchingIn(null);
+                setIsSwitchingOpponent(false);
+                setSwitchingOutOpponent(null);
+                setSwitchingInOpponent(null);
+                setBattleText(`What will ${playerPokemon.name} do?`);
                 setCurrentMenu("main");
             }
-            setBattleText(`What will ${playerPokemon.name} do?`);
-
         }
 
         const processForcedSwitch = async (newPokemon: Pokemon_in_battle) => {
@@ -344,15 +353,15 @@ export default function pokemon_battle({
             if (currentPlayer.currentHP <= 0) {
                 setBattleText(`${currentPlayer.name} has fainted!`);
 
-                setIsSwitchingPokemon(true);
-                setSwitchingOut(currentPlayer);
-                setSwitchingIn(newPokemon);
-                setSwitchDirection("out");
+                setIsSwitchingPlayer(true);
+                setSwitchingOutPlayer(currentPlayer);
+                setSwitchingInPlayer(newPokemon);
+                setSwitchDirectionPlayer("out");
                 setBattleText(`Come back, ${currentPlayer.name}!`);
 
                 await delay(1000);
 
-                setSwitchDirection("in");
+                setSwitchDirectionPlayer("in");
                 setBattleText(`Go, ${newPokemon.name}!`);
 
                 await delay(1000);
@@ -360,9 +369,9 @@ export default function pokemon_battle({
                 const newIndex = playerTeam.findIndex((p) => p.id === newPokemon.id);
                 if (newIndex !== -1) {
                     setActivePlayerIndex(newIndex);
-                    setIsSwitchingPokemon(false);
-                    setSwitchingOut(null);
-                    setSwitchingIn(null);
+                    setIsSwitchingPlayer(false);
+                    setSwitchingOutPlayer(null);
+                    setSwitchingInPlayer(null);
                     setCurrentMenu("main");
                     setBattleText(`What will ${newPokemon.name} do?`);
                     setIsPlayerTurn(true);
@@ -425,9 +434,7 @@ export default function pokemon_battle({
     const handleRunConfirm = () => {
         setBattleText("You ran away from the battle!")
         setShowRunConfirmation(false)
-        setTimeout(() => {
-            return
-        }, 2000)
+        onEndofBattle()
     }
 
     const handleRunCancel = () => {
@@ -513,15 +520,27 @@ export default function pokemon_battle({
             Bug: <Bug className="w-4 h-4" />,
             Rock: <Mountain className="w-4 h-4" />,
             Ghost: <Ghost className="w-4 h-4" />,
-            Dragon: <Mountain className="w-4 h-4" />,  
+            Dragon: <Mountain className="w-4 h-4" />,
             Dark: <Moon className="w-4 h-4" />,
             Steel: <Shield className="w-4 h-4" />,
             Fairy: <Sparkles className="w-4 h-4" />,
-            Stellar: <Star className="w-4 h-4" />,     
+            Stellar: <Star className="w-4 h-4" />,
         }
 
         return iconMap[type] || <HelpCircle className="w-4 h-4" />
     }
+
+    const displayedOpponent = isSwitchingOpponent
+        ? switchDirectionOpponent === "in"
+            ? switchingInOpponent
+            : switchingOutOpponent
+        : opponentTeam[activeOpponentIndex];
+
+    const isOpponentFainting = isSwitchingOpponent && switchDirectionOpponent === "out";
+
+    // HP-Werte überschreiben bei Switch-Out
+    const displayedCurrentHP = isOpponentFainting ? 0 : displayedOpponent?.currentHP ?? 0;
+    const displayedMaxHP = displayedOpponent?.maxHP ?? 1;
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
@@ -566,9 +585,9 @@ export default function pokemon_battle({
                                 <div className="relative z-10 flex justify-end pt-6 pr-6 mb-6">
                                     <div className="flex items-center gap-3">
                                         <AnimatePresence mode="wait">
-                                            {isSwitchingPokemon &&
-                                                switchingOut?.name === opponentPokemon.name &&
-                                                switchDirection === "out" ? (
+                                            {isSwitchingOpponent &&
+                                                switchingOutOpponent?.id === displayedOpponent?.id &&
+                                                switchDirectionOpponent === "out" ? (
                                                 <motion.div
                                                     key="opponent-out"
                                                     initial={{ opacity: 1, y: 0 }}
@@ -578,15 +597,14 @@ export default function pokemon_battle({
                                                     className="mt-8"
                                                 >
                                                     <img
-                                                        src={opponentPokemon.sprite_back || "/placeholder.svg"}
-                                                        alt={opponentPokemon.name}
+                                                        src={displayedOpponent?.sprite_back || "/placeholder.svg"}
+                                                        alt={displayedOpponent?.name}
                                                         className="w-32 h-32 object-contain drop-shadow-2xl"
                                                     />
                                                 </motion.div>
-                                            ) : isSwitchingPokemon &&
-                                                switchingIn &&
-                                                switchDirection === "in" &&
-                                                switchingOut?.name === opponentPokemon.name ? (
+                                            ) : isSwitchingOpponent &&
+                                                switchDirectionOpponent === "in" &&
+                                                switchingInOpponent?.id === displayedOpponent?.id ? (
                                                 <motion.div
                                                     key="opponent-in"
                                                     initial={{ opacity: 0, scale: 0.5 }}
@@ -596,8 +614,8 @@ export default function pokemon_battle({
                                                     className="mt-8"
                                                 >
                                                     <img
-                                                        src={switchingIn.sprite_back || "/placeholder.svg"}
-                                                        alt={switchingIn.name}
+                                                        src={displayedOpponent?.sprite_back || "/placeholder.svg"}
+                                                        alt={displayedOpponent?.name}
                                                         className="w-32 h-32 object-contain drop-shadow-2xl"
                                                     />
                                                 </motion.div>
@@ -615,39 +633,51 @@ export default function pokemon_battle({
                                                     className="mt-8"
                                                 >
                                                     <img
-                                                        src={opponentPokemon.sprite_back || "/placeholder.svg"}
-                                                        alt={opponentPokemon.name}
+                                                        src={displayedOpponent?.sprite_back || "/placeholder.svg"}
+                                                        alt={displayedOpponent?.name}
                                                         className="w-32 h-32 object-contain drop-shadow-2xl"
                                                     />
                                                 </motion.div>
                                             )}
                                         </AnimatePresence>
+
                                         <Card className="mb-2 bg-white/95 dark:bg-slate-800/95 backdrop-blur-sm border-0 shadow-lg">
                                             <CardContent className="p-3">
                                                 <div className="flex items-center gap-2 mb-1">
                                                     <div>
-                                                        <div className="font-bold text-base">{opponentPokemon.name}</div>
-                                                        <div className="text-xs text-muted-foreground">Lv.{opponentPokemon.lvl}</div>
+                                                        <div className="font-bold text-base">{displayedOpponent?.name}</div>
+                                                        <div className="text-xs text-muted-foreground">
+                                                            Lv.{displayedOpponent?.lvl}
+                                                        </div>
                                                     </div>
                                                     <div className="flex gap-2">
-                                                        {opponentPokemon.types.map((type) => (
-                                                            <Badge key={type} className={`${getTypeColor(type)} text-white border-0 shadow-md`}>
+                                                        {displayedOpponent?.types.map((type) => (
+                                                            <Badge
+                                                                key={type}
+                                                                className={`${getTypeColor(type)} text-white border-0 shadow-md`}
+                                                            >
                                                                 {type}
                                                             </Badge>
                                                         ))}
                                                     </div>
                                                 </div>
+
                                                 <div className="w-40">
                                                     <div className="flex justify-between text-xs mb-1">
                                                         <span>HP</span>
                                                         <span>
-                                                            {opponentPokemon.currentHP}/{opponentPokemon.maxHP}
+                                                            {displayedCurrentHP}/{displayedMaxHP}
                                                         </span>
                                                     </div>
                                                     <Progress
-                                                        value={(opponentPokemon.currentHP / opponentPokemon.maxHP) * 100}
+                                                        value={
+                                                            ((displayedCurrentHP) / (displayedMaxHP)) * 100
+                                                        }
                                                         className="h-2 shadow-sm"
-                                                        indicatorClassName={getHPColor(opponentPokemon.currentHP, opponentPokemon.maxHP)}
+                                                        indicatorClassName={getHPColor(
+                                                            displayedOpponent?.currentHP ?? 0,
+                                                            displayedOpponent?.maxHP ?? 1
+                                                        )}
                                                     />
                                                 </div>
                                             </CardContent>
@@ -689,7 +719,7 @@ export default function pokemon_battle({
                                             </CardContent>
                                         </Card>
                                         <AnimatePresence mode="wait">
-                                            {isSwitchingPokemon && switchingOut?.name === playerPokemon.name && switchDirection === "out" ? (
+                                            {isSwitchingPlayer && switchingOutPlayer?.id === playerPokemon.id && switchDirectionPlayer === "out" ? (
                                                 <motion.div
                                                     key="player-out"
                                                     initial={{ opacity: 1, y: 0 }}
@@ -703,10 +733,10 @@ export default function pokemon_battle({
                                                         className="w-32 h-32 object-contain drop-shadow-2xl"
                                                     />
                                                 </motion.div>
-                                            ) : isSwitchingPokemon &&
-                                                switchingIn &&
-                                                switchDirection === "in" &&
-                                                switchingOut?.name === playerPokemon.name ? (
+                                            ) : isSwitchingPlayer &&
+                                                switchingInPlayer &&
+                                                switchDirectionPlayer === "in" &&
+                                                switchingOutPlayer?.id === playerPokemon.id ? (
                                                 <motion.div
                                                     key="player-in"
                                                     initial={{ opacity: 0, scale: 0.5 }}
@@ -715,8 +745,8 @@ export default function pokemon_battle({
                                                     transition={{ duration: 0.5 }}
                                                 >
                                                     <img
-                                                        src={switchingIn.sprite || "/placeholder.svg"}
-                                                        alt={switchingIn.name}
+                                                        src={switchingInPlayer.sprite || "/placeholder.svg"}
+                                                        alt={switchingInPlayer.name}
                                                         className="w-32 h-32 object-contain drop-shadow-2xl"
                                                     />
                                                 </motion.div>
@@ -758,22 +788,22 @@ export default function pokemon_battle({
                                             <span
                                                 key={index}
                                                 onClick={() => {
-                                                    if (
-                                                        isPlayerTurn &&
-                                                        !isAnimating &&
-                                                        pokemon.currentHP > 0 &&
-                                                        pokemon.name !== playerPokemon.name
-                                                    ) {
-                                                        handlePokemonSelect(pokemon)
-                                                    }
+                                                    // if (
+                                                    //     isPlayerTurn &&
+                                                    //     !isAnimating &&
+                                                    //     pokemon.currentHP > 0 &&
+                                                    //     pokemon.id !== playerPokemon.id
+                                                    // ) {
+                                                    //     handlePokemonSelect(pokemon)
+                                                    // }
                                                 }}
                                                 className="inline-block"
-                                                style={{ cursor: pokemon.currentHP > 0 && pokemon.name !== playerPokemon.name ? "pointer" : "default" }}
+                                                style={{ cursor: pokemon.currentHP > 0 && pokemon.id !== playerPokemon.id ? "pointer" : "default" }}
                                             >
                                                 <SimplePokeballIcon
                                                     size={18}
                                                     className={`transition-all duration-300 ${pokemon.currentHP > 0
-                                                        ? pokemon.name === playerPokemon.name
+                                                        ? pokemon.id === playerPokemon.id
                                                             ? "text-green-500 scale-110"
                                                             : "text-red-500 hover:scale-110 cursor-pointer"
                                                         : "text-gray-400 dark:text-gray-600 opacity-50"
@@ -798,7 +828,7 @@ export default function pokemon_battle({
                                 {/* Main Menu */}
                                 {isPlayerTurn &&
                                     !isAnimating &&
-                                    !isSwitchingPokemon &&
+                                    !isSwitchingPlayer &&
                                     playerPokemon.currentHP > 0 &&
                                     opponentPokemon.currentHP > 0 &&
                                     currentMenu === "main" && (
@@ -852,7 +882,7 @@ export default function pokemon_battle({
                                 {/* Attack Menu */}
                                 {isPlayerTurn &&
                                     !isAnimating &&
-                                    !isSwitchingPokemon &&
+                                    !isSwitchingPlayer &&
                                     playerPokemon.currentHP > 0 &&
                                     opponentPokemon.currentHP > 0 &&
                                     currentMenu === "attack" && (
@@ -900,7 +930,7 @@ export default function pokemon_battle({
                                     )}
 
                                 {/* Pokemon Menu */}
-                                {!isSwitchingPokemon && opponentPokemon.currentHP > 0 && currentMenu === "pokemon" && (
+                                {!isSwitchingPlayer && opponentPokemon.currentHP > 0 && currentMenu === "pokemon" && (
                                     <>
                                         <div className="grid grid-cols-3 gap-4 mb-4">
                                             {playerTeam.map((pokemon, index) => {
@@ -968,7 +998,7 @@ export default function pokemon_battle({
                                 {/* Run Confirmation Menu */}
                                 {isPlayerTurn &&
                                     !isAnimating &&
-                                    !isSwitchingPokemon &&
+                                    !isSwitchingPlayer &&
                                     playerPokemon.currentHP > 0 &&
                                     opponentPokemon.currentHP > 0 &&
                                     showRunConfirmation && (
@@ -1005,7 +1035,7 @@ export default function pokemon_battle({
                                     )}
 
                                 {/* Waiting State */}
-                                {(!isPlayerTurn || isAnimating || isSwitchingPokemon) &&
+                                {(!isPlayerTurn || isAnimating || isSwitchingPlayer) &&
                                     playerPokemon.currentHP > 0 &&
                                     opponentPokemon.currentHP > 0 &&
                                     !showRunConfirmation &&
@@ -1016,7 +1046,7 @@ export default function pokemon_battle({
                                                 <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse delay-75"></div>
                                                 <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse delay-150"></div>
                                                 <span className="ml-2">
-                                                    {isSwitchingPokemon
+                                                    {isSwitchingPlayer
                                                         ? "Switching Pokémon..."
                                                         : isAnimating
                                                             ? "Battle in progress..."
@@ -1033,8 +1063,8 @@ export default function pokemon_battle({
                                             onClick={() => window.location.reload()}
                                             className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-200 px-6 py-2 text-base"
                                         >
-                                            <RotateCcw className="h-4 w-4 mr-2" />
-                                            Battle Again
+                                            <ArrowLeft className="h-4 w-4 mr-2" />
+                                            Back to Teambuilder
                                         </Button>
                                     </div>
                                 )}

@@ -43,7 +43,7 @@ export const mockPokemonList = [
       new Moves("Fire Blast", "Fire", 110, 85, 5, "Special"),
       new Moves("Solar Beam", "Grass", 120, 100, 10, "Special"),
     ],
-    [new Moves("Flamethrower", "Fire", 90, 100, 15, "Special"),
+    [new Moves("Flamethrower", "Fire", 1000, 100, 15, "Special"),
     new Moves("Dragon Claw", "Dragon", 80, 100, 15, "Physical"),
     new Moves("Air Slash", "Flying", 0, 95, 15, "Special"),
     new Moves("Fire Blast", "Fire", 110, 85, 5, "Special")],
