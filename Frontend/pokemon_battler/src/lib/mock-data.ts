@@ -96,7 +96,7 @@ export const mockPokemonList = [
     new Moves("Ice Beam", "Ice", 90, 100, 10, "Special"),
     new Moves("Earthquake", "Ground", 100, 100, 10, "Physical"),
     new Moves("Flash Cannon", "Steel", 80, 100, 10, "Special"),],
-"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/9.png",
+    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/9.png",
     "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/9.png"
   ),
   new Pokemon(
@@ -148,55 +148,55 @@ export const mockPokemonList = [
     "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png",
     "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/3.png"
   ),
-new Pokemon(
-  4,
-  "Pikachu",
-  null,
-  [new Ability("Static", "This is an ability"), new Ability("Lightning Rod", "This is an ability")],
-  100,
-  "Male",
-  "Hardy",
-  false,
-  ["Electric"],
-  [
-    new Ivs("hp", 31),
-    new Ivs("attack", 31),
-    new Ivs("defense", 31),
-    new Ivs("special-attack", 31),
-    new Ivs("special-defense", 31),
-    new Ivs("speed", 31),
-  ],
-  [
-    new Evs("hp", 0),
-    new Evs("attack", 0),
-    new Evs("defense", 0),
-    new Evs("special-attack", 0),
-    new Evs("special-defense", 0),
-    new Evs("speed", 0),
-  ],
-  [
-    new Stats("hp", 35),
-    new Stats("attack", 55),
-    new Stats("defense", 40),
-    new Stats("special-attack", 50),
-    new Stats("special-defense", 50),
-    new Stats("speed", 90),
-  ],
-  [
-    new Moves("Thunderbolt", "Electric", 90, 100, 15, "Special"),
+  new Pokemon(
+    4,
+    "Pikachu",
+    null,
+    [new Ability("Static", "This is an ability"), new Ability("Lightning Rod", "This is an ability")],
+    100,
+    "Male",
+    "Hardy",
+    false,
+    ["Electric"],
+    [
+      new Ivs("hp", 31),
+      new Ivs("attack", 31),
+      new Ivs("defense", 31),
+      new Ivs("special-attack", 31),
+      new Ivs("special-defense", 31),
+      new Ivs("speed", 31),
+    ],
+    [
+      new Evs("hp", 0),
+      new Evs("attack", 0),
+      new Evs("defense", 0),
+      new Evs("special-attack", 0),
+      new Evs("special-defense", 0),
+      new Evs("speed", 0),
+    ],
+    [
+      new Stats("hp", 35),
+      new Stats("attack", 55),
+      new Stats("defense", 40),
+      new Stats("special-attack", 50),
+      new Stats("special-defense", 50),
+      new Stats("speed", 90),
+    ],
+    [
+      new Moves("Thunderbolt", "Electric", 90, 100, 15, "Special"),
+      new Moves("Iron Tail", "Steel", 100, 75, 15, "Physical"),
+      new Moves("Quick Attack", "Normal", 40, 100, 30, "Physical"),
+      new Moves("Volt Tackle", "Electric", 120, 100, 15, "Physical"),
+      new Moves("Thunder", "Electric", 110, 70, 10, "Special"),
+      new Moves("Grass Knot", "Grass", 0, 100, 20, "Special"),
+    ],
+    [new Moves("Thunderbolt", "Electric", 90, 100, 15, "Special"),
     new Moves("Iron Tail", "Steel", 100, 75, 15, "Physical"),
     new Moves("Quick Attack", "Normal", 40, 100, 30, "Physical"),
-    new Moves("Volt Tackle", "Electric", 120, 100, 15, "Physical"),
-    new Moves("Thunder", "Electric", 110, 70, 10, "Special"),
-    new Moves("Grass Knot", "Grass", 0, 100, 20, "Special"),
-  ],
-  [new Moves("Thunderbolt", "Electric", 90, 100, 15, "Special"),
-  new Moves("Iron Tail", "Steel", 100, 75, 15, "Physical"),
-  new Moves("Quick Attack", "Normal", 40, 100, 30, "Physical"),
-  new Moves("Volt Tackle", "Electric", 120, 100, 15, "Physical")],
-  "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
-  "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/25.png",
-),
+    new Moves("Volt Tackle", "Electric", 120, 100, 15, "Physical")],
+    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
+    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/25.png",
+  ),
   new Pokemon(
     5,
     "Gengar",
@@ -240,8 +240,8 @@ new Pokemon(
       new Moves("Hypnosis", "Psychic", 0, 60, 20, "Status"),
     ],
     [null, null, null, null],
-    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/150.png",
-    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/150.png"
+    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/94.png",
+    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/94.png"
   ),
   new Pokemon(
     6,
@@ -286,8 +286,8 @@ new Pokemon(
       new Moves("Roost", "Flying", 0, 0, 10, "Status"),
     ],
     [null, null, null, null],
-    "/placeholder.svg?height=120&width=120",
-    "/placeholder.svg?height=120&width=120",
+    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/149.png",
+    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/149.png"
   ),
   new Pokemon(
     7,
@@ -332,8 +332,8 @@ new Pokemon(
       new Moves("Thunder Punch", "Electric", 75, 100, 15, "Physical"),
     ],
     [null, null, null, null],
-    "/placeholder.svg?height=120&width=120",
-    "/placeholder.svg?height=120&width=120",
+    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/248.png",
+    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/248.png"
   ),
   new Pokemon(
     8,
@@ -378,8 +378,8 @@ new Pokemon(
       new Moves("Stealth Rock", "Rock", 0, 0, 20, "Status"),
     ],
     [null, null, null, null],
-    "/placeholder.svg?height=120&width=120",
-    "/placeholder.svg?height=120&width=120",
+    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/445.png",
+    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/445.png"
   ),
   new Pokemon(
     9,
@@ -424,8 +424,8 @@ new Pokemon(
       new Moves("Bone Rush", "Ground", 25, 90, 10, "Physical"),
     ],
     [null, null, null, null],
-    "/placeholder.svg?height=120&width=120",
-    "/placeholder.svg?height=120&width=120",
+    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/448.png",
+    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/448.png"
   ),
   new Pokemon(
     10,
@@ -470,7 +470,7 @@ new Pokemon(
       new Moves("Grass Knot", "Grass", 0, 100, 20, "Special"),
     ],
     [null, null, null, null],
-    "/placeholder.svg?height=120&width=120",
-    "/placeholder.svg?height=120&width=120",
+    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/658.png",
+    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/658.png"
   ),
 ]

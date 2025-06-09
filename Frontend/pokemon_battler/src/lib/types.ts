@@ -46,8 +46,8 @@ export class Pokemon {
         stats: Stats[],
         moves: Moves[],
         moveset: (Moves | null)[],
-        sprite_back: string,
         sprite: string,
+        sprite_back: string,
     ) {
         this.pdx_num = pdx_num
         this.name = name

@@ -597,7 +597,7 @@ export default function pokemon_battle({
                                                     className="mt-8"
                                                 >
                                                     <img
-                                                        src={displayedOpponent?.sprite_back || "/placeholder.svg"}
+                                                        src={displayedOpponent?.sprite || "/placeholder.svg"}
                                                         alt={displayedOpponent?.name}
                                                         className="w-32 h-32 object-contain drop-shadow-2xl"
                                                     />
@@ -614,7 +614,7 @@ export default function pokemon_battle({
                                                     className="mt-8"
                                                 >
                                                     <img
-                                                        src={displayedOpponent?.sprite_back || "/placeholder.svg"}
+                                                        src={displayedOpponent?.sprite || "/placeholder.svg"}
                                                         alt={displayedOpponent?.name}
                                                         className="w-32 h-32 object-contain drop-shadow-2xl"
                                                     />
@@ -633,7 +633,7 @@ export default function pokemon_battle({
                                                     className="mt-8"
                                                 >
                                                     <img
-                                                        src={displayedOpponent?.sprite_back || "/placeholder.svg"}
+                                                        src={displayedOpponent?.sprite || "/placeholder.svg"}
                                                         alt={displayedOpponent?.name}
                                                         className="w-32 h-32 object-contain drop-shadow-2xl"
                                                     />
@@ -728,7 +728,7 @@ export default function pokemon_battle({
                                                     transition={{ duration: 0.5 }}
                                                 >
                                                     <img
-                                                        src={playerPokemon.sprite || "/placeholder.svg"}
+                                                        src={playerPokemon.sprite_back || "/placeholder.svg"}
                                                         alt={playerPokemon.name}
                                                         className="w-32 h-32 object-contain drop-shadow-2xl"
                                                     />
@@ -745,7 +745,7 @@ export default function pokemon_battle({
                                                     transition={{ duration: 0.5 }}
                                                 >
                                                     <img
-                                                        src={switchingInPlayer.sprite || "/placeholder.svg"}
+                                                        src={switchingInPlayer.sprite_back || "/placeholder.svg"}
                                                         alt={switchingInPlayer.name}
                                                         className="w-32 h-32 object-contain drop-shadow-2xl"
                                                     />
@@ -763,7 +763,7 @@ export default function pokemon_battle({
                                                     }}
                                                 >
                                                     <img
-                                                        src={playerPokemon.sprite || "/placeholder.svg"}
+                                                        src={playerPokemon.sprite_back || "/placeholder.svg"}
                                                         alt={playerPokemon.name}
                                                         className="w-32 h-32 object-contain drop-shadow-2xl"
                                                     />
@@ -956,7 +956,7 @@ export default function pokemon_battle({
                                                                 className={pokemon.id === playerPokemon.id ? "text-green-500" : "text-red-500"}
                                                             />
                                                             <img
-                                                                src={pokemon.sprite_back || "/placeholder.svg"}
+                                                                src={pokemon.sprite || "/placeholder.svg"}
                                                                 alt={pokemon.name}
                                                                 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 object-contain"
                                                             />
