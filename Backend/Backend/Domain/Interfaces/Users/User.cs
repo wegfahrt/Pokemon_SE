@@ -2,7 +2,7 @@
 
 namespace Domain;
 
-public class Trainer
+public class User
 {
     public int Id { get; private set; }
     // public string Name { get; private set; }

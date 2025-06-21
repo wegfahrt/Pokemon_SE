@@ -1,6 +1,6 @@
 ﻿using PokeApiNet;
 
-namespace Application.Common;
+namespace Infrastructure.CustomPokeApiClient;
 
 public class CustomPokeApiClient : PokeApiClient
 {

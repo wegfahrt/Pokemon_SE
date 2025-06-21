@@ -1,5 +1,4 @@
 ﻿using Application.Common.Interfaces;
-using Contracts.Teams;
 using ErrorOr;
 using MediatR;
 using Domain;

@@ -1,6 +1,6 @@
-﻿using Application.Common.Interfaces;
-using ErrorOr;
+﻿using ErrorOr;
 using MediatR;
+using Application.Common.Interfaces;
 using Application.Extensions;
 using Contracts.Teams;
 using Microsoft.EntityFrameworkCore;

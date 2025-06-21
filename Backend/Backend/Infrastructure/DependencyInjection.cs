@@ -1,14 +1,12 @@
 ﻿using System.Net;
 using System.Net.Mail;
 
-using Application.Common.Interfaces;
 using Infrastructure.Common.Persistence;
-
-using Application.Common.Interfaces;
-
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Application.Common.Interfaces;
+using PokeApiNet;
 
 
 namespace Infrastructure;
@@ -41,6 +39,7 @@ public static class DependencyInjection
         );
 
         services.AddScoped<IAppDbContext, AppDbContext>();
+        services.AddScoped<PokeApiClient, CustomPokeApiClient.CustomPokeApiClient>();
 
         return services;
     }

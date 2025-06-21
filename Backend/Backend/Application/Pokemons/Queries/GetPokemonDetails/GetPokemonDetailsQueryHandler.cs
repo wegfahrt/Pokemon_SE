@@ -1,26 +1,31 @@
-﻿using Application.Common;
-using Contracts.Pokemons;
+﻿using Contracts.Pokemons;
 using ErrorOr;
 using MediatR;
 using PokeApiNet;
-using System.Collections.Concurrent;
+
 
 namespace Application.Pokemons.Queries.GetPokemonDetails;
 
 public class GetPokemonDetailsQueryHandler : IRequestHandler<GetPokemonDetailsQuery, ErrorOr<PokemonDetailedResponse>>
 {
+    private readonly PokeApiClient _pokeApiService;
+
+    public GetPokemonDetailsQueryHandler(PokeApiClient pokeApiService)
+    {
+        _pokeApiService = pokeApiService;
+    }
+
     public async Task<ErrorOr<PokemonDetailedResponse>> Handle(GetPokemonDetailsQuery request, CancellationToken cancellationToken)
     {
-        var pokeClient = new CustomPokeApiClient();
-
         // Get the main Pokemon data
-        var pokemon = await pokeClient.GetResourceAsync<Pokemon>(request.Name, cancellationToken);
+        var pokemon = await _pokeApiService.GetResourceAsync<Pokemon>(request.Name, cancellationToken);
 
         // Extract all unique move names
         var moveNames = pokemon.Moves.Select(m => m.Move.Name).ToList();
 
         // Create tasks for all move requests
-        var moveTasks = moveNames.Select(name => pokeClient.GetResourceAsync<Move>(name, cancellationToken));
+        var moveTasks = moveNames.Select(name => 
+            _pokeApiService.GetResourceAsync<Move>(name, cancellationToken));
 
         // Wait for all moves to complete
         var moves = await Task.WhenAll(moveTasks);
