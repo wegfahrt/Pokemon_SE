@@ -158,7 +158,7 @@ export default function TeamBuilder({ pokemonList }: { pokemonList: Pokemon[] })
       </div>
     ) : (
       <PokemonBattler FullUserTeam={team} 
-      FullEnemyTeam={[mockPokemonList[2], mockPokemonList[3], mockPokemonList[2], mockPokemonList[3], mockPokemonList[2], mockPokemonList[3]]}
+      FullEnemyTeam={[mockPokemonList[9], mockPokemonList[6], mockPokemonList[4], mockPokemonList[3], mockPokemonList[2], mockPokemonList[1]]}
         onEndofBattle={() => { setBattleMode(false); }}
       />
     )

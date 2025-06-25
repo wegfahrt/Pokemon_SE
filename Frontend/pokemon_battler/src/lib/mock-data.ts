@@ -275,7 +275,7 @@ export const mockPokemonList = [
       new Stats("defense", 95),
       new Stats("special-attack", 100),
       new Stats("special-defense", 100),
-      new Stats("speed", 80),
+      new Stats("speed", 180),
     ],
     [
       new Moves("Dragon Claw", "Dragon", 80, 100, 15, "Physical"),

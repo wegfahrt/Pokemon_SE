@@ -213,6 +213,12 @@ export class Pokemon {
     }
 
     makeBattleReady(): Pokemon_in_battle {
+        const validMoveset = this.getMoveset().filter(move => move !== null) as Moves[];
+
+        const fallbackMoves = this.getMoves().slice(0, 4); // Falls Moveset leer ist
+
+        const finalMoveset = validMoveset.length > 0 ? validMoveset : fallbackMoves;
+
         return new Pokemon_in_battle(
             this.getPdx_num(),
             this.getName(),
@@ -228,7 +234,7 @@ export class Pokemon {
             this.getStats().find(stat => stat.getName() === "special-attack")?.getBasestat() || 0,
             this.getStats().find(stat => stat.getName() === "special-defense")?.getBasestat() || 0,
             this.getStats().find(stat => stat.getName() === "speed")?.getBasestat() || 0,
-            this.getMoveset().filter(move => move !== null) as Moves[],
+            finalMoveset,
             this.getSprite(),
             this.getSprite_back(),
         )
