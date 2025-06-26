@@ -139,7 +139,6 @@ Jede User Story in unserem Projekt enthält:
 - Akzeptanzkriterien: Messbare Bedingungen für die Definition of Done
 - Schätzungen: Absolute Aufwandsschätzung in Stunden
 - Prioritäten: Geschäftswert und technische Abhängigkeiten bestimmen die Priorität
-- Labels und Components: Kategorisierung für bessere Filterung und Reporting
 
 #### Jira als zentrale Planungsplattform
 
@@ -316,12 +315,71 @@ Unser aktueller Test-Suite umfasst 50+ **Unit Tests** mit 95%+ Code Coverage der
 
 Die Tests werden automatisch bei jedem Build ausgeführt.
 
+## Integrationstest (Konzept)
+Integrationstests spielen eine zentrale Rolle beim Übergang von isolierten Komponententests zu systemweiten Tests. Wenn die einzelnen Programmkomponenten getestet sind müssen sie zu einem System oder einem Teilsystem integriert werden. Zu diesem Integrationsprozess gehören die Systemerstellung und das Testen des entstandenen Systems auf Fehler die sich aus dem Zusammenwirken der Komponenten ergeben.
+
+### Strategische Ansätze für Integrationstests
+Für unser Pokémon Arena-Projekt wäre ein inkrementeller Ansatz besonders geeignet, der Elemente beider Strategien kombiniert:
+#### Top-Down Ansatz für UI-Layer:
+
+- Beginnt mit der Team-Builder Benutzeroberfläche
+- Verwendet Stubs und Mocks während der frühen Entwicklung
+- Ermöglicht frühe Demonstrations- und Validierungsmöglichkeiten
+
+#### Bottom-Up Ansatz für Domain-Layer:
+
+- Startet mit den Pokémon- und Team-Entitäten
+- Aufbau zu Application Services und API-Controllern
+- Besonders geeignet für die Integration der PokeAPI
+
+### Regressionstestverfahren
+Um das Finden von Fehlern zu erleichtern wird stets der inkrementelle Ansatz der Systemintegration und der Integrationstests verfolgt. Zu Anfang wird nur eine minimale Systemkonfiguration integriert und diese getestet. Dieser wird dann in kleinen Schritte jede weitere Komponente hinzugefügt und nach jedem dieser Schritte alles neu getestet.
+
+Praktische Umsetzung:
+
+Phase 1: Minimalsystem (Frontend)
+
+- User Management + einfache Team-Erstellung
+- Tests T1-T3: Benutzer registrieren, anmelden, einfaches Team erstellen (nur UI)
+
+Phase 2: PokeAPI Integration
+
+- Integration des PokeAPI-Clients
+- Wiederholung T1-T3 + neue Tests T4: Pokémon-Daten abrufen
+
+Phase 3: Team-Builder Logik
+
+- Team-Speicherung und Validierung
+- Alle vorherigen Tests + T5: Vollständige Team-Erstellung mit Speicherung in der Datenbank
+
+### Schnittstellentests
+
+Schnittstellentests finden statt wenn Module oder Teilsysteme zur Bildung größerer Systeme integriert werden, für unser Projekt sind besonders relevant:
+
+#### Kritische Schnittstellen im Pokémon-System
+
+PokeAPI-Integration
+
+- Parameterschnittstelle: Pokémon-IDs, Move-IDs
+- Potenzielle Fehler: Ungültige IDs, Rate Limiting
+
+Database-Layer
+
+- Prozedurschnittstellen: Entity Framework Operationen
+- Potenzielle Fehler: Constraint Violations, Concurrency Issues
+
+API-Controller
+
+- Nachrichtenübergabe: HTTP Request/Response
+- Potenzielle Fehler: Serialization, Validation
 # 4. Frontend
 
-## Integrationstest Beispiel Konzept (login)??
--Regresseionstest
+Aktivitäts- und Sequenzdiagramm 
 
--top-down, bottom-up
+Beispiel Bild import:
 
+![Alternativer Text falls Bild nicht gefunden wird](Pfad zum Bild "Titel")
+
+Vorstellung des Frontends, so dass man sich den Code nicht anschauen muss und einen Überblick der UI hat
 
 # 6. Fazit und Ausblick
