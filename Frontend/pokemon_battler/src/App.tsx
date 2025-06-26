@@ -7,6 +7,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { AnimatedPokeballIcon, PokeballIcon, PremiumPokeballIcon } from "./components/ui/pokeball-icon"
 import { Users, Trophy, Star, Sparkles, Shield, Target } from "lucide-react"
+import { fetchPokemonDataAndConvert } from "./lib/utils"
+import { useEffect, useState } from "react"
+import type { Pokemon } from "./lib/types"
 // Import the environment variable for Clerk's publishable key
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 
@@ -17,6 +20,17 @@ if (!PUBLISHABLE_KEY) {
 
 export default function HomePage() {
   // Throw an error if the publishable key is not set
+  const [allPokemon, setAllPokemon] = useState<Pokemon[] | null>(null)
+
+  useEffect(() => {
+    fetchPokemonDataAndConvert()
+      .then(setAllPokemon)
+      .catch((error) => {
+        console.error("Fehler beim Laden der Pokémon-Daten:", error)
+        setAllPokemon([])
+      })
+  }, [])
+
   if (!PUBLISHABLE_KEY) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 flex items-center justify-center">
@@ -41,7 +55,7 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800" >
       <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
         <SignedOut>
           {/* This is the Welcome Screen for when an unauthenticated user visits the site */}
@@ -226,13 +240,18 @@ export default function HomePage() {
           </header>
           {/* Main Content */}
           <main>
-            <TeamBuilder pokemonList={mockPokemonList} />
+            {!allPokemon ? (
+              <div className="text-center text-slate-500 mt-20">Lade Pokémon-Daten...</div>
+            ) : (
+              <TeamBuilder pokemonList={allPokemon} />
+            )}
           </main>
         </SignedIn>
       </ClerkProvider>
-    </div>
+    </div >
   )
 }
+
 
 
 
