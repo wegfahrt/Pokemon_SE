@@ -1,4 +1,6 @@
 import { Pokemon, Ivs, Evs, Stats, Moves, Ability } from "./types"
+// This file contains mock data for Pokémon, including their abilities, stats, moves, and other attributes.
+// This mock data is used for testing and development purposes in the Pokémon Battler application.
 
 export const mockPokemonList = [
   new Pokemon(

@@ -5,6 +5,9 @@ import { Plus } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Pokemon } from "@/lib/types"
 
+// PokemonCard component to display individual Pokémon with their details
+
+// Props interface for the PokemonCard component
 interface PokemonCardProps {
   pokemon: Pokemon
   onAdd: () => void
@@ -12,6 +15,8 @@ interface PokemonCardProps {
 }
 
 export default function PokemonCard({ pokemon, onAdd, onSelect }: PokemonCardProps) {
+
+  // Define colors for different Pokémon types
   const typeColors: Record<string, string> = {
     normal: "bg-stone-400",
     fire: "bg-orange-500",
@@ -32,18 +37,23 @@ export default function PokemonCard({ pokemon, onAdd, onSelect }: PokemonCardPro
     steel: "bg-slate-400",
     fairy: "bg-pink-300",
   }
+
+  // If no Pokémon is provided, return null
   if (!pokemon) {
     return null
   }
 
+  // Extract Pokémon details with fallback values
   const pokemonName = pokemon.name || "Unknown"
   const pokemonTypes = pokemon.types || []
   const pokemonSprite = pokemon.sprite || "/placeholder.svg?height=120&width=120"
 
   return (
+    // Card component to display Pokémon details
     <Card className="overflow-hidden transition-all hover:shadow-md cursor-pointer" onClick={onSelect}>
       <div className="relative bg-slate-100 dark:bg-slate-800 pt-2">
         <div className="absolute top-2 right-2 z-10">
+          {/* Button to add Pokémon to the team */}
           <Button
             variant="ghost"
             size="icon"
@@ -57,6 +67,7 @@ export default function PokemonCard({ pokemon, onAdd, onSelect }: PokemonCardPro
             <span className="sr-only">Add to team</span>
           </Button>
         </div>
+        {/* Pokémon sprite image */}
         <div className="flex justify-center">
           <img
             src={pokemonSprite || "/placeholder.svg"}
@@ -69,6 +80,7 @@ export default function PokemonCard({ pokemon, onAdd, onSelect }: PokemonCardPro
           />
         </div>
       </div>
+      {/* Card content displaying Pokémon name and types */}
       <CardContent className="p-3">
         <h3 className="font-medium text-sm truncate text-center">{pokemonName}</h3>
         <div className="flex justify-center gap-1 mt-1">

@@ -5,16 +5,18 @@ import { ClerkProvider, SignedIn, SignedOut, SignInButton, UserButton } from "@c
 import { mockPokemonList } from "./lib/mock-data"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { AnimatedPokeballIcon, PokeballIcon, PremiumPokeballIcon} from "./components/ui/pokeball-icon"
-import {Users, Trophy, Star, Sparkles, Shield, Target, Home } from "lucide-react"
-
+import { AnimatedPokeballIcon, PokeballIcon, PremiumPokeballIcon } from "./components/ui/pokeball-icon"
+import { Users, Trophy, Star, Sparkles, Shield, Target } from "lucide-react"
+// Import the environment variable for Clerk's publishable key
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 
+// Ensure the publishable key is defined
 if (!PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key")
 }
 
 export default function HomePage() {
+  // Throw an error if the publishable key is not set
   if (!PUBLISHABLE_KEY) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 flex items-center justify-center">
@@ -42,6 +44,7 @@ export default function HomePage() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
       <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
         <SignedOut>
+          {/* This is the Welcome Screen for when an unauthenticated user visits the site */}
           {/* Welcome Screen */}
           <div className="min-h-screen flex flex-col">
             {/* Header */}
@@ -50,6 +53,7 @@ export default function HomePage() {
                 <div className="flex justify-center items-center gap-3 mb-6">
                   <div className="relative">
                     <div className="w-16 h-16 bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 rounded-full flex items-center justify-center shadow-lg">
+                      {/* This defines the Pokeball icon appearing next to the Title */}
                       <PremiumPokeballIcon size={32} className="text-white" />
                     </div>
                     <div className="absolute -top-1 -right-1 w-6 h-6 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
@@ -57,6 +61,7 @@ export default function HomePage() {
                     </div>
                   </div>
                   <div>
+                    {/* This defines the Title and Subtitle of the Welcome Screen */}
                     <h1 className="text-5xl font-bold bg-gradient-to-r from-red-600 via-orange-600 to-yellow-600 bg-clip-text text-transparent">
                       Pokémon
                     </h1>
@@ -78,6 +83,7 @@ export default function HomePage() {
                     <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                       <Users className="w-8 h-8 text-white" />
                     </div>
+                    {/* This defines the Subchapters under the Title */}
                     <CardTitle className="text-xl font-bold">Strategic Team Building</CardTitle>
                   </CardHeader>
                   <CardContent className="text-center">
@@ -93,6 +99,7 @@ export default function HomePage() {
                     <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                       <Target className="w-8 h-8 text-white" />
                     </div>
+                    {/* This defines the Subchapters under the Title */}
                     <CardTitle className="text-xl font-bold">Advanced Optimization</CardTitle>
                   </CardHeader>
                   <CardContent className="text-center">
@@ -108,6 +115,7 @@ export default function HomePage() {
                     <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                       <Trophy className="w-8 h-8 text-white" />
                     </div>
+                    {/* This defines the Subchapters under the Title */}
                     <CardTitle className="text-xl font-bold">Battle Ready Export</CardTitle>
                   </CardHeader>
                   <CardContent className="text-center">
@@ -120,6 +128,7 @@ export default function HomePage() {
               </div>
 
               {/* Call to Action */}
+              {/* With this Button the Login Process provided by Clerk is initiated */}
               <div className="max-w-lg mx-auto">
                 <Card className="border-0 shadow-2xl bg-gradient-to-br from-white/95 to-slate-50/95 dark:from-slate-800/95 dark:to-slate-900/95 backdrop-blur-sm">
                   <CardHeader className="text-center pb-6">
@@ -170,6 +179,7 @@ export default function HomePage() {
           </div>
         </SignedOut>
 
+        {/* This is the Main Application for when an authenticated user visits the site */}
         <SignedIn>
           {/* Navigation Header */}
           <header className="sticky top-0 z-50 border-b border-slate-200/50 dark:border-slate-700/50 bg-white/80 dark:bg-slate-800/80 backdrop-blur-md">
@@ -199,6 +209,7 @@ export default function HomePage() {
                       Welcome back, Champion!
                     </span>
                   </div>
+                  {/* This defines the User Button for the authenticated user and a click opens an account menu provided by Clerk */}
                   <UserButton
                     appearance={{
                       elements: {
@@ -213,7 +224,6 @@ export default function HomePage() {
               </div>
             </div>
           </header>
-
           {/* Main Content */}
           <main>
             <TeamBuilder pokemonList={mockPokemonList} />
