@@ -137,8 +137,8 @@ Jede User Story in unserem Projekt enthält:
 
 - Titel und Beschreibung: Klare, verständliche Formulierung der gewünschten Funktionalität
 - Akzeptanzkriterien: Messbare Bedingungen für die Definition of Done
-- Story Points: Relative Aufwandsschätzung basierend auf Komplexität und Unsicherheit
-- Priority: Geschäftswert und technische Abhängigkeiten bestimmen die Reihenfolge
+- Schätzungen: Absolute Aufwandsschätzung in Stunden
+- Prioritäten: Geschäftswert und technische Abhängigkeiten bestimmen die Priorität
 - Labels und Components: Kategorisierung für bessere Filterung und Reporting
 
 #### Jira als zentrale Planungsplattform
