@@ -1,3 +1,29 @@
+// This file defines the types and classes used in the Pokemon Battler application.
+
+/**
+ * This class represents a Pokémon with its attributes and methods.
+ * The Pokemon class represents a Pokémon with various attributes such as abilities, stats, moves, and more.
+ * It is used to create Pokémon objects that can be used for a proper presentation of a Pokémon in the Team Builder part of the application.
+ * It includes methods for cloning and preparing the Pokémon for battle.
+ * @param pdx_num - The Pokémon's Pokédex number.
+ * @param name - The Pokémon's name.
+ * @param ability - The Pokémon's ability, which can be null if it has no set ability.
+ * @param abilitys - An array of the Pokémon's possible abilities.
+ * @param lvl - The Pokémon's level, which must be between 1 and 100.
+ * @param gender - The Pokémon's gender.
+ * @param nature - The Pokémon's nature, which affects its stats.
+ * @param shiny - Whether the Pokémon is shiny or not.
+ * @param types - An array of the Pokémon's types.
+ * @param ivs - An array of the Pokémon's individual values (IVs).
+ * @param evs - An array of the Pokémon's effort values (EVs).
+ * @param stats - An array of the Pokémon's base stats.
+ * @param moves - An array of the Pokémon's moves.
+ * @param moveset - An array representing the Pokémon's current moveset.
+ * @param sprite - The URL of the Pokémon's front sprite.
+ * @param sprite_back - The URL of the Pokémon's back sprite.
+ * @function clone() - Creates a deep copy of the Pokémon instance.
+ * @function makeBattleReady() - Prepares the Pokémon for battle by ensuring it has a valid moveset.
+ */
 export class Pokemon {
     pdx_num: number
     name: string
@@ -219,6 +245,39 @@ export class Pokemon {
 
         const finalMoveset = validMoveset.length > 0 ? validMoveset : fallbackMoves;
 
+        // All Base Stats are calculated based on the formula for Pokémon stats:
+        // HP = ((2 * Base HP + IVs + (EVs / 4) + 100 * Level) / 100) + Level + 10
+        // Other stats are calculated as follows:
+        // Stat = ((2 * Base Stat + IVs + (EVs / 4) * Level) / 100) + 5
+        const lvl = this.getLvl();
+        const baseHp = this.getStats().find(stat => stat.getName() === "hp")?.getBasestat() || 0;
+        const baseAttack = this.getStats().find(stat => stat.getName() === "attack")?.getBasestat() || 0;
+        const baseDefense = this.getStats().find(stat => stat.getName() === "defense")?.getBasestat() || 0;
+        const baseSpecialAttack = this.getStats().find(stat => stat.getName() === "special-attack")?.getBasestat() || 0;
+        const baseSpecialDefense = this.getStats().find(stat => stat.getName() === "special-defense")?.getBasestat() || 0;
+        const baseSpeed = this.getStats().find(stat => stat.getName() === "speed")?.getBasestat() || 0;
+
+        const hpIvs = this.ivs.find(iv => iv.getName() === "hp")?.getValue() || 0;
+        const hpEvs = this.evs.find(ev => ev.getName() === "hp")?.getValue() || 0;
+        const attackIvs = this.ivs.find(iv => iv.getName() === "attack")?.getValue() || 0;
+        const attackEvs = this.evs.find(ev => ev.getName() === "attack")?.getValue() || 0;
+        const defenseIvs = this.ivs.find(iv => iv.getName() === "defense")?.getValue() || 0;
+        const defenseEvs = this.evs.find(ev => ev.getName() === "defense")?.getValue() || 0;
+        const specialAttackIvs = this.ivs.find(iv => iv.getName() === "special-attack")?.getValue() || 0;
+        const specialAttackEvs = this.evs.find(ev => ev.getName() === "special-attack")?.getValue() || 0;
+        const specialDefenseIvs = this.ivs.find(iv => iv.getName() === "special-defense")?.getValue() || 0;
+        const specialDefenseEvs = this.evs.find(ev => ev.getName() === "special-defense")?.getValue() || 0;
+        const speedIvs = this.ivs.find(iv => iv.getName() === "speed")?.getValue() || 0;
+        const speedEvs = this.evs.find(ev => ev.getName() === "speed")?.getValue() || 0;
+        
+        const battleHp = Math.floor(((2 * baseHp + hpIvs + (hpEvs / 4)) * lvl) / 100) + lvl + 10;
+        const battleAttack = Math.floor(((2 * baseAttack + attackIvs + (attackEvs / 4)) * lvl) / 100) + 5;
+        const battleDefense = Math.floor(((2 * baseDefense + defenseIvs + (defenseEvs / 4)) * lvl) / 100) + 5;
+        const battleSpecialAttack = Math.floor(((2 * baseSpecialAttack + specialAttackIvs + (specialAttackEvs / 4)) * lvl) / 100) + 5;
+        const battleSpecialDefense = Math.floor(((2 * baseSpecialDefense + specialDefenseIvs + (specialDefenseEvs / 4)) * lvl) / 100) + 5;
+        const battleSpeed = Math.floor(((2 * baseSpeed + speedIvs + (speedEvs / 4)) * lvl) / 100) + 5;
+
+
         return new Pokemon_in_battle(
             this.getPdx_num(),
             this.getName(),
@@ -227,13 +286,13 @@ export class Pokemon {
             this.getGender(),
             this.getNature(),
             this.getTypes(),
-            this.getStats().find(stat => stat.getName() === "hp")?.getBasestat() || 0,
-            this.getStats().find(stat => stat.getName() === "hp")?.getBasestat() || 0,
-            this.getStats().find(stat => stat.getName() === "attack")?.getBasestat() || 0,
-            this.getStats().find(stat => stat.getName() === "defense")?.getBasestat() || 0,
-            this.getStats().find(stat => stat.getName() === "special-attack")?.getBasestat() || 0,
-            this.getStats().find(stat => stat.getName() === "special-defense")?.getBasestat() || 0,
-            this.getStats().find(stat => stat.getName() === "speed")?.getBasestat() || 0,
+            battleHp,
+            battleHp,
+            battleAttack,
+            battleDefense,
+            battleSpecialAttack,
+            battleSpecialDefense,
+            battleSpeed,
             finalMoveset,
             this.getSprite(),
             this.getSprite_back(),
@@ -241,6 +300,31 @@ export class Pokemon {
     }
 }
 
+/**
+ * This class represents a Pokémon in battle with its current state and attributes.
+ * It includes properties like current HP, max HP, stats, moveset, and sprites.
+ * It uses the crypto library to generate a unique ID for each instance, so that each Pokémon in battle can be uniquely identified.
+ * This class is used to manage the Pokémon's state during battles, including current HP, moves, and other battle-related attributes.
+ * * @param id - A unique identifier for the Pokémon in battle, generated using crypto.randomUUID().
+ * @param pdx_num - The Pokémon's Pokédex number.
+ * @param name - The Pokémon's name.
+ * @param ability - The Pokémon's ability, which can be null if it has no set ability.
+ * @param lvl - The Pokémon's level, which must be between 1 and 100.
+ * @param gender - The Pokémon's gender, which can be "Male", "Female", or "Genderless".
+ * @param nature - The Pokémon's nature, which affects its stat growth.
+ * @param types - An array of the Pokémon's types.
+ * @param currentHP - The Pokémon's current HP, which must be between 0 and maxHP.
+ * @param maxHP - The Pokémon's maximum HP, which must be greater than 0.
+ * @param attack - The Pokémon's attack stat.
+ * @param defense - The Pokémon's defense stat.
+ * @param special_attack - The Pokémon's special attack stat.
+ * @param special_defense - The Pokémon's special defense stat.
+ * @param speed - The Pokémon's speed stat.
+ * @param moveset - An array representing the Pokémon's current moveset.
+ * @param sprite - The URL of the Pokémon's front sprite.
+ * @param sprite_back - The URL of the Pokémon's back sprite.
+ * @function clone() - Creates a deep copy of the Pokémon in battle instance.
+ */
 export class Pokemon_in_battle {
     id: string = crypto.randomUUID()
     pdx_num: number
@@ -402,6 +486,13 @@ export class Pokemon_in_battle {
     }
 }
 
+
+/**
+ * This class represents a Pokémon's ability with its name and effect.
+ * Abilities can have various effects, such as boosting stats or providing immunities.
+ * @param name - The name of the ability.
+ * @param effect - The effect of the ability, which describes what it does in battle.
+ */
 export class Ability {
     name: string
     effect: string
@@ -420,6 +511,11 @@ export class Ability {
     }
 }
 
+/**
+ * This class represents a Pokémon's stat with its name and base stat value.
+ * @param name - The name of the stat (e.g., "hp", "attack", "defense").
+ * @param basestat - The base value of the stat, which is used to calculate the Pokémon's actual stat in battle.
+ */
 export class Stats {
     name: string
     basestat: number
@@ -438,6 +534,13 @@ export class Stats {
     }
 }
 
+/**
+ * This class represents a Pokémon's individual values (IVs) for each stat.
+ * IVs are hidden stats that determine how good a Pokémon can potentially be.
+ * They range from 0 to 31 for each stat, with higher values indicating better potential.
+ * @param name - The name of the stat (e.g., "hp", "attack", "defense").
+ * @param value - The IV value for the stat, which must be between 0 and 31.
+ */
 export class Ivs {
     name: string
     value: number
@@ -459,6 +562,14 @@ export class Ivs {
     }
 }
 
+
+/**
+ * This class represents a Pokémon's effort values (EVs) for each stat.
+ * EVs are points that can be allocated to a Pokémon's stats to enhance their performance in battles.
+ * They range from 0 to 252 for each stat, with a maximum total of 510 EVs across all stats.
+ * @param name - The name of the stat (e.g., "hp", "attack", "defense").
+ * @param value - The EV value for the stat, which must be between 0 and 252.
+ */
 export class Evs {
     name: string
     value: number
@@ -480,6 +591,17 @@ export class Evs {
     }
 }
 
+/**
+ * This class represents a Pokémon's move, with its name, type, power, accuracy, PP (Power Points), and damage class.
+ * Moves are the actions that Pokémon can perform in battles, and they can vary in their effects and attributes.
+ * @param name - The name of the move.
+ * @param type - The type of the move (e.g., "fire", "water", "grass").
+ * @param power - The power of the move, which determines its damage output.
+ * @param accuracy - The accuracy of the move, which determines how likely it is to hit the target.
+ * @param pp - The maximum Power Points (PP) for the move, which determines how many times it can be used in battle.
+ * @param damageClass - The damage class of the move (e.g., "physical", "special", "status").
+ * @param current_pp - The current Power Points (PP) for the move, which can be less than or equal to pp.
+ */
 export class Moves {
     name: string
     type: string
@@ -499,7 +621,9 @@ export class Moves {
         this.damageClass = damageClass
     }
 }
-
+// This object defines the available natures for Pokémon.
+// Each nature affects the Pokémon's stats in a specific way, such as increasing one stat while decreasing another.
+// Currently Natures aren't used in the application, but they can be used in the future to enhance the Pokémon's attributes and gameplay mechanics.
 export const Natures = {
     hardy: "Hardy",
     lonely: "Lonely",

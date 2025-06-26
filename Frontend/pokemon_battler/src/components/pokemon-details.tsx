@@ -8,11 +8,13 @@ import { useEffect, useState } from "react"
 import type { Pokemon, Ivs, Evs, Moves, Ability } from "@/lib/types"
 
 export default function PokemonDetails({ pokemon }: { pokemon: Pokemon }) {
+  // State to manage IVs, EVs, moveset, and ability
   const [ivs, setIvs] = useState<Ivs[]>([])
   const [evs, setEvs] = useState<Evs[]>([])
   const [moveset, setMoveset] = useState<(Moves | null)[]>([null, null, null, null])
   const [ability, setAbility] = useState<Ability | null>(null)
 
+  // Effect Hook to initialize IVs, EVs, moveset, and ability when the pokemon prop changes
   useEffect(() => {
     if (pokemon) {
       setIvs(pokemon.ivs ? [...pokemon.ivs] : [])
@@ -22,6 +24,7 @@ export default function PokemonDetails({ pokemon }: { pokemon: Pokemon }) {
     }
   }, [pokemon])
 
+  // Define colors for different Pokémon types
   const typeColors: Record<string, string> = {
     normal: "bg-stone-400",
     fire: "bg-orange-500",
@@ -43,6 +46,7 @@ export default function PokemonDetails({ pokemon }: { pokemon: Pokemon }) {
     fairy: "bg-pink-300",
   }
 
+  // Function to determine the color of the stat progress bar based on the value
   const getStatColor = (value: number) => {
     if (value < 50) return "bg-red-500"
     if (value < 80) return "bg-yellow-500"
@@ -50,9 +54,10 @@ export default function PokemonDetails({ pokemon }: { pokemon: Pokemon }) {
     return "bg-blue-500"
   }
 
+  // Function to update IVs
   const updateIV = (stat: string, value: number[]) => {
     if (!pokemon.ivs) return
-
+    // Find the IV object for the given stat and update its value
     const ivObj = pokemon.ivs.find((iv) => iv.getName() === stat)
     if (ivObj) {
       try {
@@ -64,14 +69,18 @@ export default function PokemonDetails({ pokemon }: { pokemon: Pokemon }) {
     }
   }
 
+  // Function to update EVs
   const updateEV = (stat: string, value: number[]) => {
-    const evs = pokemon.evs.find((evs) => evs.getName() === stat)
-    if (evs) {
-      evs.setValue(value[0])
-      setEvs([...pokemon.evs]);
+    if (!pokemon.evs) return
+    // Find the EV object for the given stat and update its value
+    const evObj = pokemon.evs.find((ev) => ev.getName() === stat)
+    if (evObj) {
+      evObj.setValue(value[0])
+      setEvs([...pokemon.evs])
     }
   }
 
+  // Function to remove a move from the moveset
   const removeMove = (index: number) => {
     if (index < 0 || index >= 4) return
     const newMoveset = [...moveset]
@@ -80,6 +89,7 @@ export default function PokemonDetails({ pokemon }: { pokemon: Pokemon }) {
     pokemon.setMoveset(index, null)
   }
 
+  // Function to add a move to the moveset
   const addMove = (move: Moves) => {
     const emptyIndex = moveset.indexOf(null);
     if (emptyIndex !== -1) {
@@ -90,16 +100,20 @@ export default function PokemonDetails({ pokemon }: { pokemon: Pokemon }) {
     }
   };
 
+  // Function to update the selected ability
   const updateAbility = (ability: Ability) => {
     pokemon.setAbility(ability)
     setAbility(ability)
   }
 
+  // Calculate total EVs and remaining EVs
   const totalEVs = evs.reduce((sum, ev) => sum + (ev?.getValue() || 0), 0)
   const remainingEVs = Math.max(0, 508 - totalEVs)
+  // If no Pokémon is provided, return a message
   if (!pokemon) {
     return <div className="p-4 text-center text-muted-foreground">No Pokemon selected</div>
   }
+  // Extract Pokémon details with fallback values
   const pokemonName = pokemon.name || "Unknown"
   const pokemonTypes = pokemon.types || []
   const pokemonSprite = pokemon.sprite || "/placeholder.svg?height=80&width=80"
@@ -111,6 +125,7 @@ export default function PokemonDetails({ pokemon }: { pokemon: Pokemon }) {
     <div className="p-1">
       <div className="flex items-center mb-6">
         <div className="relative w-20 h-20 mr-4">
+          {/* Pokémon sprite image with error handling */}
           <img
             src={pokemonSprite || "/placeholder.svg"}
             alt={pokemonName}
@@ -122,6 +137,7 @@ export default function PokemonDetails({ pokemon }: { pokemon: Pokemon }) {
           />
         </div>
         <div>
+          {/* Pokémon name and types */}
           <h3 className="text-2xl font-bold">{pokemonName}</h3>
           <div className="flex gap-1 mt-1">
             {pokemonTypes.map((type: string) => (
@@ -137,6 +153,7 @@ export default function PokemonDetails({ pokemon }: { pokemon: Pokemon }) {
         </div>
       </div>
 
+      {/* Tabs for different Pokémon details */}
       <Tabs defaultValue="stats" className="space-y-4">
         <TabsList className="grid grid-cols-4 mb-4">
           <TabsTrigger value="stats">Stats</TabsTrigger>
@@ -145,7 +162,9 @@ export default function PokemonDetails({ pokemon }: { pokemon: Pokemon }) {
           <TabsTrigger value="abilities">Abilities</TabsTrigger>
         </TabsList>
 
+        {/* Pokémon stats tab content */}
         <TabsContent value="stats" className="space-y-4">
+          {/* Display each stat with its name and value in a bar graph with 255 being the maximal value*/}
           {Object.entries(pokemonStats
           ).map(([stat, value]: [string, any]) => (
             <div key={stat} className="space-y-1">
@@ -153,13 +172,15 @@ export default function PokemonDetails({ pokemon }: { pokemon: Pokemon }) {
                 <span className="capitalize">{value.name || value}</span>
                 <span className="font-medium">{value.basestat || value}</span>
               </div>
-              <Progress value={value.basestat || value} max={255} className="h-2" indicatorClassName={getStatColor(value.basestat || value)} />
+              <Progress value={(value.basestat / 255) * 100 || value} max={255} className="h-2" indicatorClassName={getStatColor(value.basestat || value)} />
             </div>
           ))}
         </TabsContent>
 
+        {/* Individual Values (IVs) and Effort Values (EVs) tab content */}
         <TabsContent value="ivev" className="space-y-6">
           <div>
+            {/* Display total IVs as a slider */}
             <div className="flex justify-between items-center mb-4">
               <h4 className="font-semibold text-lg">Individual Values (IVs)</h4>
               <span className="text-xs text-muted-foreground">Max: 31</span>
@@ -183,11 +204,13 @@ export default function PokemonDetails({ pokemon }: { pokemon: Pokemon }) {
 
           <div>
             <div className="flex justify-between items-center mb-4">
+              {/* Display total EVs and remaining EVs as a number */}
               <h4 className="font-semibold text-lg">Effort Values (EVs)</h4>
               <span className={`text-xs ${remainingEVs < 0 ? "text-red-500" : "text-muted-foreground"}`}>
                 Remaining: {remainingEVs}/508
               </span>
             </div>
+            {/* Display the Evs for each indiviual Stat as a slider bar */}
             {pokemon.evs?.map((evObj) => (
               <div key={evObj.getName()} className="mb-4">
                 <div className="flex justify-between text-sm mb-2">
@@ -215,8 +238,10 @@ export default function PokemonDetails({ pokemon }: { pokemon: Pokemon }) {
           </div>
         </TabsContent>
 
+        {/* Moves tab content */}
         <TabsContent value="moves" className="space-y-4">
           <div>
+            {/* Display selected moves from the pokemon*/}
             <h4 className="font-semibold text-lg mb-3">Selected Moves ({moveset.filter(Boolean).length}/4)</h4>
             <div className="grid grid-cols-2 gap-2 mb-4">
               {moveset.map((move, index) => (
@@ -239,6 +264,7 @@ export default function PokemonDetails({ pokemon }: { pokemon: Pokemon }) {
               ))}
             </div>
             <div>
+              {/* Display available moves from the pokemon */}
               <h4 className="font-semibold text-lg mb-3">Available Moves</h4>
               <div className="grid grid-cols-2 gap-2 max-h-[300px] overflow-y-auto p-1">
                 {pokemonMoves.map((move: Moves) => {
@@ -254,6 +280,7 @@ export default function PokemonDetails({ pokemon }: { pokemon: Pokemon }) {
                       onClick={() => addMove(move)}>
                       <span className="truncate max-w-[120px]">{move.name}</span>
                       {
+                        // Show badge if the move is selected or if max moves are reached
                         isSelected ? (
                           <Badge variant="outline" className="ml-2 whitespace-nowrap text-xs px-2 py-0.5">
                             Selected
@@ -272,7 +299,9 @@ export default function PokemonDetails({ pokemon }: { pokemon: Pokemon }) {
           </div>
         </TabsContent>
 
+        {/* Abilities tab content */}
         <TabsContent value="abilities" className="space-y-3">
+          { /* Display selected ability green from the pokemon */}
           {pokemonAbilities.map((Ability) => {
             const isSelected = ability?.getName() === Ability.getName();
             return (

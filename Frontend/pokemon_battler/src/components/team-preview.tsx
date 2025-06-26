@@ -6,6 +6,11 @@ import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
 import type { Pokemon } from "@/lib/types"
 
+/// This component displays a preview of a Pokémon team, allowing users to see their selected Pokémon,
+/// remove Pokémon from the team, and select a Pokémon for further actions.
+/// It is designed to be used in a team-building interface where users can manage their Pokémon roster.
+
+// This interface defines the props for the TeamPreview component.
 interface TeamPreviewProps {
   team: Pokemon[]
   onRemove: (pokemon: Pokemon) => void
@@ -14,8 +19,13 @@ interface TeamPreviewProps {
 
 
 export default function TeamPreview({ team = [], onRemove, onSelect }: TeamPreviewProps) {
+  // Ensure the team is an array and fill empty slots if necessary.
+  // This ensures that the team is always treated as an array, even if it is undefined or null.
+  // It also calculates how many empty slots are needed to fill the team to a total of 6 Pokémon.
   const safeTeam = Array.isArray(team) ? team : [];
   const emptySlots = Array(Math.max(0, 6 - safeTeam.length)).fill(null);
+
+  // This object maps Pokémon types to their corresponding CSS classes for background colors.
   const typeColors: Record<string, string> = {
     normal: "bg-stone-400",
     fire: "bg-orange-500",
@@ -39,13 +49,13 @@ export default function TeamPreview({ team = [], onRemove, onSelect }: TeamPrevi
 
   return (
     <div className="grid grid-cols-2 gap-3">
+      {/* This maps over the Pokémon in the team and renders each one with its sprite, name, types, and a remove button. */}
       {safeTeam.map((pokemon, index) => {
         if (!pokemon) return null;
 
         const pokemonName = pokemon.name || "Unknown";
         const pokemonTypes = pokemon.types || [];
         const pokemonSprite = pokemon.sprite || "/placeholder.svg?height=48&width=48";
-        const pokemonId = pokemon.pdx_num || `pokemon-${index}`;
         return (
           <div
             key={`${pokemon.pdx_num}-${index}`}
@@ -53,6 +63,7 @@ export default function TeamPreview({ team = [], onRemove, onSelect }: TeamPrevi
             onClick={() => onSelect(pokemon)}
           >
             <div className="relative w-12 h-12 mr-2 flex-shrink-0">
+              {/* This renders the Pokémon sprite with a fallback to a placeholder image if the sprite is not available. */}
               <img
                 src={pokemonSprite || "/placeholder.svg"}
                 alt={pokemonName}
@@ -66,6 +77,7 @@ export default function TeamPreview({ team = [], onRemove, onSelect }: TeamPrevi
             <div className="flex-1 min-w-0">
               <h4 className="text-sm font-medium truncate">{pokemonName}</h4>
               <div className="flex gap-1 mt-1 flex-wrap">
+                {/* Renders a Badge with the Pokemon Type in an appropriate Color */}
                 {pokemonTypes.map((type: string, typeIndex: number) => (
                   <Badge
                     key={`${type}-${typeIndex}`}
@@ -91,6 +103,7 @@ export default function TeamPreview({ team = [], onRemove, onSelect }: TeamPrevi
           </div>
         );
       })}
+      {/* This maps over the empty slots and renders a placeholder for each empty slot. */}
       {emptySlots.map((_, index) => (
         <div
           key={`empty-${index}`}

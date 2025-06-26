@@ -2,6 +2,7 @@
 
 import { cn } from "@/lib/utils"
 
+// Props interface for the PokeballIcon component
 interface PokeballIconProps {
   className?: string
   size?: number
@@ -17,7 +18,7 @@ export function PokeballIcon({ className, size = 24 }: PokeballIconProps) {
       xmlns="http://www.w3.org/2000/svg"
       className={cn("", className)}
     >
-      {/* Äußerer Kreis (Border) */}
+      {/* Outer Circle (Border) */}
       <circle
         cx="12"
         cy="12"
@@ -28,10 +29,10 @@ export function PokeballIcon({ className, size = 24 }: PokeballIconProps) {
         className="text-gray-800 dark:text-gray-200"
       />
 
-      {/* Obere Hälfte (Rot) */}
+      {/* Upper Half (Red) */}
       <path d="M2.1 12C2.1 6.5 6.5 2.1 12 2.1C17.5 2.1 21.9 6.5 21.9 12" fill="currentColor" className="text-red-500" />
 
-      {/* Untere Hälfte (Weiß/Hell) */}
+      {/* Lower Half (White/Light) */}
       <path
         d="M21.9 12C21.9 17.5 17.5 21.9 12 21.9C6.5 21.9 2.1 17.5 2.1 12"
         fill="currentColor"
@@ -41,7 +42,7 @@ export function PokeballIcon({ className, size = 24 }: PokeballIconProps) {
         strokeLinecap="round"
       />
 
-      {/* Mittellinie */}
+      {/* Middle Line */}
       <line
         x1="2"
         y1="12"
@@ -52,7 +53,7 @@ export function PokeballIcon({ className, size = 24 }: PokeballIconProps) {
         className="text-gray-800 dark:text-gray-200"
       />
 
-      {/* Zentraler Button (Äußerer Ring) */}
+      {/* Central Button (Outer Ring) */}
       <circle
         cx="12"
         cy="12"
@@ -64,16 +65,16 @@ export function PokeballIcon({ className, size = 24 }: PokeballIconProps) {
         strokeLinecap="round"
       />
 
-      {/* Zentraler Button (Innerer Kreis) */}
+      {/* Central Button (Inner Circle) */}
       <circle cx="12" cy="12" r="1.2" fill="currentColor" className="text-gray-800 dark:text-gray-200" />
 
-      {/* Highlight auf dem Button */}
+      {/* Highlight on the Button */}
       <circle cx="11.2" cy="11.2" r="0.4" fill="currentColor" className="text-white dark:text-gray-300 opacity-80" />
     </svg>
   )
 }
 
-// Vereinfachte Version (verbessert)
+// Simple version of the Pokeball Icon
 export function SimplePokeballIcon({ className, size = 24 }: PokeballIconProps) {
   return (
     <svg
@@ -84,7 +85,7 @@ export function SimplePokeballIcon({ className, size = 24 }: PokeballIconProps) 
       xmlns="http://www.w3.org/2000/svg"
       className={cn("", className)}
     >
-      {/* Äußerer Kreis */}
+      {/* Outer Circle (Border) */}
       <circle
         cx="12"
         cy="12"
@@ -95,10 +96,10 @@ export function SimplePokeballIcon({ className, size = 24 }: PokeballIconProps) 
         className="text-gray-800 dark:text-gray-200"
       />
 
-      {/* Obere Hälfte (Rot) */}
+      {/* Upper Half (Red) */}
       <path d="M2 12C2 6.477 6.477 2 12 2C17.523 2 22 6.477 22 12" fill="currentColor" className="text-red-500" />
 
-      {/* Mittellinie */}
+      {/* Middle Line */}
       <line
         x1="2"
         y1="12"
@@ -109,7 +110,7 @@ export function SimplePokeballIcon({ className, size = 24 }: PokeballIconProps) 
         className="text-gray-800 dark:text-gray-200"
       />
 
-      {/* Zentraler Button */}
+      {/* Central Button */}
       <circle
         cx="12"
         cy="12"
@@ -126,7 +127,7 @@ export function SimplePokeballIcon({ className, size = 24 }: PokeballIconProps) 
   )
 }
 
-// Neue Premium-Version
+// Premium Pokeball Icon with Gradient and Glow Effect
 export function PremiumPokeballIcon({ className, size = 24 }: PokeballIconProps) {
   return (
     <svg
@@ -137,10 +138,10 @@ export function PremiumPokeballIcon({ className, size = 24 }: PokeballIconProps)
       xmlns="http://www.w3.org/2000/svg"
       className={cn("", className)}
     >
-      {/* Schatten/Glow-Effekt */}
+      {/* Shadow/Glow Effect */}
       <circle cx="12" cy="12.5" r="10.5" fill="currentColor" className="text-black opacity-10 dark:opacity-20" />
 
-      {/* Äußerer Kreis mit Gradient-Effekt */}
+      {/* Outer Circle with Gradient Effect */}
       <circle
         cx="12"
         cy="12"
@@ -151,14 +152,14 @@ export function PremiumPokeballIcon({ className, size = 24 }: PokeballIconProps)
         className="text-gray-700 dark:text-gray-300"
       />
 
-      {/* Obere Hälfte mit Gradient-Simulation */}
+      {/* Upper Half with Gradient Simulation */}
       <path
         d="M2.1 12C2.1 6.5 6.5 2.1 12 2.1C17.5 2.1 21.9 6.5 21.9 12"
         fill="url(#redGradient)"
         className="text-red-500"
       />
 
-      {/* Highlight auf oberer Hälfte */}
+      {/* Highlight on the Upper Half */}
       <path
         d="M4 8C6 4.5 9 2.5 12 2.1C15 2.5 18 4.5 20 8"
         fill="none"
@@ -167,14 +168,14 @@ export function PremiumPokeballIcon({ className, size = 24 }: PokeballIconProps)
         className="text-red-300 opacity-60"
       />
 
-      {/* Untere Hälfte */}
+      {/* Lower Half */}
       <path
         d="M21.9 12C21.9 17.5 17.5 21.9 12 21.9C6.5 21.9 2.1 17.5 2.1 12"
         fill="currentColor"
         className="text-gray-100 dark:text-gray-200"
       />
 
-      {/* Mittellinie mit Schatten */}
+      {/* Middle Line with Shadow */}
       <line
         x1="2"
         y1="12.2"
@@ -194,7 +195,7 @@ export function PremiumPokeballIcon({ className, size = 24 }: PokeballIconProps)
         className="text-gray-700 dark:text-gray-300"
       />
 
-      {/* Zentraler Button - Äußerer Ring */}
+      {/* Central Button - Outer Ring */}
       <circle
         cx="12"
         cy="12"
@@ -205,10 +206,10 @@ export function PremiumPokeballIcon({ className, size = 24 }: PokeballIconProps)
         strokeWidth="1"
       />
 
-      {/* Zentraler Button - Mittlerer Ring */}
+      {/* Central Button - Middle Ring */}
       <circle cx="12" cy="12" r="2" fill="currentColor" className="text-white dark:text-gray-100" />
 
-      {/* Zentraler Button - Innerer Kreis */}
+      {/* Central Button - Inner Circle */}
       <circle cx="12" cy="12" r="1" fill="currentColor" className="text-gray-700 dark:text-gray-400" />
 
       {/* Button-Highlight */}
@@ -225,7 +226,7 @@ export function PremiumPokeballIcon({ className, size = 24 }: PokeballIconProps)
   )
 }
 
-// Animierte Version (verbessert - ohne styled-jsx)
+// Animated Pokeball Icon with Spin Effect
 export function AnimatedPokeballIcon({ className, size = 24 }: PokeballIconProps) {
   return (
     <div className="relative inline-block">
@@ -242,7 +243,7 @@ export function AnimatedPokeballIcon({ className, size = 24 }: PokeballIconProps
           animationIterationCount: "infinite",
         }}
       >
-        {/* Äußerer Kreis */}
+        {/* Outer Circle (Border) */}
         <circle
           cx="12"
           cy="12"
@@ -253,10 +254,10 @@ export function AnimatedPokeballIcon({ className, size = 24 }: PokeballIconProps
           className="text-gray-800 dark:text-gray-200"
         />
 
-        {/* Obere Hälfte */}
+        {/* Upper Half */}
         <path d="M2 12C2 6.477 6.477 2 12 2C17.523 2 22 6.477 22 12" fill="currentColor" className="text-red-500" />
 
-        {/* Mittellinie */}
+        {/* Middle Line */}
         <line
           x1="2"
           y1="12"
@@ -268,7 +269,7 @@ export function AnimatedPokeballIcon({ className, size = 24 }: PokeballIconProps
         />
       </svg>
 
-      {/* Zentraler Button (bleibt stationär) */}
+      {/* Central Button (stationary) */}
       <div
         className="absolute inset-0 flex items-center justify-center"
         style={{

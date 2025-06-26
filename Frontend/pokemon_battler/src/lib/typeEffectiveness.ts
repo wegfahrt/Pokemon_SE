@@ -1,3 +1,6 @@
+// This file is used to define the Type Effectiveness of a move against a Pokémon.
+// It calculates the effectiveness of a move based on the attacking type and the defending Pokémon's types.
+
 // Pokemon types as union type and value object
 type PokemonType =
   | "normal"
