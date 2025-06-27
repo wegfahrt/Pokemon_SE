@@ -2,6 +2,7 @@ import * as React from "react"
 import * as SliderPrimitive from "@radix-ui/react-slider"
 
 import { cn } from "@/lib/utils"
+// This Component is downloaded from the shadcn/ui library, which provides a set of reusable UI components.
 
 const Slider = React.forwardRef<
   React.ElementRef<typeof SliderPrimitive.Root>,

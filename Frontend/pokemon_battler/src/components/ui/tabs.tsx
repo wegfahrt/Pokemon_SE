@@ -4,6 +4,7 @@ import * as React from "react"
 import * as TabsPrimitive from "@radix-ui/react-tabs"
 
 import { cn } from "@/lib/utils"
+// This Component is downloaded from the shadcn/ui library, which provides a set of reusable UI components.
 
 const Tabs = TabsPrimitive.Root
 

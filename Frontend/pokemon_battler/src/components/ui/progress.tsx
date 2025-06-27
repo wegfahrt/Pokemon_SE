@@ -2,6 +2,8 @@ import * as React from "react"
 import * as ProgressPrimitive from "@radix-ui/react-progress"
 
 import { cn } from "@/lib/utils"
+// This Component is downloaded from the shadcn/ui library, which provides a set of reusable UI components.
+// It was rewritten so that the whole progress bar can be styled with on color
 
 const Progress = React.forwardRef<
   React.ElementRef<typeof ProgressPrimitive.Root>,

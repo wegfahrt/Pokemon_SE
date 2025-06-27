@@ -31,6 +31,15 @@ type PokemonBattlerProps = {
     onEndofBattle: () => void;
 }
 
+/**
+ * PokemonBattler component for handling battles between two Pokémon teams.
+ * This component manages the battle state, animations, and interactions between the player's team and the opponent's team.
+ * It includes functionality for selecting moves, switching Pokémon, and displaying battle text.
+ * @param FullUserTeam - The full team of the user, containing Pokémon objects
+ * @param FullOpponentTeam - The full team of the opponent, containing Pokémon objects
+ * @param onEndofBattle - Callback function to be called when the battle ends
+ * @returns 
+ */
 export default function pokemon_battle({
     FullUserTeam,
     FullOpponentTeam,
@@ -95,6 +104,13 @@ export default function pokemon_battle({
     const [pendingAction, setPendingAction] = useState<PendingAction>(null)
     const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
+    /**
+     * Updates a Pokémon in the team.
+     * @param team - The current team of Pokémon.
+     * @param setTeam - The state setter function for the team.
+     * @param index - The index of the Pokémon to update.
+     * @param updated - The updated Pokémon data.
+     */
     function updateTeamPokemon(
         team: Pokemon_in_battle[],
         setTeam: React.Dispatch<React.SetStateAction<Pokemon_in_battle[]>>,
@@ -107,6 +123,13 @@ export default function pokemon_battle({
         );
     }
 
+    /**
+     * Performs a switch between Pokémon in the battle.
+     * @param newPokemon - The new Pokémon to switch in.
+     * @param isPlayer - Indicates if the switch is for the player or the opponent.
+     * @param forced - Indicates if the switch is forced (e.g., after fainting).
+     * @returns A promise that resolves when the switch is complete.
+     */
     const performSwitch = async ({
         newPokemon,
         isPlayer,
@@ -116,22 +139,24 @@ export default function pokemon_battle({
         isPlayer: boolean;
         forced?: boolean;
     }) => {
+        // Checks which team and active index to use based on whether it's the player or opponent
         const team = isPlayer ? playerTeam : opponentTeam;
         const activeIndex = isPlayer ? activePlayerIndex : activeOpponentIndex;
         const currentPokemon = team[activeIndex];
 
-        // Ungültiger Wechsel
+        // Checks if the new Pokémon is valid for switching
         if (!newPokemon || newPokemon.id === currentPokemon.id || newPokemon.currentHP <= 0) {
-            console.log("Ungültiger Wechsel");
+            console.log("Invalid Pokémon for switching");
             return;
         }
 
+        // Checks if the current Pokémon is fainted and if a forced switch is allowed
         if (forced && currentPokemon.currentHP > 0) {
-            console.log("Kein forciertes Wechseln erlaubt wenn das Pokemon noch lebt");
+            console.log("Forced switch not allowed when Pokémon is still alive");
             return;
         }
 
-        // Switch-Animation starten
+        // Start switch animation
         if (isPlayer) {
             setIsSwitchingPlayer(true);
             setSwitchingOutPlayer(currentPokemon);
@@ -144,9 +169,11 @@ export default function pokemon_battle({
             setSwitchDirectionOpponent("out");
         }
 
+        // Battle text for switching Pokémon
         setBattleText(`Come back, ${currentPokemon.name}!`);
         await delay(1000);
 
+        // Update the current Battle state to reflect the switch
         if (isPlayer) {
             setSwitchDirectionPlayer("in");
         } else {
@@ -156,7 +183,7 @@ export default function pokemon_battle({
         setBattleText(`Go, ${newPokemon.name}!`);
         await delay(1000);
 
-        // Index wechseln
+        // Update the team with the new Pokémon
         const newIndex = team.findIndex((p) => p.id === newPokemon.id);
         if (newIndex !== -1) {
             if (isPlayer) {
@@ -176,16 +203,30 @@ export default function pokemon_battle({
         if (isPlayer) {
             setBattleText(`What will ${newPokemon.name} do?`);
         }
+        setIsAnimating(false);
     };
 
+    /**
+     * Performs a attack move in the battle. It updates the Pokémon's stats, calculates damage, and handles animations.
+     * * This function calculates the damage based on the move's power, type effectiveness, and Pokémon stats.
+     * * It handles critical hits, STAB (Same Type Attack Bonus), and type effectiveness.
+     * @param attacker - The Pokémon performing the attack.
+     * @param defender - The Pokémon receiving the attack.
+     * @param move - The move being used.
+     * @param isPlayerAttacker - Whether the attacker is the player.
+     * @returns The result of the attack move.
+     */
     const performMove = async (
         attacker: Pokemon_in_battle,
         defender: Pokemon_in_battle,
         move: Moves,
         isPlayerAttacker: boolean
     ) => {
+        // Start attack animation
         setIsAnimating(true);
 
+        // Calculate the damage based on the move's power, type effectiveness, and Pokémon stats
+        // This includes critical hits, STAB (Same Type Attack Bonus), and random damage variation
         const criticalHit = Math.random() < 0.0625;
         const criticalMultiplier = criticalHit ? 1.5 : 1;
 
@@ -197,6 +238,7 @@ export default function pokemon_battle({
         const random = (Math.floor(Math.random() * (255 - 217 + 1)) + 217) / 255; // 0.85–1.0
 
         let damage = 0;
+        // Calculate damage based on the move's damage class
         if (move.damageClass === "physical") {
             damage = Math.floor(
                 ((((2 * attacker.lvl * criticalMultiplier) / 5 + 2) * move.power * (attacker.attack / defender.defense)) / 50 + 2)
@@ -211,7 +253,10 @@ export default function pokemon_battle({
 
         console.log("Calculated damage:", damage);
 
+        // Ensure that the newHp for the defender is not negative
         const newHp = Math.max(0, defender.currentHP - damage);
+
+        // Update the teams and Pokémon states based on the attack
         const attackerIndex = isPlayerAttacker ? activePlayerIndex : activeOpponentIndex;
         const defenderIndex = isPlayerAttacker ? activeOpponentIndex : activePlayerIndex;
         const attackerTeam = isPlayerAttacker ? playerTeam : opponentTeam;
@@ -220,6 +265,7 @@ export default function pokemon_battle({
         const setDefenderTeam = isPlayerAttacker ? setOpponentTeam : setPlayerTeam;
 
         const updatedAttacker = attacker.clone();
+        // Update the attacker's PP for the used move
         updatedAttacker.setCurrentPP(move.name, Math.max(0, updatedAttacker.getCurrentPP(move.name) - 1));
         updateTeamPokemon(attackerTeam, setAttackerTeam, attackerIndex, updatedAttacker);
 
@@ -259,26 +305,30 @@ export default function pokemon_battle({
             console.log(`${defender.name} fainted!`);
             await delay(1000);
 
+            // Check if there are any available Pokémon left in the defender's team
             const availableDefenderPokemon = defenderTeam.filter(
                 (p) => p.currentHP > 0 && p.id !== defender.id
             );
 
             if (availableDefenderPokemon.length > 0) {
+                // If there are available Pokémon, switch to one of them
                 const nextPokemon = availableDefenderPokemon[Math.floor(Math.random() * availableDefenderPokemon.length)];
                 setBattleText(isPlayerAttacker ? "Opponent is switching Pokémon..." : "Please choose your next Pokémon.");
+                await delay(1000);
 
+                // Automatically switch for the opponent
                 if (isPlayerAttacker) {
-                    // Gegner wechselt automatisch
                     console.log("Opponent switching Pokémon:", nextPokemon.name);
                     setPendingAction({ type: "switchOpponent", newPokemon: nextPokemon });
                     return newHp;
                 } else {
-                    // Spieler muss manuell wechseln
+                    // Set the switching state for the player so that the Menu opens
                     setCurrentMenu("pokemon");
                     console.log("Player must choose next Pokémon.");
                     return newHp;
                 }
             } else {
+                // If no Pokémon left, end the battle
                 setBattleText(isPlayerAttacker ? "Opponent has no Pokémon left! You win!" : "All your Pokémon fainted!");
                 setBattleText(isPlayerAttacker ? "You win!" : "You lost!");
                 console.log(isPlayerAttacker ? "Player wins!" : "Player lost.");
@@ -290,20 +340,24 @@ export default function pokemon_battle({
         setIsAnimating(false);
     };
 
+    // Log pending actions for debugging
     useEffect(() => {
         console.log(pendingAction);
 
     }, [pendingAction]);
 
     useEffect(() => {
+        // If there is no pending action, do nothing
         if (!pendingAction) return;
 
         // Helper to process player's move
         const processPlayerMove = async (move: Moves, first?: boolean) => {
             const result = await performMove(playerTeam[activePlayerIndex], opponentTeam[activeOpponentIndex], move, true);
-            setIsPlayerTurn(false);
+            // If this is the first move of the turn, set the pending action for the opponent's move
             if (first && result !== 0) {
+                setIsPlayerTurn(false);
                 setPendingAction({ type: "opponentMoveSecond" });
+                setIsAnimating(true);
             } else {
                 setBattleText(`What will ${playerTeam[activePlayerIndex].name} do?`);
                 setIsPlayerTurn(true);
@@ -313,19 +367,18 @@ export default function pokemon_battle({
         // Helper to process opponent's move
         const processOpponentMove = async (move?: Moves, first?: boolean) => {
             const activeOpponentPokemon = opponentTeam[activeOpponentIndex];
-            if (activeOpponentPokemon.currentHP <= 0) {
-                // Pokémon ist fainted, kein Angriff möglich
-                console.log("Opponent's Pokémon fainted, skipping move.");
-                return;
-            }
-
             const randomMove = activeOpponentPokemon.moveset[Math.floor(Math.random() * activeOpponentPokemon.moveset.length)];
             const result = await performMove(activeOpponentPokemon, playerTeam[activePlayerIndex], randomMove, false);
 
             if (first && move && result !== 0) {
+                setIsPlayerTurn(true);
                 setPendingAction({ type: "playerMoveSecond", move: move });
+                setIsAnimating(true);
+            } else{
+                setBattleText(`What will ${playerTeam[activePlayerIndex].name} do?`);
+                setIsPlayerTurn(true);
+                setIsAnimating(false);
             }
-            setIsPlayerTurn(true);
         };
 
         // Helper to process player switching Pokémon
@@ -356,6 +409,9 @@ export default function pokemon_battle({
             } else {
                 // If there are available Pokémon, allow switching
                 await performSwitch({ newPokemon, isPlayer: true, forced: true });
+                setIsPlayerTurn(true);
+                setBattleText(`What will ${newPokemon.name} do?`);
+
             }
         };
 
@@ -399,6 +455,7 @@ export default function pokemon_battle({
         setPendingAction({ type: "opponentMoveFirst", move })
         setIsAnimating(true)
         setCurrentMenu("main")
+        setBattleText(`${opponentPokemon.name} used ${move.name}!`)
     }
 
     // Handles the menu selection and updates the current menu state
@@ -457,7 +514,6 @@ export default function pokemon_battle({
         if (isAnimating || !isPlayerTurn) return
         console.log("Switching player Pokémon:", newPokemon.name);
         setPendingAction({ type: "switchPokemon", newPokemon })
-        setCurrentMenu("main")
     }
 
     // Handles the Opponent's Pokémon switch action through the Pokémon menu

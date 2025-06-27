@@ -5,8 +5,6 @@ import { Plus } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Pokemon } from "@/lib/types"
 
-// PokemonCard component to display individual Pokémon with their details
-
 // Props interface for the PokemonCard component
 interface PokemonCardProps {
   pokemon: Pokemon
@@ -14,7 +12,13 @@ interface PokemonCardProps {
   onSelect: () => void
 }
 
-
+/**
+ * PokemonCard component to display individual Pokémon with their details
+ * @param pokemon - The Pokémon object to display.
+ * @param onAdd - Callback function to handle adding the Pokémon to a team.
+ * @param onSelect - Callback function to handle selecting the Pokémon for further actions.
+ * @returns 
+ */
 export default function PokemonCard({ pokemon, onAdd, onSelect }: PokemonCardProps) {
 
   // Define colors for different Pokémon types

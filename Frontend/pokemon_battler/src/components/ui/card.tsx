@@ -1,6 +1,7 @@
 import * as React from "react"
 
 import { cn } from "@/lib/utils"
+// This Component is downloaded from the shadcn/ui library, which provides a set of reusable UI components.
 
 const Card = React.forwardRef<
   HTMLDivElement,

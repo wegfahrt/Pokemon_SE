@@ -6,10 +6,6 @@ import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
 import type { Pokemon } from "@/lib/types"
 
-/// This component displays a preview of a Pokémon team, allowing users to see their selected Pokémon,
-/// remove Pokémon from the team, and select a Pokémon for further actions.
-/// It is designed to be used in a team-building interface where users can manage their Pokémon roster.
-
 // This interface defines the props for the TeamPreview component.
 interface TeamPreviewProps {
   team: Pokemon[]
@@ -17,7 +13,15 @@ interface TeamPreviewProps {
   onSelect: (pokemon: Pokemon) => void
 }
 
-
+/**
+ * This component displays a preview of a Pokémon team, allowing users to see their selected Pokémon,
+ * remove Pokémon from the team, and select a Pokémon for further actions.
+ * It is designed to be used in a team-building interface where users can manage their Pokémon roster.
+ * @param team - An array of Pokémon objects representing the team.
+ * @param onRemove - A callback function to handle the removal of a Pokémon from the team.
+ * @param onSelect - A callback function to handle the selection of a Pokémon for further actions.
+ * @returns 
+ */
 export default function TeamPreview({ team = [], onRemove, onSelect }: TeamPreviewProps) {
   // Ensure the team is an array and fill empty slots if necessary.
   // This ensures that the team is always treated as an array, even if it is undefined or null.

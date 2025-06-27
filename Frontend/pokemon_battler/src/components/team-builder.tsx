@@ -15,6 +15,12 @@ import PokemonBattler from "./pokemon-battler"
 import { mockPokemonList } from "@/lib/mock-data"
 import { fetchSpecificPokemonData } from "@/lib/utils"
 
+
+/**
+ * TeamBuilder component for constructing and managing a Pokémon team.
+ * @param pokemonList - The list of available Pokémon to choose from.
+ * @returns A React component for building a Pokémon team or managing an existing one.
+ */
 export default function TeamBuilder({ pokemonList }: { pokemonList: Pokemon[] }) {
 
   // State to manage the Pokémon team, search query, selected Pokémon, and battle mode
@@ -26,13 +32,14 @@ export default function TeamBuilder({ pokemonList }: { pokemonList: Pokemon[] })
   // Filter the Pokémon list based on the search query
   const filteredPokemon = pokemonList.filter(
     (pokemon) =>
-      pokemon.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      pokemon.name.toLowerCase().includes(searchQuery.toLowerCase().replace(" ", "")) ||
       pokemon.types.some((type) => type.toLowerCase().includes(searchQuery.toLowerCase())),
   )
 
   // Function to add a Pokémon to the team
   const addToTeam = async (pokemon: Pokemon) => {
-    // Prüfe, ob Details fehlen (bessere Logik als sprite_back === "Error")
+    // If the Pokémon has only one move with the name "Error", fetch its specific data
+    // This is a placeholder check to ensure the Pokémon has valid data before adding it to the team
     if (
       pokemon.moves.length === 1 &&
       pokemon.moves[0].name === "Error"
@@ -60,6 +67,8 @@ export default function TeamBuilder({ pokemonList }: { pokemonList: Pokemon[] })
 
   // Function to select a Pokémon for details view
   const selectPokemon = async (pokemon: Pokemon) => {
+    // If the Pokémon has only one move with the name "Error", fetch its specific data  
+    // This is a placeholder check to ensure the Pokémon has valid data before selecting it
     if (
       pokemon.moves.length === 1 &&
       pokemon.moves[0].name === "Error"
@@ -132,6 +141,10 @@ export default function TeamBuilder({ pokemonList }: { pokemonList: Pokemon[] })
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="text-lg font-medium">Your Team</h3>
                     <div className="flex space-x-2">
+                      {/* Button to save the current team configuration
+                       * or load a saved team configuration.
+                       * This is a placeholder for future functionality.
+                       */}
                       <Button variant="outline" size="sm"
                         onClick={() => { }}>
                         <Save className="h-4 w-4 mr-1" />
@@ -188,7 +201,7 @@ export default function TeamBuilder({ pokemonList }: { pokemonList: Pokemon[] })
     ) : (
       // Render the Pokémon battler component when in battle mode
       <PokemonBattler FullUserTeam={team}
-        FullOpponentTeam={[mockPokemonList[9],]}
+        FullOpponentTeam={[mockPokemonList[9], mockPokemonList[6], mockPokemonList[3], mockPokemonList[1], mockPokemonList[0], mockPokemonList[4]]}
         onEndofBattle={() => { setBattleMode(false); }}
       />
     )

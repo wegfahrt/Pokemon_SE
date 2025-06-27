@@ -7,6 +7,13 @@ import { cn } from "@/lib/utils"
 import { useEffect, useState } from "react"
 import type { Pokemon, Ivs, Evs, Moves, Ability } from "@/lib/types"
 
+/**
+ * This component displays detailed information about a selected Pokémon,
+ * including its stats, IVs, EVs, moveset, and abilities.
+ * It allows users to modify IVs and EVs, select moves, and change abilities.
+ * @param pokemon - The Pokémon object to display.
+ * @returns A React component that renders the Pokémon details.
+ */
 export default function PokemonDetails({ pokemon }: { pokemon: Pokemon }) {
   // State to manage IVs, EVs, moveset, and ability
   const [, setIvs] = useState<Ivs[]>([])

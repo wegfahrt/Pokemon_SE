@@ -232,6 +232,12 @@ export class Pokemon {
     setSprite_back(sprite_back: string) {
         this.sprite_back = sprite_back
     }
+
+    /**
+     * This function creates a deep copy of the current instance of Pokemon.
+     * It ensures that all properties are copied correctly, including nested objects like Ability, Ivs, Evs, Stats, Moves, and Moveset.
+     * @returns A new instance of Pokemon with the same values as the current instance.
+     */
     clone(): Pokemon {
         // Deep copy von Ability (null-safe)
         const clonedAbility = this.ability ? new Ability(this.ability.name, this.ability.effect) : null
@@ -278,7 +284,13 @@ export class Pokemon {
             this.sprite_back,
         )
     }
-
+    
+    /**
+     * This function prepares the Pokémon for battle by ensuring it has a valid moveset.
+     * If the moveset is empty, it falls back to the first four moves available.
+     * It also calculates the Pokémon's battle stats based on its base stats, IVs, EVs, and level.
+     * @returns A new instance of Pokemon_in_battle with the calculated battle-ready stats and moveset.
+     */
     makeBattleReady(): Pokemon_in_battle {
         const validMoveset = this.getMoveset().filter(move => move !== null) as Moves[];
 
@@ -422,6 +434,10 @@ export class Pokemon_in_battle {
         this.sprite_back = sprite_back
 
     }
+    /*Getter*/
+    getId(): string {
+        return this.id
+    }
     getPdx_num(): number {
         return this.pdx_num
     }
@@ -474,6 +490,7 @@ export class Pokemon_in_battle {
         return this.sprite_back
 
     }
+    /*Setter*/
     setCurrentHP(currentHP: number) {
         if (currentHP < 0 || currentHP > this.maxHP) {
             throw new Error(`Invalid current HP: ${currentHP}`)
@@ -494,6 +511,13 @@ export class Pokemon_in_battle {
         throw new Error(`Move not found: ${moveName}`)
     }
 
+    /**
+     * This function creates a deep copy of the current instance of Pokemon_in_battle.
+     * It ensures that all properties are copied correctly, including nested objects like Ability and Moves.
+     * *It is used to create a new instance of Pokemon_in_battle with the same values as the current instance,
+     * so that the original instance remains unchanged.
+     * @returns A new instance of Pokemon_in_battle with the same values as the current instance.
+     */
     clone(): Pokemon_in_battle {
         // Deep copy von Ability (null-safe)
         const clonedAbility = this.ability ? new Ability(this.ability.name, this.ability.effect) : null
@@ -503,7 +527,8 @@ export class Pokemon_in_battle {
             (move) => new Moves(move.name, move.type, move.power, move.accuracy, move.pp, move.damageClass, move.current_pp),
         )
 
-        // Rückgabe eines neuen Pokemon_in_battle-Objekts mit denselben Werten
+        // return a new instance of Pokemon_in_battle with the same values
+        // This ensures that the cloned instance has its own unique ID and does not share references with the original instance.
         return new Pokemon_in_battle(
             this.pdx_num,
             this.name,
@@ -541,7 +566,7 @@ export class Ability {
         this.name = name
         this.effect = effect
     }
-
+    /*Getter*/
     getName(): string {
         return this.name
     }

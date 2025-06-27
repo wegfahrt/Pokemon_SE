@@ -2,7 +2,6 @@
 
 import TeamBuilder from "@/components/team-builder"
 import { ClerkProvider, SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react"
-import { mockPokemonList } from "./lib/mock-data"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { AnimatedPokeballIcon, PokeballIcon, PremiumPokeballIcon } from "./components/ui/pokeball-icon"
@@ -17,11 +16,15 @@ const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 if (!PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key")
 }
-
+/**
+ * HomePage component that renders the main layout for the Pokémon Team Builder application.
+ * @returns The main home page component that renders the Pokémon Team Builder application.
+ */
 export default function HomePage() {
   // Throw an error if the publishable key is not set
   const [allPokemon, setAllPokemon] = useState<Pokemon[] | null>(null)
 
+  // Fetch Pokémon data and convert it to the application's format
   useEffect(() => {
     fetchPokemonDataAndConvert()
       .then(setAllPokemon)
@@ -31,6 +34,8 @@ export default function HomePage() {
       })
   }, [])
 
+  // If the publishable key is not set, display an error message
+  // This is a fallback to ensure the application does not crash if the key is missing
   if (!PUBLISHABLE_KEY) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 flex items-center justify-center">
@@ -240,6 +245,10 @@ export default function HomePage() {
           </header>
           {/* Main Content */}
           <main>
+            {/** This is the main content area for the Pokémon Team Builder application
+             * It displays the Team Builder component if all Pokémon data is loaded.
+             * If the data is still loading, it shows a loading message.
+             */}
             {!allPokemon ? (
               <div className="text-center text-slate-500 mt-20">Lade Pokémon-Daten...</div>
             ) : (

@@ -13,8 +13,14 @@ import axios from "axios"
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
+
+/**
+ * Capitalizes the first letter of a string.
+ * If the string contains a hyphen, it capitalizes the first part and formats the second part in parentheses.
+ * @param str - The string to capitalize.
+ * @returns The formatted string with the first letter capitalized.
+ */
 function firstCapitalize(str: string): string {
-  // Capitalizes the first letter of a string
   if (str.includes("-")) {
     const pindex = str.indexOf("-")
     const name = str.slice(0, pindex)
@@ -22,15 +28,29 @@ function firstCapitalize(str: string): string {
     // If the string contains hyphens, capitalize the first part and join with the rest
     return name.charAt(0).toUpperCase() + name.slice(1) + " (" + form.charAt(0).toUpperCase() + form.slice(1) + ")"
   }
+  // Capitalizes the first letter of a string
   return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
+/**
+ * Formats the move name by capitalizing the first letter and replacing hyphens with spaces.
+ * @param name - The move name to format.
+ * @returns The formatted move name.
+ */
 function formatMoveName(name: string): string {
-  // Formats the move name by capitalizing the first letter and replacing hyphens with spaces
-  return name.charAt(0).toUpperCase() + name.slice(1).replace(/-/g, "")
+  // Formats the move name by capitalizing the first letter and replacing hyphens with spaces and capitalizing the first letter
+  if (name.includes("-")) {
+    const pindex = name.indexOf("-")
+    const firstPart = name.slice(0, pindex)
+    const secondPart = name.slice(pindex + 1)
+    // Capitalizes the first letter of the first part and formats the second part
+    return firstPart.charAt(0).toUpperCase() + firstPart.slice(1) + " " + secondPart.charAt(0).toUpperCase() + secondPart.slice(1)
+  }
+  // If no hyphen is found, just capitalize the first letter
+  return name.charAt(0).toUpperCase() + name.slice(1)
 }
 
-
+// This Interface defines the structure of the raw Pokémon data fetched from the API.
 interface RawPokemonData {
   id: number
   name: string
@@ -38,6 +58,14 @@ interface RawPokemonData {
   spriteUrl: string
 }
 
+/**
+ * Converts raw Pokémon data from the API into instances of the Pokemon class.
+ * This function maps over the raw data and creates a new Pokemon instance for each entry.
+ * Values such as abilities, IVs, EVs, stats, and moves are initialized with default values.
+ * The function also sets a placeholder ability and move in case of errors.
+ * @param data - The raw Pokémon data to convert.
+ * @returns An array of Pokemon instances.
+ */
 export function convertToPokemonClass(data: RawPokemonData[]): Pokemon[] {
   return data.map((entry) => {
     return new Pokemon(
@@ -81,22 +109,32 @@ export function convertToPokemonClass(data: RawPokemonData[]): Pokemon[] {
     )
   })
 }
+
+/**
+ * Fetches Pokémon data from the PokeAPI and converts it into Pokemon instances.
+ * @returns An array of Pokemon instances fetched from the PokeAPI.
+ * @throws Will log an error if the fetch fails.
+ */
 export async function fetchPokemonDataAndConvert() {
   try {
+    // Fetch Pokémon data from the PokeAPI
     const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=493&page=0')
-    // const response = await axios.get("https://localhost:7250/PokemonApi/Pokemon?limit=20&page=0")
     const results = response.data.results as { name: string; url: string }[]
 
-    // Hole detaillierte Daten zu jedem Pokémon
+    // Get detailed data for each Pokémon
+    // This part fetches additional details for each Pokémon, such as types and sprites.
     const detailedData = await Promise.all(
       results.map(async (entry) => {
 
         const res = await axios.get(entry.url)
         const pokemon = res.data
 
+        // Extract types and sprite URL from the Pokémon data
         const types = pokemon.types.map((typeEntry: any) => firstCapitalize(typeEntry.type.name))
         const spriteUrl = pokemon.sprites.front_default
 
+        // Create a raw data object with the necessary fields
+        // This object contains the Pokémon's ID, name, types, and sprite URL.
         const rawData: RawPokemonData = {
           id: pokemon.id,
           name: firstCapitalize(pokemon.name),
@@ -107,20 +145,31 @@ export async function fetchPokemonDataAndConvert() {
         return rawData
       })
     )
-
+    // Convert the detailed data into instances of the Pokemon class and return the list
     const pokemonList = convertToPokemonClass(detailedData)
 
     return pokemonList
   } catch (error) {
+    // Log any errors that occur during the fetch or conversion process
     console.error('Fehler beim Abrufen der Pokémon-Daten:', error)
     return []
   }
 }
+
+/**
+ * Fetches specific Pokémon data from the PokeAPI and updates the provided Pokémon instance.
+ * This function retrieves detailed information about a specific Pokémon, including its abilities, stats, and moves.
+ * It updates the provided Pokémon instance with this data.
+ * @param pokemon - The Pokémon instance to update with fetched data.
+ * @returns A promise that resolves to null if the fetch is successful, or logs an error if it fails.
+ * @throws Will log an error if the fetch fails.
+ */
 export async function fetchSpecificPokemonData(pokemon: Pokemon): Promise<null> {
   try {
     const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemon.getName().toLowerCase()}`)
     const data = response.data
 
+    //Gets the possible Abilities of the Pokémon out of the API response
     const abilities: Ability[] = await Promise.all(
       data.abilities.map(async (entry: any) => {
         const abilityRes = await axios.get(entry.ability.url)
@@ -129,13 +178,16 @@ export async function fetchSpecificPokemonData(pokemon: Pokemon): Promise<null> 
       })
     )
 
-    // Stats
+    // Gets the base stats of the Pokémon out of the API response
+    // Maps the stats to the Stats class, which includes the stat name and base stat value
     const stats: Stats[] = data.stats.map(
       (entry: any) => new Stats(entry.stat.name, entry.base_stat)
     )
 
-    // Moves – max. 4
-    const moveData = data.moves.slice(0, 100)
+    // Gets the moves of the Pokémon out of the API response
+    // Limits the number of moves to 50 for performance reasons
+    // Maps the moves to the Moves class, which includes the move name, type, power, accuracy, pp, and damage class
+    const moveData = data.moves.slice(0, 50)
     const moves: Moves[] = await Promise.all(
       moveData.map(async (entry: any) => {
         const moveRes = await axios.get(entry.move.url)
@@ -151,6 +203,7 @@ export async function fetchSpecificPokemonData(pokemon: Pokemon): Promise<null> 
       })
     )
 
+    // Update the Pokémon instance with the fetched data
     pokemon.setAbilitys(abilities)
     pokemon.setStats(stats)
     pokemon.setMoves(moves)
@@ -160,6 +213,7 @@ export async function fetchSpecificPokemonData(pokemon: Pokemon): Promise<null> 
 
     return null
   } catch (error) {
+    // Log any errors that occur during the fetch or update process
     console.error('Fehler beim Abrufen der Pokémon-Daten:', error)
     return null
   }
