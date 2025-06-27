@@ -9,7 +9,7 @@ import type { Pokemon, Ivs, Evs, Moves, Ability } from "@/lib/types"
 
 export default function PokemonDetails({ pokemon }: { pokemon: Pokemon }) {
   // State to manage IVs, EVs, moveset, and ability
-  const [ivs, setIvs] = useState<Ivs[]>([])
+  const [, setIvs] = useState<Ivs[]>([])
   const [evs, setEvs] = useState<Evs[]>([])
   const [moveset, setMoveset] = useState<(Moves | null)[]>([null, null, null, null])
   const [ability, setAbility] = useState<Ability | null>(null)

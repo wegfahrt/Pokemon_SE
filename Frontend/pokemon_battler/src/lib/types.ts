@@ -157,8 +157,17 @@ export class Pokemon {
     }
 
     /*Setter*/
-    setAbility(ability: Ability) {
-        this.ability = ability
+    setPdx_num(pdx_num: number) {
+        this.pdx_num = pdx_num
+    }
+    setName(name: string) {
+        if (!name || name.trim() === "") {
+            throw new Error("Name cannot be empty")
+        }
+        this.name = name
+    }
+    setTypes(types: string[]) {
+        this.types = types
     }
     setLvl(lvl: number) {
         if (lvl < 1 || lvl > 100) {
@@ -183,13 +192,45 @@ export class Pokemon {
             if (stats[i].basestat < 0) {
                 throw new Error(`Invalid stat: ${stats[i]}`)
             }
-            this.stats[i].basestat = stats[i].basestat + this.ivs[i].value + this.evs[i].value / 4
+            // ✅ Nur ersetzen, nicht erneut addieren
+            this.stats[i].basestat = stats[i].basestat
         }
     }
     setMoveset(index: number, move: Moves | null) {
         if (index >= 0 && index < 4) {
             this.moveset[index] = move
         }
+    }
+    setMoves(moves: Moves[]) {
+        this.moves = moves
+    }
+    setIvs(ivs: Ivs[]) {
+        for (let i = 0; i < 6; i++) {
+            if (ivs[i].value < 0 || ivs[i].value > 31) {
+                throw new Error(`Invalid IV: ${ivs[i]}`)
+            }
+            this.ivs[i].value = ivs[i].value
+        }
+    }
+    setEvs(evs: Evs[]) {
+        for (let i = 0; i < 6; i++) {
+            if (evs[i].value < 0 || evs[i].value > 252) {
+                throw new Error(`Invalid EV: ${evs[i]}`)
+            }
+            this.evs[i].value = evs[i].value
+        }
+    }
+    setAbility(ability: Ability | null) {
+        this.ability = ability
+    }
+    setAbilitys(abilitys: Ability[]) {
+        this.abilitys = abilitys
+    }
+    setSprite(sprite: string) {
+        this.sprite = sprite
+    }
+    setSprite_back(sprite_back: string) {
+        this.sprite_back = sprite_back
     }
     clone(): Pokemon {
         // Deep copy von Ability (null-safe)
@@ -269,14 +310,13 @@ export class Pokemon {
         const specialDefenseEvs = this.evs.find(ev => ev.getName() === "special-defense")?.getValue() || 0;
         const speedIvs = this.ivs.find(iv => iv.getName() === "speed")?.getValue() || 0;
         const speedEvs = this.evs.find(ev => ev.getName() === "speed")?.getValue() || 0;
-        
+
         const battleHp = Math.floor(((2 * baseHp + hpIvs + (hpEvs / 4)) * lvl) / 100) + lvl + 10;
         const battleAttack = Math.floor(((2 * baseAttack + attackIvs + (attackEvs / 4)) * lvl) / 100) + 5;
         const battleDefense = Math.floor(((2 * baseDefense + defenseIvs + (defenseEvs / 4)) * lvl) / 100) + 5;
         const battleSpecialAttack = Math.floor(((2 * baseSpecialAttack + specialAttackIvs + (specialAttackEvs / 4)) * lvl) / 100) + 5;
         const battleSpecialDefense = Math.floor(((2 * baseSpecialDefense + specialDefenseIvs + (specialDefenseEvs / 4)) * lvl) / 100) + 5;
         const battleSpeed = Math.floor(((2 * baseSpeed + speedIvs + (speedEvs / 4)) * lvl) / 100) + 5;
-
 
         return new Pokemon_in_battle(
             this.getPdx_num(),

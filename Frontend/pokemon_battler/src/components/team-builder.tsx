@@ -13,6 +13,7 @@ import PokemonDetails from "@/components/pokemon-details"
 import { Pokemon } from "@/lib/types"
 import PokemonBattler from "./pokemon-battler"
 import { mockPokemonList } from "@/lib/mock-data"
+import { fetchSpecificPokemonData } from "@/lib/utils"
 
 export default function TeamBuilder({ pokemonList }: { pokemonList: Pokemon[] }) {
 
@@ -30,10 +31,18 @@ export default function TeamBuilder({ pokemonList }: { pokemonList: Pokemon[] })
   )
 
   // Function to add a Pokémon to the team
-  const addToTeam = (pokemon: Pokemon) => {
+  const addToTeam = async (pokemon: Pokemon) => {
+    // Prüfe, ob Details fehlen (bessere Logik als sprite_back === "Error")
+    if (
+      pokemon.moves.length === 1 &&
+      pokemon.moves[0].name === "Error"
+    ) {
+      await fetchSpecificPokemonData(pokemon)
+    }
+
     if (team.length < 6) {
-      const clone = pokemon.clone();
-      (clone as any).id = crypto.randomUUID()
+      const clone = pokemon.clone()
+        ; (clone as any).id = crypto.randomUUID()
       setTeam([...team, clone])
     }
   }
@@ -50,7 +59,13 @@ export default function TeamBuilder({ pokemonList }: { pokemonList: Pokemon[] })
   }
 
   // Function to select a Pokémon for details view
-  const selectPokemon = (pokemon: Pokemon) => {
+  const selectPokemon = async (pokemon: Pokemon) => {
+    if (
+      pokemon.moves.length === 1 &&
+      pokemon.moves[0].name === "Error"
+    ) {
+      await fetchSpecificPokemonData(pokemon)
+    }
     setSelectedPokemon(pokemon)
   }
 
@@ -76,7 +91,7 @@ export default function TeamBuilder({ pokemonList }: { pokemonList: Pokemon[] })
                     </TabsTrigger>
                   </TabsList>
 
-                  { /* Pokémon tab content with search and filter functionality */ }
+                  { /* Pokémon tab content with search and filter functionality */}
                   <TabsContent value="pokemon" className="space-y-4">
                     <div className="flex items-center space-x-3">
                       <div className="relative flex-1">
@@ -92,7 +107,7 @@ export default function TeamBuilder({ pokemonList }: { pokemonList: Pokemon[] })
                         Filter
                       </Button>
                     </div>
-                    { /* Display the filtered Pokémon in a scrollable area */ }
+                    { /* Display the filtered Pokémon in a scrollable area */}
                     <ScrollArea className="h-[500px] rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800">
                       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 p-6">
                         {filteredPokemon.map((pokemon) => (
@@ -109,7 +124,7 @@ export default function TeamBuilder({ pokemonList }: { pokemonList: Pokemon[] })
                 </Tabs>
               </CardContent>
             </Card>
-            
+
             {/* Team preview and actions section */}
             <div className="lg:col-span-4 space-y-6">
               <Card className="shadow-md">
@@ -117,20 +132,20 @@ export default function TeamBuilder({ pokemonList }: { pokemonList: Pokemon[] })
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="text-lg font-medium">Your Team</h3>
                     <div className="flex space-x-2">
-                      <Button variant="outline" size="sm" 
-                      onClick={() => {}}>
+                      <Button variant="outline" size="sm"
+                        onClick={() => { }}>
                         <Save className="h-4 w-4 mr-1" />
                         Save
                       </Button>
                       <Button variant="outline" size="sm"
-                      onClick={() => {}}>
+                        onClick={() => { }}>
                         <Download className="h-4 w-4 mr-1" />
                         Load
                       </Button>
                     </div>
                   </div>
 
-                  { /* Display the team preview with the selected Pokémon */ }
+                  { /* Display the team preview with the selected Pokémon */}
                   <TeamPreview team={team} onRemove={removeFromTeam} onSelect={selectPokemon} />
 
                   <div className="mt-6 space-y-3">
@@ -172,8 +187,8 @@ export default function TeamBuilder({ pokemonList }: { pokemonList: Pokemon[] })
       </div>
     ) : (
       // Render the Pokémon battler component when in battle mode
-      <PokemonBattler FullUserTeam={team} 
-      FullEnemyTeam={[mockPokemonList[9], mockPokemonList[6], mockPokemonList[4], mockPokemonList[3], mockPokemonList[2], mockPokemonList[1]]}
+      <PokemonBattler FullUserTeam={team}
+        FullOpponentTeam={[mockPokemonList[9],]}
         onEndofBattle={() => { setBattleMode(false); }}
       />
     )

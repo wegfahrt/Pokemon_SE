@@ -13,6 +13,22 @@ import axios from "axios"
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
+function firstCapitalize(str: string): string {
+  // Capitalizes the first letter of a string
+  if (str.includes("-")) {
+    const pindex = str.indexOf("-")
+    const name = str.slice(0, pindex)
+    const form = str.slice(pindex + 1)
+    // If the string contains hyphens, capitalize the first part and join with the rest
+    return name.charAt(0).toUpperCase() + name.slice(1) + " (" + form.charAt(0).toUpperCase() + form.slice(1) + ")"
+  }
+  return str.charAt(0).toUpperCase() + str.slice(1)
+}
+
+function formatMoveName(name: string): string {
+  // Formats the move name by capitalizing the first letter and replacing hyphens with spaces
+  return name.charAt(0).toUpperCase() + name.slice(1).replace(/-/g, "")
+}
 
 
 interface RawPokemonData {
@@ -78,13 +94,13 @@ export async function fetchPokemonDataAndConvert() {
         const res = await axios.get(entry.url)
         const pokemon = res.data
 
-        const types = pokemon.types.map((typeEntry: any) => typeEntry.type.name)
+        const types = pokemon.types.map((typeEntry: any) => firstCapitalize(typeEntry.type.name))
         const spriteUrl = pokemon.sprites.front_default
 
         const rawData: RawPokemonData = {
           id: pokemon.id,
-          name: pokemon.name,
-          types,
+          name: firstCapitalize(pokemon.name),
+          types: types,
           spriteUrl,
         }
 
@@ -94,14 +110,57 @@ export async function fetchPokemonDataAndConvert() {
 
     const pokemonList = convertToPokemonClass(detailedData)
 
-    // Testausgabe
-    pokemonList.forEach((poke) => {
-      console.log(`${poke.getName()} (ID: ${poke.getPdx_num()}) - Typen: ${poke.getTypes().join(', ')}`)
-    })
-
     return pokemonList
   } catch (error) {
     console.error('Fehler beim Abrufen der Pokémon-Daten:', error)
     return []
+  }
+}
+export async function fetchSpecificPokemonData(pokemon: Pokemon): Promise<null> {
+  try {
+    const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemon.getName().toLowerCase()}`)
+    const data = response.data
+
+    const abilities: Ability[] = await Promise.all(
+      data.abilities.map(async (entry: any) => {
+        const abilityRes = await axios.get(entry.ability.url)
+        const effect = abilityRes.data.effect_entries.find((e: any) => e.language.name === 'en')
+        return new Ability(firstCapitalize(entry.ability.name), effect?.effect || 'No description')
+      })
+    )
+
+    // Stats
+    const stats: Stats[] = data.stats.map(
+      (entry: any) => new Stats(entry.stat.name, entry.base_stat)
+    )
+
+    // Moves – max. 4
+    const moveData = data.moves.slice(0, 100)
+    const moves: Moves[] = await Promise.all(
+      moveData.map(async (entry: any) => {
+        const moveRes = await axios.get(entry.move.url)
+        const move = moveRes.data
+        return new Moves(
+          formatMoveName(move.name),
+          firstCapitalize(move.type.name),
+          move.power ?? 0,
+          move.accuracy ?? 100,
+          move.pp ?? 10,
+          move.damage_class.name
+        )
+      })
+    )
+
+    pokemon.setAbilitys(abilities)
+    pokemon.setStats(stats)
+    pokemon.setMoves(moves)
+    pokemon.setSprite(data.sprites.front_default)
+    pokemon.setSprite_back(data.sprites.back_default)
+
+
+    return null
+  } catch (error) {
+    console.error('Fehler beim Abrufen der Pokémon-Daten:', error)
+    return null
   }
 }

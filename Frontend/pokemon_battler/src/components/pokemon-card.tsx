@@ -14,9 +14,6 @@ interface PokemonCardProps {
   onSelect: () => void
 }
 
-function firstCapitalize(str: string): string {
-  return str.charAt(0).toUpperCase() + str.slice(1)
-}
 
 export default function PokemonCard({ pokemon, onAdd, onSelect }: PokemonCardProps) {
 
@@ -86,7 +83,7 @@ export default function PokemonCard({ pokemon, onAdd, onSelect }: PokemonCardPro
       </div>
       {/* Card content displaying Pokémon name and types */}
       <CardContent className="p-3">
-        <h3 className="font-medium text-sm truncate text-center">{firstCapitalize(pokemonName)}</h3>
+        <h3 className="font-medium text-sm truncate text-center">{pokemonName}</h3>
         <div className="flex justify-center gap-1 mt-1">
           {pokemonTypes.map((type: string, index: number) => (
             <Badge
