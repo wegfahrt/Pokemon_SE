@@ -164,7 +164,7 @@ Unsere Datenbank basiert auf einem relationalen Modell, das die komplexen Bezieh
 - **Pokemon_Moves**: N:M-Beziehungstabelle zwischen konfigurierten Pokémon und ihren Attacken mit `Pokemon_Moves_id` (PK)
 - **Preset_Pokemon_Ref**: Verknüpfungstabelle zwischen Teams und konfigurierten Pokémon für flexible Team-Zusammenstellungen
 
-![Das Entity-Relation Diagramm unserer Datenbank zur Speicherung von Team-Konfigurationen](er_diagramm.png "Clean Backend Diagram")
+![Das Entity-Relation Diagramm unserer Datenbank zur Speicherung von Team-Konfigurationen](diagramme/er_diagramm.png "Clean Backend Diagram")
 
 Das Datenbankschema berücksichtigt die Anforderungen von Pokémon-Daten, einschließlich der Tatsache, dass jedes Pokémon individuell konfigurierbar ist (IVs, EVs, Movesets). Foreign Key Constraints stellen sicher, dass referentielle Integrität gewährleistet ist
 
@@ -209,7 +209,7 @@ Stellt HTTP-Endpunkte bereit und handhabt Request/Response-Zyklen:
 
 Die Dependency Inversion ermöglicht es uns, Abhängigkeiten durch Dependency Injection zu verwalten und macht unser System einfach testbar. Jede Schicht kann isoliert getestet werden, was zu einer hohen Code-Qualität führt.
 
-![Ein Diagramm zur Veranschaulichung der Backend-Architektur](clean_backend.png "Clean Backend Diagram")
+![Ein Diagramm zur Veranschaulichung der Backend-Architektur](diagramme/clean_backend.png "Clean Backend Diagram")
 
 ### Entity Framework Core ORM
 Wir verwenden **Entity Framework Core 7.0** als Object-Relational Mapper, der uns eine moderne und performante Datenzugriffsschicht bietet:
@@ -399,7 +399,7 @@ Das letzte Tool, das für die Entwicklung des Frontends genutzt wurde, ist die L
 **shadcn** ist eine Sammlung zugänglicher, wiederverwendbarer React-Komponenten, die man in sein React-Projekt kopiert und die auf Tailwind CSS basieren. Diese Komponenten beinhalten Kernaspekte jeder UI, wie zum Beispiel einen Button oder eine Progress-Bar. Der Vorteil von **shadcn** im Vergleich zu anderen UI-Libraries ist, dass der Code nicht nur installiert wird, sondern direkt in einen eigenen Ordner im React-Projekt eingefügt wird. Dies bedeutet für das UI-Development, dass diese Komponenten für den eigenen Use-Case anpassbar sind. Dies wurde auch in diesem Projekt genutzt, zum Beispiel durch die Progress-Bar, die so umgeschrieben wurde, dass der Balken selbst seine Farbe ändern kann.
 
 **Aktivitätsdiagramm:**  
-![Aktivitätsdiagramm, um den allgemeinen Verlauf des Codes zu beschreiben](PokemonAktivitätsdiagramm.jpg "Aktivitätsdiagramm")
+![Aktivitätsdiagramm, um den allgemeinen Verlauf des Codes zu beschreiben](diagramme/PokemonAktivitätsdiagramm.jpg "Aktivitätsdiagramm")
 
 Dieses Diagramm beschreibt den allgemeinen Verlauf des Codes, der in diesem Projekt geschrieben wurde. Es zeigt die verschiedenen Schritte, die ein Benutzer durchläuft, um ein Team zu erstellen und einen Kampf zu simulieren. Im folgenden Abschnitt werde ich die einzelnen Blöcke des Diagramms näher erläutern.
 
@@ -408,13 +408,13 @@ Dieses Diagramm beschreibt den allgemeinen Verlauf des Codes, der in diesem Proj
 Die Login Page ist die erste Seite dieses Projekts, die ein Nutzer sieht. Sie muss also eine kleine Zusammenfassung enthalten, was dieses Programm kann. Beim ersten Laden der Webseite dieses Projekts wird ein HTTP-GET-Request ausgeführt, der die benötigten Daten der Pokémon abruft. Im Rahmen dieses Projekts sind das alle Pokémon der ersten bis zur vierten Generation. Die Fertigstellung dieses Requests führt zum Rendern der Login Page, die die Funktionalitäten dieses Projekts kurz erklärt. Am unteren Rand der Seite sieht man folgenden Button:
 
 <p align="center">
-  <img src="LoginButton.png" alt="Login Button" width="50%"/>
+  <img src="frontend_pics/LoginButton.png" alt="Login Button" width="50%"/>
 </p>
 
 Mit dem Betätigen des Buttons öffnet sich eine Login Page, die durch **Clerk** erstellt wurde. **Clerk** ist eine Benutzerverwaltungsplattform für Webanwendungen. Sie bietet vorgefertigte UI-Komponenten, APIs und ein Admin-Dashboard für Webseiten, die ihre Dienste für die Authentifizierung und Benutzerverwaltung nutzen. In diesem Projekt wurde dies für den gesamten Login-Prozess eingesetzt.
 
 <p align="center">
-  <img src="LoginProcess.png" alt="Login Process" width="50%"/>
+  <img src="frontend_pics/LoginProcess.png" alt="Login Process" width="50%"/>
 </p>
 
 Zum Team Builder gelangt man nur durch ein erfolgreiches Einloggen, da ein User-Account benötigt wird, um spätere Teams in einer Datenbank zu speichern oder ein Team aus der Datenbank zu laden. Solange dies nicht geschieht, bleibt der Nutzer auf der Login Page.
@@ -424,7 +424,7 @@ Zum Team Builder gelangt man nur durch ein erfolgreiches Einloggen, da ein User-
 Mit einem erfolgreichen Login öffnet sich die Team-Builder-UI, die in vier Teile unterteilt werden kann. Der erste Teil ist die Benutzeroberfläche, mit der ein Nutzer auf sein Konto zugreifen und gegebenenfalls seine Daten ändern kann.
 
 <p align="center">
-  <img src="UserMenu.png" alt="User Menu" width="50%"/>
+  <img src="frontend_pics/UserMenu.png" alt="User Menu" width="50%"/>
 </p>
 
 Dieses Menü öffnet sich nur durch das Betätigen des Buttons oben rechts in der Ecke (im Bild blau markiert). Über dieses Menü ist es auch möglich, sich wieder abzumelden und zurück zur Login Page zu gelangen.
@@ -436,7 +436,7 @@ Die Daten, die vor dem Login abgerufen wurden, werden mit der Komponente `pokemo
 Durch das Klicken auf eine der Pokémon-Cards wird ein weiterer HTTP-GET-Befehl ausgeführt, mit dem weitere Informationen für das angeklickte Pokémon abgerufen werden. Diese neuen Informationen werden dann in einem neuen Menü innerhalb mehrerer Tabs dargestellt.
 
 <p align="center">
-  <img src="PokemonStats.png" alt="PokemonInfos" width="50%"/>
+  <img src="frontend_pics/PokemonStats.png" alt="PokemonInfos" width="50%"/>
 </p>
 
 Diese Übersicht wird durch die Componente "pokemon-details" die in der gleichnamigen Datei definiert wird. Durch das Drücken der Tabs unter dem Bild des Pokemon wird die Ansicht gewechselt und andere Details der Pokemon angezeigt. Diese Details können dann nach Wünschen des Nutzers verändert werden zum Beispiel kann der Nutzer unter dem Tab "Moves" das Moveset was dieses Pokemon im Kampf haben wird anpassen.
@@ -444,7 +444,7 @@ Diese Übersicht wird durch die Componente "pokemon-details" die in der gleichna
 Der Nutzer kann nun nach der Anpassung oder auch direkt durch Drücken auf das Plus bei der Pokémon-Card das Pokémon seinem Team hinzufügen. Wenn zu diesem Zeitpunkt das Pokémon, das dem Team hinzugefügt werden soll, nicht die spezifischen Dateien erhalten hat, werden sie ihm hinzugefügt. Das aktuelle Team des Nutzers ist die letzte Komponente, die der Team Builder anzeigt, in Form der **Team Preview**. In dieser Komponente wird das aktuelle Pokémon-Team des Nutzers dargestellt sowie die freien Slots, damit der Nutzer eine klare Übersicht hat. Pokémon können auch aus dem Team entfernt werden, indem der Button mit der Mülltonne betätigt wird. Die Buttons für das später implementierte Speichern und Laden von Teams befinden sich ebenfalls über dem Team Previewer.
 
 <p align="center">
-  <img src="TeamPreviewer.png" alt="Team Previewer, Save, Load, Fight Button" width="50%"/>
+  <img src="frontend_pics/TeamPreviewer.png" alt="Team Previewer, Save, Load, Fight Button" width="50%"/>
 </p>
 
 Unter dem Team Previewer befindet sich eine Progressbar, die sich füllt, je mehr Pokémon im Team sind. Sobald sich mindestens ein Pokémon im Team befindet, erhält der **Start Battle**-Button seine Farbe, was dem Nutzer ermöglicht, die Team-Builder-UI zu verlassen und zur **Battle Simulation UI** zu wechseln.
@@ -454,7 +454,7 @@ Unter dem Team Previewer befindet sich eine Progressbar, die sich füllt, je meh
 Diese UI wird nur geöffnet, wenn der Team Builder ein Pokémon-Team von mindestens einem Pokémon enthält, und startet sofort in einem Kampf mit einem zufälligen Gegner. Diese komplette UI wird durch die Funktion `pokemon-battle` aus der gleichnamigen Datei erstellt. Die Simulation startet für den Nutzer sowie den Gegner mit dem Pokémon an der ersten Stelle ihrer Teams. Diese werden dann auf das Kampffeld geschickt.
 
 <p align="center">
-  <img src="PokemonBattle.png" alt="Kampfszene" width="80%"/>
+  <img src="frontend_pics/PokemonBattle.png" alt="Kampfszene" width="80%"/>
 </p>
 
 Dies ist das Hauptmenü der Kampfsimulation. Die Pokébälle auf dem Bildschirm, rechts neben dem Untermenü und oben links im Bild, zeigen die aktuelle Anzahl der Pokémon der jeweiligen Teams an sowie deren Zustand. Ein Pokémon, das im Kampf besiegt wurde, also 0 HP hat, wird in dieser Anzeige ausgegraut dargestellt. Dies bietet dem Nutzer einen effizienten Überblick über den Zustand der jeweiligen Teams.
@@ -466,19 +466,19 @@ Die letzte Komponente im Hauptmenü ist ein Untermenü aus vier Buttons, die die
 Der Button **Run** soll dem Nutzer die Möglichkeit geben, aus einem Kampf frühzeitig auszusteigen, um zum Beispiel sein Team weiter zu optimieren. Um das Risiko eines versehentlichen Betätigens zu minimieren, wurde ein Run Confirmation-Menü eingefügt. Mit diesem wird der Nutzer um eine Bestätigung gebeten, ob er das Menü wirklich verlassen möchte. Wird diese Frage mit *Nein* beantwortet, kehrt die UI zum Hauptmenü des Kampfes zurück. Bei einer positiven Antwort wird dem Nutzer die Team-Builder-UI wieder angezeigt.
 
 <p align="center">
-  <img src="RunConfirmation.png" alt="Run Confirmation Menu" width="80%"/>
+  <img src="frontend_pics/RunConfirmation.png" alt="Run Confirmation Menu" width="80%"/>
 </p>
 
 Die Nutzung des Untermenüs **Pokémon** öffnet ein Menü, in dem alle Pokémon im Team des Nutzers angezeigt werden. Das Pokémon in diesem Wechselmenü wird mit einem Bild, seinem Namen und einer Progressbar, die seine aktuellen HP mit den maximalen vergleicht, dargestellt. Das aktuell kämpfende Pokémon des Nutzers wird grün hervorgehoben; das Betätigen löst hier keine Aktion aus. Beim Betätigen eines anderen Pokémon wird eine Wechselanimation abgespielt, das kämpfende Pokémon wird mit dem neu ausgewählten ausgetauscht und alle folgenden Aktionen werden mit dem neuen Pokémon durchgeführt, z. B. der Angriff des Gegners, der in der Regel nach dem Wechsel stattfindet. Zusätzlich enthält dieses Menü einen **Back**-Button, mit dem die Rückkehr zum Hauptmenü ermöglicht wird.
 
 <p align="center">
-  <img src="PokemonSelect.png" alt="Pokémon Select Menu" width="80%"/>
+  <img src="frontend_pics/PokemonSelect.png" alt="Pokémon Select Menu" width="80%"/>
 </p>
 
 Das letzte Untermenü, mit dem der Nutzer eine Aktion ausführen kann, ist **Attack**. Dieser Button öffnet ein Angriffsmenü mit allen Attacken im Moveset des Pokémon. Die Attacken enthalten weitere Details, die für den Kampf wichtig sind. Es werden die Stärke (Power) des gewählten Moves sowie sein Typ angezeigt. Zudem wird zwischen *physical* und *special* Attacken unterschieden, da die Schadenskalkulation mit unterschiedlichen Stats durchgeführt wird. Die letzte Anzeige für jede Attacke sind die **Power Points (PP)** – diese repräsentieren, wie häufig das aktuell kämpfende Pokémon diesen Angriff noch ausführen kann. Wenn dieser Wert 0 erreicht, ist die Attacke nicht mehr nutzbar.
 
 <p align="center">
-  <img src="AttackMenu.png" alt="Pokémon Attack Menu" width="80%"/>
+  <img src="frontend_pics/AttackMenu.png" alt="Pokémon Attack Menu" width="80%"/>
 </p>
 
 Durch das Betätigen eines dieser Buttons wird die Aktion des Spielers für diese Runde festgelegt. Nun wird geprüft, ob das Pokémon des Spielers oder das des Gegners schneller ist, also wer den höheren Speed-Stat besitzt. Basierend darauf greift zuerst der Spieler oder der Gegner an. Die Ausführung eines Angriffs verläuft immer identisch: Zuerst werden die Schadensparameter berechnet, die benötigt werden, um eine korrekte Schadenskalkulation durchzuführen – dazu gehört zum Beispiel der *Critical Hit*, also die 6,25 % Wahrscheinlichkeit, doppelten Schaden zu verursachen.
@@ -486,7 +486,7 @@ Durch das Betätigen eines dieser Buttons wird die Aktion des Spielers für dies
  Nach der Schadenskalkulation werden die Power Points der Attacke um eins reduziert und anschließend die HP des Verteidigers angepasst. Basierend darauf, wer zuerst angegriffen hat, wird danach die Aktion des anderen ausgeführt. Falls ein Angriff das verteidigende Pokémon besiegt, also dessen HP auf 0 setzt, wird geprüft, ob noch lebende Pokémon im Team sind. Falls nicht, ist der Kampf abgeschlossen und der Angreifer hat gewonnen. Der Nutzer kann dann per Knopfdruck zurück zum Team Builder wechseln.
 
 <p align="center">
-  <img src="BattleEnd.png" alt="Ende der Kampfsimulation" width="80%"/>
+  <img src="frontend_pics/BattleEnd.png" alt="Ende der Kampfsimulation" width="80%"/>
 </p>
 
 Gibt es noch lebende Pokémon nach dem Besiegen des verteidigenden, wird es – je nachdem, wessen Pokémon besiegt wurde – ausgewechselt. Wenn es ein Pokémon des Gegners war, wird zufällig eines der noch lebenden ausgewählt und eingewechselt. Bei einem besiegten Pokémon des Nutzers öffnet sich das Pokémon-Select-Menü (ohne **Back**-Button), um dem Spieler die Auswahl zu ermöglichen, welches Pokémon er als Nächstes einsetzen möchte.
@@ -494,4 +494,13 @@ Gibt es noch lebende Pokémon nach dem Besiegen des verteidigenden, wird es – 
 Damit wäre eine vollständige Übersicht der Vorgehensweise und Logik der drei Unterteilungen gegeben, um das Verhalten des Frontends besser verstehen zu können.
 
 
-# 6. Fazit und Ausblick
+# 5. Fazit
+- grobe Abschätzung des Fortschritts anhand von user stories
+- die grundlegenden Features sind implementiert
+- Die zu Beginn getroffene Systemarchitektonische Wahl die GET Anfragen, welche nur die PokeApi und nicht unsere Datenbank ansprechen, trotzdem afugrund reduzierter Schnittstellenkomplexität im Frontend über unser Backend zu orchestrieren war im Nachinein die falsche, da der entstandene Overhead und die Performance-Einbußen nicht gerechtfertigt waren. Die PokeApi hätte für diese Anfragen direkt im Frontend angesprochen werden sollen.
+- war ein sehr schönes Projekt viele der theoretischen Konzepte aus der Vorlesung anzuwenden und hat Spaß gemacht
+
+# 6. Ausblick
+- Implementierung fehlender Features/User Stories wie Items, Multiplayer, etc.
+- Ausbessern der UX um ein besseres Nutzererlebnis zu schaffen
+- Projekt identität durch weitere Spielmodi, nach offiziellen Regeln, wie z.B. 2vs2 Turniere nach VGC-Regeln festigen

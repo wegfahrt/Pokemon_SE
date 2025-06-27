@@ -438,4 +438,4 @@
 
 ---
 
-**Gesamtübersicht:** 5 Epics | 20 User Stories | 58 Tasks | Geschätzte Gesamtzeit: 141,5 Stunden
+**Gesamtübersicht:** 5 Epics | 20 User Stories | 58 Tasks 
